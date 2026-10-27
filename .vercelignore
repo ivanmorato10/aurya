@@ -1,0 +1,10 @@
+*.zip
+legacy/
+docs/
+tests/
+test-results/
+.next/
+.next-e2e/
+node_modules/
+.env*
+!.env.example
