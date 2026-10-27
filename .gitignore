@@ -1,0 +1,15 @@
+.dart_tool/
+.flutter-plugins-dependencies
+build/
+node_modules/
+android/local.properties
+ios/Pods/
+*.log
+
+web-deploy/
+.vercel/
+.env
+.env.*
+
+# Pacote original do cliente (preservado fora do Git)
+*.zip

@@ -1,0 +1,131 @@
+{
+  "version": 2,
+  "locale": "pt-BR",
+  "demo": true,
+  "moments": [
+    {
+      "id": "wake",
+      "label": "Ao acordar",
+      "minute": 420,
+      "messages": [
+        {
+          "id": "wake-prosperidade-01",
+          "text": "Eu sou próspero."
+        },
+        {
+          "id": "wake-abundancia-01",
+          "text": "Eu sou abundante."
+        },
+        {
+          "id": "wake-capacidade-01",
+          "text": "Eu sou capaz."
+        },
+        {
+          "id": "wake-proposito-01",
+          "text": "Eu tenho um propósito claro."
+        },
+        {
+          "id": "wake-atencao-01",
+          "text": "As riquezas começam na forma de pensamento!"
+        },
+        {
+          "id": "wake-dignidade-01",
+          "text": "Eu sou digno de prosperar."
+        }
+      ]
+    },
+    {
+      "id": "commute",
+      "label": "Indo para o trabalho",
+      "minute": 510,
+      "messages": [
+        {
+          "id": "commute-confianca-01",
+          "text": "Tudo o que a mente humana pode conceber e acreditar, a mente pode alcançar."
+        },
+        {
+          "id": "commute-presenca-01",
+          "text": "Eu dirijo minha atenção ao que importa."
+        },
+        {
+          "id": "commute-intencao-01",
+          "text": "Eu tomo a iniciativa e dou meu próximo passo."
+        },
+        {
+          "id": "commute-decisao-01",
+          "text": "Eu confio em mim e ajo com decisão."
+        },
+        {
+          "id": "commute-plano-01",
+          "text": "Eu transformo meu plano em ação."
+        },
+        {
+          "id": "commute-riqueza-01",
+          "text": "Eu construo riqueza com propósito."
+        }
+      ]
+    },
+    {
+      "id": "midday",
+      "label": "Meio do dia",
+      "minute": 750,
+      "messages": [
+        {
+          "id": "midday-gratidao-01",
+          "text": "Eu sou grato."
+        },
+        {
+          "id": "midday-abundancia-01",
+          "text": "Eu construo minha prosperidade com foco e ação."
+        },
+        {
+          "id": "midday-capacidade-01",
+          "text": "Eu pratico a disciplina nas minhas escolhas."
+        },
+        {
+          "id": "midday-persistencia-01",
+          "text": "Eu persisto e aprimoro meu plano."
+        },
+        {
+          "id": "midday-foco-01",
+          "text": "O ponto de partida de toda realização é o desejo."
+        },
+        {
+          "id": "midday-reconhecimento-01",
+          "text": "Eu reconheço a abundância em minha vida."
+        }
+      ]
+    },
+    {
+      "id": "sleep",
+      "label": "Antes de dormir",
+      "minute": 1320,
+      "messages": [
+        {
+          "id": "sleep-descanso-01",
+          "text": "Não se esqueça de expressar gratidão diariamente, por meio da oração e da afirmação, pelas bênçãos que você tem."
+        },
+        {
+          "id": "sleep-acolhimento-01",
+          "text": "Eu reconheço meu progresso e preparo meu próximo passo."
+        },
+        {
+          "id": "sleep-gratidao-01",
+          "text": "Eu sou grato pelo meu dia."
+        },
+        {
+          "id": "sleep-aprendizado-01",
+          "text": "Eu aprendo com meu dia e aperfeiçoo meu plano."
+        },
+        {
+          "id": "sleep-plano-01",
+          "text": "Eu preparo meu próximo passo com clareza."
+        },
+        {
+          "id": "sleep-abundancia-01",
+          "text": "Eu sou grato pela abundância em minha vida."
+        }
+      ]
+    }
+  ]
+}

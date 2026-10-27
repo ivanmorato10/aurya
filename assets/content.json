@@ -1,0 +1,896 @@
+{
+  "version": 2,
+  "sourceLocale": "pt-BR",
+  "locales": [
+    {
+      "code": "pt-BR",
+      "label": "Português",
+      "available": true
+    },
+    {
+      "code": "en",
+      "label": "English",
+      "available": false
+    },
+    {
+      "code": "es",
+      "label": "Español",
+      "available": false
+    },
+    {
+      "code": "zh-Hans",
+      "label": "中文",
+      "available": false
+    },
+    {
+      "code": "ja",
+      "label": "日本語",
+      "available": false
+    },
+    {
+      "code": "ru",
+      "label": "Русский",
+      "available": false
+    },
+    {
+      "code": "fr",
+      "label": "Français",
+      "available": false
+    },
+    {
+      "code": "it",
+      "label": "Italiano",
+      "available": false
+    }
+  ],
+  "messages": [
+    {
+      "id": "wake-prosperidade-01",
+      "moment": "wake",
+      "theme": "Prosperidade",
+      "translations": {
+        "pt-BR": {
+          "title": "Prosperidade",
+          "body": "Eu sou próspero.",
+          "widget": "Eu sou próspero.",
+          "reflection": {
+            "messageId": "wake-prosperidade-01",
+            "title": "Prosperidade começa no que cultivo",
+            "principle": "Propósito definido e iniciativa",
+            "paragraphs": [
+              "Eu sou próspero. Quando acolho esta afirmação, reconheço que minha vida contém capacidades, relações e possibilidades que merecem cuidado. Prosperidade ganha um sentido pessoal: ter recursos para sustentar minhas escolhas, desenvolver um trabalho valioso e compartilhar o que construo. Eu observo onde já existe crescimento e escolho alimentá-lo. Minha história tem experiências que posso transformar em conhecimento útil, inclusive aquelas cujo valor só percebo quando paro para olhar com atenção.",
+              "O propósito definido dá direção a essa energia. Eu escolho o que desejo cultivar nesta fase e procuro uma maneira concreta de contribuir. Posso aprimorar uma habilidade, organizar um compromisso ou oferecer uma solução que alguém precisa. A iniciativa aproxima minha intenção da vida cotidiana. Ao reconhecer meu valor, também reconheço minha responsabilidade de praticá-lo: preparar uma conversa, cumprir um acordo, aprender algo novo. Cada atitude me ajuda a viver esta afirmação com presença e coerência.",
+              "Hoje eu identifico um recurso que já possuo e escolho uma ação pequena para colocá-lo a serviço do meu propósito."
+            ],
+            "wordCount": 166,
+            "origin": "original-aurya",
+            "narration": {
+              "kind": "device_tts",
+              "locale": "pt-BR",
+              "autoplay": false
+            },
+            "editorialStatus": "original-inspired-foundation"
+          }
+        }
+      }
+    },
+    {
+      "id": "wake-abundancia-01",
+      "moment": "wake",
+      "theme": "Prosperidade",
+      "translations": {
+        "pt-BR": {
+          "title": "Prosperidade",
+          "body": "Eu sou abundante.",
+          "widget": "Eu sou abundante.",
+          "reflection": {
+            "messageId": "wake-abundancia-01",
+            "title": "Os recursos que reconheço",
+            "principle": "Atenção dirigida e gratidão",
+            "paragraphs": [
+              "Eu sou abundante. Esta frase me convida a perceber o que minha pressa costuma deixar fora do olhar. Tenho ideias que ainda posso desenvolver, conhecimentos que posso compartilhar e relações que posso nutrir. Reconheço também os recursos simples que apoiam meu dia: um tempo disponível, uma habilidade aprendida, uma pessoa disposta a conversar. Ao dar nome a essas presenças, amplio minha percepção das possibilidades que já participam da minha vida.",
+              "A atenção dirigida me ajuda a usar essa abundância com intenção. Escolho um recurso e considero como ele pode apoiar algo importante para mim. Meu tempo pode acolher um aprendizado; minha experiência pode orientar alguém; minha criatividade pode melhorar uma tarefa. Eu também cuido dos meus limites, porque reconhecer recursos inclui decidir como distribuí-los. A gratidão torna esse reconhecimento concreto e me aproxima de uma atitude generosa, capaz de receber ajuda e oferecer contribuição com respeito.",
+              "Neste momento eu registro três recursos disponíveis e escolho um deles para nutrir uma oportunidade que faz sentido para mim."
+            ],
+            "wordCount": 166,
+            "origin": "original-aurya",
+            "narration": {
+              "kind": "device_tts",
+              "locale": "pt-BR",
+              "autoplay": false
+            },
+            "editorialStatus": "original-inspired-foundation"
+          }
+        }
+      }
+    },
+    {
+      "id": "wake-capacidade-01",
+      "moment": "wake",
+      "theme": "Confiança",
+      "translations": {
+        "pt-BR": {
+          "title": "Confiança",
+          "body": "Eu sou capaz.",
+          "widget": "Eu sou capaz.",
+          "reflection": {
+            "messageId": "wake-capacidade-01",
+            "title": "Capacidade em movimento",
+            "principle": "Autoconfiança e iniciativa",
+            "paragraphs": [
+              "Eu sou capaz. Reconheço minha capacidade como algo que se expressa quando aprendo, tento, pergunto e aperfeiçoo. Já atravessei situações que exigiram habilidades que eu ainda estava desenvolvendo. Posso recordar uma dessas experiências e observar o que fiz: pedi orientação, pratiquei uma etapa, ajustei uma decisão. Minha confiança encontra apoio nesses gestos reais. Eu tenho uma história de aprendizado que merece ser lembrada quando um desafio novo aparece.",
+              "A fé aplicada aproxima essa confiança da iniciativa. Escolho uma tarefa cujo tamanho cabe na minha disponibilidade de hoje e começo por uma parte compreensível. Se encontro uma dificuldade, procuro informação e avalio outra abordagem. Posso reconhecer o que ainda preciso aprender sem diminuir o valor das capacidades que já possuo. A disciplina aparece na repetição possível, naquele espaço que reservo para praticar com atenção. A cada tentativa, reúno elementos para compreender melhor meu próprio modo de avançar.",
+              "Agora eu escolho uma tarefa, descrevo seu primeiro passo e reservo alguns minutos para realizá-lo. Minha capacidade ganha expressão nesse começo."
+            ],
+            "wordCount": 167,
+            "origin": "original-aurya",
+            "narration": {
+              "kind": "device_tts",
+              "locale": "pt-BR",
+              "autoplay": false
+            },
+            "editorialStatus": "original-inspired-foundation"
+          }
+        }
+      }
+    },
+    {
+      "id": "wake-proposito-01",
+      "moment": "wake",
+      "theme": "Propósito definido",
+      "translations": {
+        "pt-BR": {
+          "title": "Propósito definido",
+          "body": "Eu tenho um propósito claro.",
+          "widget": "Eu tenho um propósito claro.",
+          "reflection": {
+            "messageId": "wake-proposito-01",
+            "title": "Uma direção que faz sentido",
+            "principle": "Propósito definido",
+            "paragraphs": [
+              "Eu tenho um propósito claro. Ao repetir esta afirmação, volto minha atenção para aquilo que dá significado às minhas escolhas. Posso desejar construir um trabalho próprio, fortalecer a estabilidade da minha família ou desenvolver uma capacidade que contribua para outras pessoas. Eu me permito formular esse desejo em palavras simples. Quanto mais consigo descrevê-lo, mais consigo perceber quais atividades realmente colaboram com a direção que escolho para minha vida.",
+              "O propósito definido funciona como uma referência para decidir. Diante de vários convites, considero onde meu tempo e minha energia têm mais sentido. Posso rever a forma de alcançar um objetivo quando aprendo algo importante, mantendo contato com o valor que o sustenta. Eu também escuto minhas condições atuais: compromissos, recursos e responsabilidades fazem parte do planejamento. Clareza cresce quando observo minha experiência e transformo uma intenção ampla em um próximo passo possível, que consigo reconhecer ao fim do dia.",
+              "Hoje eu escrevo uma frase sobre o que desejo construir e escolho uma atitude que demonstra esse propósito na prática."
+            ],
+            "wordCount": 169,
+            "origin": "original-aurya",
+            "narration": {
+              "kind": "device_tts",
+              "locale": "pt-BR",
+              "autoplay": false
+            },
+            "editorialStatus": "original-inspired-foundation"
+          }
+        }
+      }
+    },
+    {
+      "id": "wake-atencao-01",
+      "moment": "wake",
+      "theme": "Riqueza e pensamento",
+      "translations": {
+        "pt-BR": {
+          "title": "Riqueza e pensamento",
+          "body": "As riquezas começam na forma de pensamento!",
+          "widget": "As riquezas começam na forma de pensamento!",
+          "reflection": {
+            "messageId": "wake-atencao-01",
+            "title": "Riqueza e pensamento",
+            "principle": "Gratidão antecipada e confiança",
+            "paragraphs": [
+              "Contexto da fonte: esta frase aparece no capítulo sobre fé de Think and Grow Rich. A Fundação Napoleon Hill a reproduz ao apresentar o episódio de Charles M. Schwab e a formação da United States Steel. Nesse contexto, o pensamento é apresentado como o começo de uma realização econômica: uma ideia que precisa encontrar meios para ganhar forma.",
+              "Comentário editorial AURYA: a força dessa passagem está em reconhecer que uma riqueza pode começar como possibilidade concebida, antes de existir como resultado. Uma ideia reúne necessidades, recursos e pessoas em uma direção que antes não estava organizada. Na leitura proposta aqui, imaginar a prosperidade significa dar atenção ao que se deseja construir e reconhecer o valor de uma possibilidade ainda em formação.",
+              "Para refletir: que ideia de prosperidade merece espaço na sua vida hoje? Pode ser uma conquista material, um projeto ou uma condição de maior tranquilidade. Reconheça o desejo com confiança e considere como essa ideia pode encontrar expressão na sua realidade. Esta reflexão é um comentário sobre a passagem; não integra o texto de Hill."
+            ],
+            "wordCount": 176,
+            "origin": "original-aurya",
+            "narration": {
+              "kind": "device_tts",
+              "locale": "pt-BR",
+              "autoplay": false
+            },
+            "editorialStatus": "contextual-commentary-on-sourced-quotation",
+            "reviewReferences": [
+              {
+                "url": "https://www.naphill.org/uncategorized/ezine-882-12-8-23/",
+                "coverage": "Think and Grow Rich, capítulo Faith; reprodução pela Fundação, edição 882."
+              }
+            ]
+          },
+          "citation": {
+            "author": "Napoleon Hill",
+            "original": "RICHES begin in the form of THOUGHT!",
+            "translation": "Tradução para o português pelo AURYA; não é transcrição de edição brasileira.",
+            "url": "https://www.naphill.org/uncategorized/ezine-882-12-8-23/",
+            "source": "Think and Grow Rich, capítulo Faith; reprodução pela Fundação, edição 882.",
+            "verification": "Texto confirmado em conteúdo público indexado da fonte identificada; acesso direto à Fundação retornou 403.",
+            "checkedDate": "2026-10-26"
+          }
+        }
+      }
+    },
+    {
+      "id": "wake-dignidade-01",
+      "moment": "wake",
+      "theme": "Prosperidade",
+      "translations": {
+        "pt-BR": {
+          "title": "Prosperidade",
+          "body": "Eu sou digno de prosperar.",
+          "widget": "Eu sou digno de prosperar.",
+          "reflection": {
+            "messageId": "wake-dignidade-01",
+            "title": "Meu valor acompanha meu crescimento",
+            "principle": "Autoconfiança e propósito",
+            "paragraphs": [
+              "Eu sou digno de prosperar. Reconheço meu valor ao receber oportunidades, apresentar meu trabalho e cuidar das condições que sustentam minha vida. Posso desejar conforto, estabilidade e espaço para desenvolver meus projetos. Eu acolho esse desejo com respeito por mim e pelas pessoas com quem convivo. Minha dignidade está presente enquanto aprendo a conversar sobre necessidades, reconhecer minha contribuição e construir relações em que os acordos sejam claros e respeitosos.",
+              "Minha confiança ganha forma no modo como me apresento às oportunidades. Eu posso preparar uma proposta, reconhecer uma habilidade e me comunicar com respeito pelo que ofereço. Escolho uma qualidade que desejo expressar e observo onde ela já aparece na minha história. Esse reconhecimento me ajuda a praticá-la em situações novas. Posso receber um elogio, aceitar uma orientação e desenvolver meu trabalho com dedicação. Minha identidade próspera encontra presença nas atitudes que escolho sustentar, com consideração por mim e pelas outras pessoas.",
+              "Hoje eu identifico uma contribuição minha que merece reconhecimento e escolho uma forma respeitosa de apresentá-la ou fortalecê-la."
+            ],
+            "wordCount": 170,
+            "origin": "original-aurya",
+            "narration": {
+              "kind": "device_tts",
+              "locale": "pt-BR",
+              "autoplay": false
+            },
+            "editorialStatus": "original-revised-after-public-transcript-review",
+            "reviewReferences": [
+              {
+                "url": "https://www.youtube.com/watch?v=vnQ063hu4RU",
+                "coverage": "full-public-transcript-reviewed",
+                "reviewDate": "2026-10-26",
+                "notAQuote": true
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": "commute-confianca-01",
+      "moment": "commute",
+      "theme": "Conceber e acreditar",
+      "translations": {
+        "pt-BR": {
+          "title": "Conceber e acreditar",
+          "body": "Tudo o que a mente humana pode conceber e acreditar, a mente pode alcançar.",
+          "widget": "Tudo o que a mente humana pode conceber e acreditar, a mente pode alcançar.",
+          "reflection": {
+            "messageId": "commute-confianca-01",
+            "title": "Conceber e acreditar",
+            "principle": "Prosperidade, confiança e gratidão",
+            "paragraphs": [
+              "Contexto da fonte: a Fundação Napoleon Hill publica esta frase em seu pensamento do dia sobre conceber, acreditar e alcançar. Em um artigo separado, Hill’s Secret, o autor convidado Eliezer Alperstein explica que a máxima deve ser compreendida junto aos princípios da filosofia de Hill. Ele relaciona a ideia concebida à confiança e às etapas necessárias para concretizá-la.",
+              "Comentário editorial AURYA: conceber dá forma ao desejo; acreditar permite olhar para ele como uma possibilidade que merece ser explorada. A frase pode acompanhar o caminho para o trabalho como um convite a reconhecer a própria capacidade de imaginar uma vida próspera. A confiança ganha profundidade quando há disposição para aprender, encontrar apoio e participar da construção do que se deseja.",
+              "Para refletir: qual conquista você consegue imaginar com clareza? Observe o que ela representa para você e quais capacidades já possui para se aproximar dela. Permita que o desejo encontre uma direção pessoal. Esta aplicação ao trajeto diário é uma escolha editorial do AURYA, não uma instrução de horário dada por Hill."
+            ],
+            "wordCount": 171,
+            "origin": "original-aurya",
+            "narration": {
+              "kind": "device_tts",
+              "locale": "pt-BR",
+              "autoplay": false
+            },
+            "editorialStatus": "contextual-commentary-on-sourced-quotation",
+            "reviewReferences": [
+              {
+                "url": "https://www.naphill.org/tftd/thought_for_the_day_sunday_march_19_2017/",
+                "coverage": "Fundação Napoleon Hill, Conceive, Believe, Achieve, 19/03/2017."
+              },
+              {
+                "url": "https://www.naphill.org/focus-instructors/hills-secret/",
+                "coverage": "Comentário de Eliezer Alperstein, identificado como fonte secundária da Fundação."
+              }
+            ]
+          },
+          "citation": {
+            "author": "Napoleon Hill",
+            "original": "Whatever the mind of man can conceive and believe, the mind can achieve.",
+            "translation": "Tradução para o português pelo AURYA; não é transcrição de edição brasileira.",
+            "url": "https://www.naphill.org/tftd/thought_for_the_day_sunday_march_19_2017/",
+            "source": "Fundação Napoleon Hill, Conceive, Believe, Achieve, 19/03/2017.",
+            "verification": "Texto confirmado em conteúdo público indexado da fonte identificada; acesso direto à Fundação retornou 403.",
+            "checkedDate": "2026-10-26"
+          }
+        }
+      }
+    },
+    {
+      "id": "commute-presenca-01",
+      "moment": "commute",
+      "theme": "Atenção dirigida",
+      "translations": {
+        "pt-BR": {
+          "title": "Atenção dirigida",
+          "body": "Eu dirijo minha atenção ao que importa.",
+          "widget": "Eu dirijo minha atenção ao que importa.",
+          "reflection": {
+            "messageId": "commute-presenca-01",
+            "title": "Escolher o que merece meu olhar",
+            "principle": "Atenção dirigida",
+            "paragraphs": [
+              "Eu dirijo minha atenção ao que importa. No caminho entre um lugar e outro, encontro muitas solicitações: notícias, mensagens, preocupações e tarefas que disputam espaço. Eu posso perceber esse movimento e escolher um ponto de apoio. O que precisa da minha presença neste dia? Qual assunto merece ser compreendido antes de receber uma resposta? Ao fazer essas perguntas, reconheço que minha atenção participa da qualidade das escolhas que realizo.",
+              "O princípio da atenção dirigida me convida a estabelecer prioridades com intenção. Posso separar o que exige ação agora do que posso organizar para outro momento. Também posso distinguir uma informação útil de uma repetição que apenas ocupa meu tempo. Essa escolha fica mais clara quando considero meu propósito, meus vínculos e minhas responsabilidades. Eu valorizo a conversa que merece escuta inteira e o trabalho que pede concentração. Ao oferecer presença a uma coisa importante, crio condições para compreendê-la melhor e responder com mais cuidado.",
+              "Hoje eu nomeio uma prioridade e escolho um gesto de presença para ela: escutar, estudar, organizar ou concluir uma etapa."
+            ],
+            "wordCount": 174,
+            "origin": "original-aurya",
+            "narration": {
+              "kind": "device_tts",
+              "locale": "pt-BR",
+              "autoplay": false
+            },
+            "editorialStatus": "original-inspired-foundation"
+          }
+        }
+      }
+    },
+    {
+      "id": "commute-intencao-01",
+      "moment": "commute",
+      "theme": "Iniciativa pessoal",
+      "translations": {
+        "pt-BR": {
+          "title": "Iniciativa pessoal",
+          "body": "Eu tomo a iniciativa e dou meu próximo passo.",
+          "widget": "Eu tomo a iniciativa e dou meu próximo passo.",
+          "reflection": {
+            "messageId": "commute-intencao-01",
+            "title": "O começo que está ao meu alcance",
+            "principle": "Iniciativa pessoal",
+            "paragraphs": [
+              "Eu tomo a iniciativa e dou meu próximo passo. Uma ideia ganha outra forma quando encontro uma maneira de começar. Posso ter um projeto que ainda parece grande, uma conversa adiada ou uma habilidade que desejo aprender. Eu procuro a parte que consigo realizar com os recursos disponíveis. Escrever uma pergunta, separar documentos ou solicitar uma informação já pode transformar uma intenção vaga em uma atividade que passa a existir no meu dia.",
+              "A iniciativa pessoal me coloca em contato com a experiência. Ao agir, descubro detalhes que o planejamento sozinho ainda não revelava: uma necessidade de preparo, uma pessoa que pode contribuir, uma abordagem que funciona melhor. Eu observo essas informações e as uso para orientar minha continuidade. Meu próximo passo tem tamanho humano e responde a uma escolha minha. Posso pedir ajuda e, ao mesmo tempo, assumir a responsabilidade pelo começo. Essa combinação aproxima meu desejo de prosperar das oportunidades concretas que reconheço e cultivo.",
+              "Agora eu escolho algo que venho adiando e realizo sua menor etapa útil. Depois observo o que esse começo me ensina."
+            ],
+            "wordCount": 178,
+            "origin": "original-aurya",
+            "narration": {
+              "kind": "device_tts",
+              "locale": "pt-BR",
+              "autoplay": false
+            },
+            "editorialStatus": "original-inspired-foundation"
+          }
+        }
+      }
+    },
+    {
+      "id": "commute-decisao-01",
+      "moment": "commute",
+      "theme": "Autoconfiança",
+      "translations": {
+        "pt-BR": {
+          "title": "Autoconfiança",
+          "body": "Eu confio em mim e ajo com decisão.",
+          "widget": "Eu confio em mim e ajo com decisão.",
+          "reflection": {
+            "messageId": "commute-decisao-01",
+            "title": "Decidir e sustentar meu próximo gesto",
+            "principle": "Fé aplicada e decisão",
+            "paragraphs": [
+              "Eu confio em mim e ajo com decisão. Eu reconheço a importância de preparar uma escolha e também de perceber quando tenho elementos suficientes para dar o próximo passo. Posso examinar o que sei, identificar o que ainda preciso esclarecer e ouvir uma orientação relevante. Essa preparação dá forma à minha confiança. Minha decisão encontra apoio no propósito que escolho e nas responsabilidades que assumo ao colocá-la em prática.",
+              "A fé aplicada se expressa quando minha convicção participa de uma atitude concreta. Eu comunico um acordo com clareza, começo uma tarefa no horário combinado ou apresento uma ideia que preparei com cuidado. Também observo a resposta da realidade e reconheço quando preciso corrigir algo. Agir com decisão inclui acompanhar as consequências e aprender com elas. Posso conduzir uma escolha com firmeza e manter abertura para informações novas. Meu caminho se torna mais consciente quando conecto intenção, ação e observação, sem abandonar minha responsabilidade em nenhuma dessas etapas.",
+              "Hoje eu escolho uma decisão possível, esclareço seu motivo e realizo o gesto que a coloca em movimento."
+            ],
+            "wordCount": 175,
+            "origin": "original-aurya",
+            "narration": {
+              "kind": "device_tts",
+              "locale": "pt-BR",
+              "autoplay": false
+            },
+            "editorialStatus": "original-inspired-foundation"
+          }
+        }
+      }
+    },
+    {
+      "id": "commute-plano-01",
+      "moment": "commute",
+      "theme": "Planejamento",
+      "translations": {
+        "pt-BR": {
+          "title": "Planejamento",
+          "body": "Eu transformo meu plano em ação.",
+          "widget": "Eu transformo meu plano em ação.",
+          "reflection": {
+            "messageId": "commute-plano-01",
+            "title": "Um plano encontra seu primeiro gesto",
+            "principle": "Planejamento e iniciativa",
+            "paragraphs": [
+              "Eu transformo meu plano em ação. Quando olho para um objetivo, posso perceber muitas etapas acontecendo ao mesmo tempo na minha imaginação. Eu escolho organizar essa visão em uma sequência simples. Identifico o que precisa existir primeiro, quais recursos já tenho e quem pode participar. Meu plano ganha utilidade quando consigo reconhecer uma ação concreta que cabe no meu dia e contribui para a direção que desejo seguir.",
+              "Planejamento e iniciativa se apoiam mutuamente. O plano orienta meu esforço, e a ação me oferece informações para melhorá-lo. Posso reservar um horário, definir um resultado observável e preparar o material necessário. Ao concluir uma etapa, considero o que ela tornou possível e o que ainda precisa de atenção. Essa organização me ajuda a cuidar da energia que dedico aos meus projetos. Eu valorizo o progresso que consigo acompanhar e aprendo a dimensionar melhor meus compromissos. Assim, meu propósito encontra expressão em tarefas compreensíveis e escolhas que posso sustentar.",
+              "Agora eu escrevo uma etapa do meu plano com um verbo de ação e decido quando começo a realizá-la."
+            ],
+            "wordCount": 176,
+            "origin": "original-aurya",
+            "narration": {
+              "kind": "device_tts",
+              "locale": "pt-BR",
+              "autoplay": false
+            },
+            "editorialStatus": "original-inspired-foundation"
+          }
+        }
+      }
+    },
+    {
+      "id": "commute-riqueza-01",
+      "moment": "commute",
+      "theme": "Riqueza com propósito",
+      "translations": {
+        "pt-BR": {
+          "title": "Riqueza com propósito",
+          "body": "Eu construo riqueza com propósito.",
+          "widget": "Eu construo riqueza com propósito.",
+          "reflection": {
+            "messageId": "commute-riqueza-01",
+            "title": "Riqueza com uma direção escolhida",
+            "principle": "Propósito definido e contribuição",
+            "paragraphs": [
+              "Eu construo riqueza com propósito. Esta afirmação me convida a perguntar o que desejo tornar possível com os recursos que cultivo. Posso querer mais autonomia, estabilidade para minha família, continuidade para um projeto ou capacidade de contribuir com uma causa importante. Eu reconheço o valor desses desejos e procuro descrevê-los com clareza. Riqueza ganha significado quando consigo relacioná-la às escolhas e aos vínculos que tornam minha vida mais coerente com meus valores.",
+              "O propósito definido orienta a maneira como desenvolvo minha contribuição. Eu observo quais habilidades posso aperfeiçoar, que necessidades consigo atender e quais acordos merecem ser cuidados. Posso aprender sobre organização, preparar melhor meu trabalho e acompanhar com atenção os recursos que administro. Também reconheço a importância de colaborar e respeitar as pessoas envolvidas nesse caminho. Minha intenção se expressa na qualidade do que ofereço e nas decisões que sustento. Ao conectar riqueza e propósito, escolho construir com responsabilidade e manter contato com aquilo que considero valioso.",
+              "Hoje eu nomeio algo significativo que desejo sustentar e escolho uma capacidade que posso desenvolver para contribuir com esse propósito."
+            ],
+            "wordCount": 178,
+            "origin": "original-aurya",
+            "narration": {
+              "kind": "device_tts",
+              "locale": "pt-BR",
+              "autoplay": false
+            },
+            "editorialStatus": "original-inspired-foundation"
+          }
+        }
+      }
+    },
+    {
+      "id": "midday-gratidao-01",
+      "moment": "midday",
+      "theme": "Gratidão",
+      "translations": {
+        "pt-BR": {
+          "title": "Gratidão",
+          "body": "Eu sou grato.",
+          "widget": "Eu sou grato.",
+          "reflection": {
+            "messageId": "midday-gratidao-01",
+            "title": "A gratidão que reconhece uma presença",
+            "principle": "Gratidão e atenção dirigida",
+            "paragraphs": [
+              "Eu sou grato. Ao fazer uma pausa no meio do dia, posso reconhecer algo que já recebi, aprendi ou consegui realizar. Talvez uma pessoa tenha dedicado tempo a me ouvir; talvez uma tarefa tenha avançado graças a uma habilidade que desenvolvi. Eu observo esses acontecimentos com atenção suficiente para dar nome a eles. A gratidão se torna pessoal quando reconheço uma presença concreta e compreendo como ela participa da minha vida.",
+              "A atenção dirigida me ajuda a perceber contribuições que a pressa costuma tornar invisíveis. Posso reconhecer o trabalho de alguém, a confiança de uma parceria ou a oportunidade de aprender com uma conversa. Eu também considero o que faço com aquilo que recebo. Posso agradecer de maneira específica, cuidar de um recurso compartilhado ou oferecer uma ajuda que está ao meu alcance. Essa atitude aproxima reconhecimento e iniciativa. A gratidão ganha expressão no modo como trato minhas relações e na disposição de participar delas com respeito e generosidade.",
+              "Neste momento eu escolho uma pessoa ou uma experiência e formulo um agradecimento específico pelo que ela acrescenta ao meu caminho."
+            ],
+            "wordCount": 180,
+            "origin": "original-aurya",
+            "narration": {
+              "kind": "device_tts",
+              "locale": "pt-BR",
+              "autoplay": false
+            },
+            "editorialStatus": "original-inspired-foundation"
+          }
+        }
+      }
+    },
+    {
+      "id": "midday-abundancia-01",
+      "moment": "midday",
+      "theme": "Prosperidade",
+      "translations": {
+        "pt-BR": {
+          "title": "Prosperidade",
+          "body": "Eu construo minha prosperidade com foco e ação.",
+          "widget": "Eu construo minha prosperidade com foco e ação.",
+          "reflection": {
+            "messageId": "midday-abundancia-01",
+            "title": "Foco e ação na minha prosperidade",
+            "principle": "Atenção dirigida e iniciativa",
+            "paragraphs": [
+              "Eu construo minha prosperidade com foco e ação. Ao repetir esta afirmação, reconheço que posso dedicar minhas capacidades a algo que considero valioso. Meu foco ajuda a escolher onde investir atenção; minha ação permite experimentar essa escolha no mundo. Eu observo um objetivo importante e procuro uma atividade que contribua para ele hoje. Essa ligação dá sentido ao meu esforço e me ajuda a perceber o valor de pequenos avanços que posso acompanhar.",
+              "A atenção dirigida pede que eu escolha uma prioridade entre várias possibilidades. A iniciativa pede que eu transforme essa prioridade em um gesto observável. Posso desenvolver uma proposta, concluir uma tarefa bem preparada ou aprender uma habilidade útil para o meu trabalho. Depois, considero a resposta que recebo e o que consigo melhorar. Meu propósito orienta esse movimento de dedicação e aprendizado. Eu também organizo os recursos disponíveis para que meu esforço tenha continuidade: tempo, energia, informação e colaboração. Prosperar se torna uma prática pessoal que cultivo nas escolhas do cotidiano.",
+              "Agora eu seleciono uma atividade ligada ao meu propósito e realizo uma etapa com atenção inteira antes de abrir outra tarefa."
+            ],
+            "wordCount": 185,
+            "origin": "original-aurya",
+            "narration": {
+              "kind": "device_tts",
+              "locale": "pt-BR",
+              "autoplay": false
+            },
+            "editorialStatus": "original-inspired-foundation"
+          }
+        }
+      }
+    },
+    {
+      "id": "midday-capacidade-01",
+      "moment": "midday",
+      "theme": "Autodisciplina",
+      "translations": {
+        "pt-BR": {
+          "title": "Autodisciplina",
+          "body": "Eu pratico a disciplina nas minhas escolhas.",
+          "widget": "Eu pratico a disciplina nas minhas escolhas.",
+          "reflection": {
+            "messageId": "midday-capacidade-01",
+            "title": "A disciplina nas escolhas pequenas",
+            "principle": "Autodisciplina",
+            "paragraphs": [
+              "Eu pratico a disciplina nas minhas escolhas. Percebo a disciplina nos momentos em que organizo uma ação de acordo com aquilo que considero importante. Posso escolher preparar meu material, respeitar um acordo ou reservar um intervalo para aprender. Essas decisões parecem pequenas quando observadas isoladamente, mas mostram como distribuo meu tempo e minha energia. Eu reconheço que posso construir uma rotina possível, ajustada às condições reais da minha vida.",
+              "A autodisciplina ganha consistência quando meus compromissos têm um tamanho que consigo compreender e acompanhar. Eu defino uma atividade, preparo seu início e observo o que costuma dificultá-la. Se encontro uma barreira recorrente, posso modificar o ambiente, pedir apoio ou reduzir a etapa. Essa observação me ajuda a continuar de maneira consciente. Meu propósito oferece um motivo para a prática, enquanto minha experiência indica ajustes necessários. Eu valorizo o cumprimento de um compromisso possível e uso cada tentativa para conhecer melhor a forma como sustento minhas escolhas.",
+              "Hoje eu escolho um hábito útil, descrevo uma versão pequena dele e preparo uma condição que facilita colocá-lo em prática."
+            ],
+            "wordCount": 176,
+            "origin": "original-aurya",
+            "narration": {
+              "kind": "device_tts",
+              "locale": "pt-BR",
+              "autoplay": false
+            },
+            "editorialStatus": "original-inspired-foundation"
+          }
+        }
+      }
+    },
+    {
+      "id": "midday-persistencia-01",
+      "moment": "midday",
+      "theme": "Persistência",
+      "translations": {
+        "pt-BR": {
+          "title": "Persistência",
+          "body": "Eu persisto e aprimoro meu plano.",
+          "widget": "Eu persisto e aprimoro meu plano.",
+          "reflection": {
+            "messageId": "midday-persistencia-01",
+            "title": "Continuar também é aprimorar",
+            "principle": "Persistência e planejamento",
+            "paragraphs": [
+              "Eu persisto e aprimoro meu plano. Ao encontrar uma dificuldade, posso voltar ao propósito que me move e examinar o caminho que estou usando. Eu reconheço o valor do esforço já realizado e procuro compreender o que a experiência está mostrando. Talvez uma etapa precise de mais preparo, uma estratégia dependa de recursos diferentes ou uma conversa possa esclarecer o que ainda está confuso. Minha disposição de continuar inclui essa atenção ao que aprendo.",
+              "A persistência se torna mais consciente quando acompanha a revisão do plano. Eu separo aquilo que está funcionando do que pede mudança e escolho um ajuste específico para experimentar. Posso dividir uma tarefa, buscar orientação ou testar uma abordagem menor antes de ampliar meu compromisso. Dessa forma, mantenho contato com meu objetivo e também com as condições reais do percurso. Eu trato a informação recebida como parte do trabalho de construir. Minha continuidade encontra apoio na capacidade de observar, decidir e tentar novamente com mais clareza sobre o próximo passo.",
+              "Agora eu identifico uma dificuldade concreta e escolho uma mudança pequena no plano que posso testar com atenção."
+            ],
+            "wordCount": 182,
+            "origin": "original-aurya",
+            "narration": {
+              "kind": "device_tts",
+              "locale": "pt-BR",
+              "autoplay": false
+            },
+            "editorialStatus": "original-inspired-foundation"
+          }
+        }
+      }
+    },
+    {
+      "id": "midday-foco-01",
+      "moment": "midday",
+      "theme": "Desejo e realização",
+      "translations": {
+        "pt-BR": {
+          "title": "Desejo e realização",
+          "body": "O ponto de partida de toda realização é o desejo.",
+          "widget": "O ponto de partida de toda realização é o desejo.",
+          "reflection": {
+            "messageId": "midday-foco-01",
+            "title": "Desejo e realização",
+            "principle": "Prosperidade, confiança e gratidão",
+            "paragraphs": [
+              "Contexto da fonte: o Napoleon Hill Institute reproduz esta frase atribuindo-a a Think and Grow Rich. Na apresentação do princípio do desejo, distingue uma vontade vaga de um desejo específico, intenso e associado a uma finalidade definida. O ponto central é a importância de saber o que se quer realizar e de manter um envolvimento pessoal com essa realização.",
+              "Comentário editorial AURYA: desejar prosperidade pode ter significados muito diferentes. Para alguém, significa uma casa; para outra pessoa, liberdade para escolher o trabalho ou condições de cuidar da família. O desejo se torna mais pessoal quando conseguimos reconhecer o que a conquista representa. A frase pode ajudar a recuperar esse significado no meio do dia, quando compromissos e solicitações dispersam nossa atenção.",
+              "Para refletir: qual forma de prosperidade tem valor para você neste momento da vida? Pense na experiência que deseja viver, nas pessoas que ela envolve e no motivo pelo qual importa. Essa reflexão desenvolve uma leitura da passagem e não deve ser confundida com palavras adicionais de Napoleon Hill."
+            ],
+            "wordCount": 170,
+            "origin": "original-aurya",
+            "narration": {
+              "kind": "device_tts",
+              "locale": "pt-BR",
+              "autoplay": false
+            },
+            "editorialStatus": "contextual-commentary-on-sourced-quotation",
+            "reviewReferences": [
+              {
+                "url": "https://www.napoleonhillinstitute.com/science-of-achievement",
+                "coverage": "Think and Grow Rich; trecho atribuído expressamente ao livro pelo Napoleon Hill Institute."
+              }
+            ]
+          },
+          "citation": {
+            "author": "Napoleon Hill",
+            "original": "The starting point of all achievement is DESIRE.",
+            "translation": "Tradução para o português pelo AURYA; não é transcrição de edição brasileira.",
+            "url": "https://www.napoleonhillinstitute.com/science-of-achievement",
+            "source": "Think and Grow Rich; trecho atribuído expressamente ao livro pelo Napoleon Hill Institute.",
+            "verification": "Texto confirmado em conteúdo público indexado da fonte identificada; acesso direto à Fundação retornou 403.",
+            "checkedDate": "2026-10-26"
+          }
+        }
+      }
+    },
+    {
+      "id": "midday-reconhecimento-01",
+      "moment": "midday",
+      "theme": "Abundância",
+      "translations": {
+        "pt-BR": {
+          "title": "Abundância",
+          "body": "Eu reconheço a abundância em minha vida.",
+          "widget": "Eu reconheço a abundância em minha vida.",
+          "reflection": {
+            "messageId": "midday-reconhecimento-01",
+            "title": "A abundância que ganha nome",
+            "principle": "Atenção dirigida e gratidão",
+            "paragraphs": [
+              "Eu reconheço a abundância em minha vida. Esta afirmação me convida a olhar para presenças que já apoiam meu caminho e que, às vezes, deixo de notar por estar pensando no que ainda desejo construir. Posso reconhecer uma amizade, uma habilidade, um aprendizado ou um recurso material que utilizo diariamente. Ao nomear essas presenças, percebo relações entre elas e descubro possibilidades de cuidado, colaboração e crescimento que merecem minha atenção.",
+              "O reconhecimento se aprofunda quando considero o uso que faço do que tenho. Posso organizar um material que facilita meu trabalho, compartilhar um conhecimento ou cuidar de um vínculo importante. A gratidão me aproxima da origem desses recursos: pessoas que contribuíram, experiências que me ensinaram e atitudes minhas que ajudaram a construí-los. Eu acolho o que já existe e também mantenho espaço para novos desejos. Meu olhar sobre a abundância se torna mais específico, ligado à minha história e às escolhas que realizo no presente com os recursos disponíveis.",
+              "Hoje eu nomeio uma abundância concreta da minha vida e escolho uma atitude para cuidar dela ou compartilhá-la com intenção."
+            ],
+            "wordCount": 179,
+            "origin": "original-aurya",
+            "narration": {
+              "kind": "device_tts",
+              "locale": "pt-BR",
+              "autoplay": false
+            },
+            "editorialStatus": "original-inspired-foundation"
+          }
+        }
+      }
+    },
+    {
+      "id": "sleep-descanso-01",
+      "moment": "sleep",
+      "theme": "Gratidão",
+      "translations": {
+        "pt-BR": {
+          "title": "Gratidão",
+          "body": "Não se esqueça de expressar gratidão diariamente, por meio da oração e da afirmação, pelas bênçãos que você tem.",
+          "widget": "Não se esqueça de expressar gratidão diariamente, por meio da oração e da afirmação, pelas bênçãos que você tem.",
+          "reflection": {
+            "messageId": "sleep-descanso-01",
+            "title": "Gratidão",
+            "principle": "Prosperidade, confiança e gratidão",
+            "paragraphs": [
+              "Contexto da fonte: a Fundação Napoleon Hill identifica esta passagem como parte de PMA: Science of Success Course, na seção sobre gratidão e saúde. O trecho recomenda uma expressão diária de gratidão por meio de oração e afirmação. A referência está nas bênçãos que a pessoa já possui, oferecendo um ponto concreto de reconhecimento e apreciação.",
+              "Comentário editorial AURYA: ao final do dia, essa passagem convida a perceber riquezas que poderiam passar despercebidas. Uma relação de confiança, um apoio recebido, uma oportunidade ou algo aprendido podem ganhar presença quando são lembrados com gratidão. O sentimento pode coexistir com desejos de crescimento e com situações que ainda precisam de cuidado. A leitura noturna é uma escolha de organização do aplicativo.",
+              "Para refletir: que bem esteve presente no seu dia? Recorde um acontecimento específico e permita-se apreciá-lo por alguns instantes. Se fizer sentido para você, expresse esse agradecimento em oração ou em palavras pessoais. A fonte citada recomenda a gratidão diária; ela não estabelece aqui uma técnica de aprendizagem durante o sono."
+            ],
+            "wordCount": 170,
+            "origin": "original-aurya",
+            "narration": {
+              "kind": "device_tts",
+              "locale": "pt-BR",
+              "autoplay": false
+            },
+            "editorialStatus": "contextual-commentary-on-sourced-quotation",
+            "reviewReferences": [
+              {
+                "url": "https://www.naphill.org/uncategorized/ezine-724-11-27-20/",
+                "coverage": "PMA: Science of Success Course, Gratitude in Sound Health; reprodução pela Fundação, edição 724."
+              }
+            ]
+          },
+          "citation": {
+            "author": "Napoleon Hill",
+            "original": "Don’t forget to express gratitude daily, by prayer and affirmation, for the blessings you have.",
+            "translation": "Tradução para o português pelo AURYA; não é transcrição de edição brasileira.",
+            "url": "https://www.naphill.org/uncategorized/ezine-724-11-27-20/",
+            "source": "PMA: Science of Success Course, Gratitude in Sound Health; reprodução pela Fundação, edição 724.",
+            "verification": "Texto confirmado em conteúdo público indexado da fonte identificada; acesso direto à Fundação retornou 403.",
+            "checkedDate": "2026-10-26"
+          }
+        }
+      }
+    },
+    {
+      "id": "sleep-acolhimento-01",
+      "moment": "sleep",
+      "theme": "Planejamento",
+      "translations": {
+        "pt-BR": {
+          "title": "Planejamento",
+          "body": "Eu reconheço meu progresso e preparo meu próximo passo.",
+          "widget": "Eu reconheço meu progresso e preparo meu próximo passo.",
+          "reflection": {
+            "messageId": "sleep-acolhimento-01",
+            "title": "Meu progresso prepara o próximo passo",
+            "principle": "Planejamento e reconhecimento",
+            "paragraphs": [
+              "Eu reconheço meu progresso e preparo meu próximo passo. Ao olhar para o dia, procuro perceber o que avançou, mesmo que tenha sido uma etapa pequena. Posso ter esclarecido uma dúvida, iniciado uma conversa ou compreendido melhor uma dificuldade. Reconhecer esses movimentos me ajuda a construir uma visão mais precisa do caminho. Eu considero o esforço realizado e observo o que ele tornou possível na minha vida e nos meus projetos.",
+              "O planejamento ganha clareza quando parte dessa experiência concreta. Eu escolho uma continuidade para aquilo que merece atenção e descrevo uma ação que consigo compreender. Talvez precise reunir uma informação, revisar um material ou retomar um contato. Posso deixar uma anotação simples para que o começo tenha um lugar definido. Meu próximo passo nasce do encontro entre o propósito que sustento e o que aprendi hoje. Ao preparar essa continuidade, valorizo meu progresso sem exigir que todas as etapas aconteçam ao mesmo tempo. Eu cuido do percurso com atenção e medida.",
+              "Nesta noite eu registro um avanço e escrevo uma ação pequena que dá continuidade ao que considero importante."
+            ],
+            "wordCount": 180,
+            "origin": "original-aurya",
+            "narration": {
+              "kind": "device_tts",
+              "locale": "pt-BR",
+              "autoplay": false
+            },
+            "editorialStatus": "original-inspired-foundation"
+          }
+        }
+      }
+    },
+    {
+      "id": "sleep-gratidao-01",
+      "moment": "sleep",
+      "theme": "Gratidão",
+      "translations": {
+        "pt-BR": {
+          "title": "Gratidão",
+          "body": "Eu sou grato pelo meu dia.",
+          "widget": "Eu sou grato pelo meu dia.",
+          "reflection": {
+            "messageId": "sleep-gratidao-01",
+            "title": "O que este dia acrescenta à minha vida",
+            "principle": "Gratidão e aprendizado",
+            "paragraphs": [
+              "Eu sou grato pelo meu dia. Ao repetir esta afirmação, posso percorrer alguns acontecimentos e reconhecer o que cada um acrescentou à minha experiência. Talvez tenha recebido uma ajuda, encontrado uma ideia útil ou percebido uma necessidade que antes estava pouco clara. Eu procuro uma lembrança concreta e ofereço atenção a ela. A gratidão ganha profundidade quando reconheço quem participou daquele momento e como ele se conecta ao que valorizo.",
+              "Uma atitude de aprendizado me permite acolher também o que exigiu esforço. Posso reconhecer uma conversa difícil que trouxe clareza ou uma tentativa que revelou algo importante sobre meu modo de agir. Eu escolho o significado que desejo levar dessa experiência para o meu caminho. Essa reflexão aproxima gratidão e propósito: percebo o que merece ser preservado, cuidado ou aprimorado. Posso agradecer a alguém com uma mensagem simples ou registrar para mim aquilo que não quero esquecer. Cada reconhecimento oferece uma maneira de encerrar o dia com presença e respeito pela minha história.",
+              "Agora eu escolho um acontecimento deste dia e completo: sou grato por ele porque acrescenta algo importante à minha vida."
+            ],
+            "wordCount": 183,
+            "origin": "original-aurya",
+            "narration": {
+              "kind": "device_tts",
+              "locale": "pt-BR",
+              "autoplay": false
+            },
+            "editorialStatus": "original-inspired-foundation"
+          }
+        }
+      }
+    },
+    {
+      "id": "sleep-aprendizado-01",
+      "moment": "sleep",
+      "theme": "Persistência",
+      "translations": {
+        "pt-BR": {
+          "title": "Persistência",
+          "body": "Eu aprendo com meu dia e aperfeiçoo meu plano.",
+          "widget": "Eu aprendo com meu dia e aperfeiçoo meu plano.",
+          "reflection": {
+            "messageId": "sleep-aprendizado-01",
+            "title": "O aprendizado que melhora meu plano",
+            "principle": "Persistência e planejamento",
+            "paragraphs": [
+              "Eu aprendo com meu dia e aperfeiçoo meu plano. Ao observar uma experiência recente, posso separar o que aconteceu das primeiras interpretações que fiz sobre ela. O que eu pretendia realizar? Que atitude escolhi? Que resposta recebi? Essas perguntas me ajudam a encontrar informações úteis. Eu considero o contexto, os recursos disponíveis e a participação de outras pessoas, formando uma visão mais cuidadosa do que pode ser aprimorado no meu caminho.",
+              "A persistência ganha direção quando o aprendizado participa das próximas escolhas. Posso preservar uma abordagem que funcionou bem e ajustar um ponto que trouxe dificuldade. Talvez eu precise explicar melhor um acordo, preparar uma etapa com antecedência ou procurar uma informação mais adequada. Eu escolho uma mudança observável, pequena o suficiente para acompanhar seus efeitos. Meu propósito continua sendo a referência, enquanto meu plano se beneficia do contato com a realidade. Ao encerrar o dia dessa forma, reúno experiência para continuar construindo com mais consciência das minhas decisões e das condições que encontro.",
+              "Nesta noite eu escolho um aprendizado e escrevo um ajuste específico que desejo experimentar na próxima oportunidade."
+            ],
+            "wordCount": 181,
+            "origin": "original-aurya",
+            "narration": {
+              "kind": "device_tts",
+              "locale": "pt-BR",
+              "autoplay": false
+            },
+            "editorialStatus": "original-inspired-foundation"
+          }
+        }
+      }
+    },
+    {
+      "id": "sleep-plano-01",
+      "moment": "sleep",
+      "theme": "Planejamento",
+      "translations": {
+        "pt-BR": {
+          "title": "Planejamento",
+          "body": "Eu preparo meu próximo passo com clareza.",
+          "widget": "Eu preparo meu próximo passo com clareza.",
+          "reflection": {
+            "messageId": "sleep-plano-01",
+            "title": "Clareza para o começo seguinte",
+            "principle": "Planejamento organizado",
+            "paragraphs": [
+              "Eu preparo meu próximo passo com clareza. Ao encerrar minhas atividades, posso oferecer ao próximo começo uma referência simples. Escolho uma tarefa importante e identifico exatamente como ela se inicia. Se preciso estudar, separo o material; se preciso conversar, anoto a pergunta principal; se preciso organizar algo, defino por onde começo. Essa preparação torna meu plano mais próximo das condições reais em que vou colocá-lo em prática.",
+              "O planejamento organizado me convida a observar dependências e prioridades. Posso perceber que uma ação precisa de uma informação anterior ou que um compromisso exige um tempo específico. Ao reconhecer esses detalhes, dimensiono melhor o que assumo. Eu também deixo espaço para ajustes, porque a vida cotidiana traz novas solicitações. Clareza significa saber o que pretendo fazer e por que esse gesto importa para meu propósito. Meu próximo passo tem um lugar no plano, sem ocupar todo o espaço do meu descanso. Posso confiar na anotação que preparo e voltar a ela quando for o momento.",
+              "Agora eu descrevo meu próximo passo em uma frase curta e deixo à mão o recurso necessário para começá-lo."
+            ],
+            "wordCount": 182,
+            "origin": "original-aurya",
+            "narration": {
+              "kind": "device_tts",
+              "locale": "pt-BR",
+              "autoplay": false
+            },
+            "editorialStatus": "original-inspired-foundation"
+          }
+        }
+      }
+    },
+    {
+      "id": "sleep-abundancia-01",
+      "moment": "sleep",
+      "theme": "Gratidão",
+      "translations": {
+        "pt-BR": {
+          "title": "Gratidão",
+          "body": "Eu sou grato pela abundância em minha vida.",
+          "widget": "Eu sou grato pela abundância em minha vida.",
+          "reflection": {
+            "messageId": "sleep-abundancia-01",
+            "title": "A gratidão pelo que sustenta meu caminho",
+            "principle": "Gratidão e propósito",
+            "paragraphs": [
+              "Eu sou grato pela abundância em minha vida. Nesta pausa de encerramento, reconheço o conjunto de presenças que participa do meu caminho. Há conhecimentos que acumulei, vínculos que cultivo e recursos que ajudam a tornar meu cotidiano possível. Posso escolher um deles e recordar como chegou até mim. Talvez envolva a dedicação de alguém, uma oportunidade que acolhi ou uma capacidade que desenvolvi com tempo e atenção. Essa história merece reconhecimento.",
+              "A gratidão também me convida a cuidar da continuidade do que valorizo. Posso usar melhor um recurso, preservar uma relação ou compartilhar uma habilidade com alguém que dela precisa. Meu propósito dá direção a esses gestos: considero quais presenças sustentam aquilo que desejo construir e como posso nutri-las. Eu acolho o que recebo e reconheço minha participação no cuidado com essa abundância. Ao olhar para minha vida de forma específica, encontro motivos pessoais para agradecer e atitudes possíveis para cultivar o que considero valioso com presença e generosidade.",
+              "Nesta noite eu escolho uma presença que sustenta minha vida e registro uma maneira de cuidar dela com gratidão."
+            ],
+            "wordCount": 178,
+            "origin": "original-aurya",
+            "narration": {
+              "kind": "device_tts",
+              "locale": "pt-BR",
+              "autoplay": false
+            },
+            "editorialStatus": "original-inspired-foundation"
+          }
+        }
+      }
+    }
+  ],
+  "moments": [
+    {
+      "id": "wake",
+      "label": "Ao acordar"
+    },
+    {
+      "id": "commute",
+      "label": "Indo para o trabalho"
+    },
+    {
+      "id": "midday",
+      "label": "Meio do dia"
+    },
+    {
+      "id": "sleep",
+      "label": "Antes de dormir"
+    }
+  ],
+  "editorialNote": "Afirmações originais em primeira pessoa e no presente, inspiradas em princípios de Napoleon Hill. Não são citações atribuídas a Hill, endosso oficial ou promessas financeiras ou clínicas. Eu sou próspero e Eu sou abundante são preferências expressas do usuário.",
+  "contentRevision": "2026-10-26-reflexoes-01",
+  "editorialReferences": [
+    {
+      "url": "https://www.naphill.org/ezine/ezine-530/",
+      "title": "Napoleon Hill Foundation — Ezine 530, 17/03/2017",
+      "topics": [
+        "propósito definido",
+        "fé aplicada/autoconfiança",
+        "iniciativa pessoal",
+        "autodisciplina",
+        "atenção dirigida",
+        "persistência"
+      ]
+    },
+    {
+      "url": "https://www.naphill.org/ezine/ezine-936-dec-13-2024/",
+      "title": "Napoleon Hill Foundation — Ezine 936, 13/12/2024",
+      "topics": [
+        "atenção dirigida",
+        "propósito definido",
+        "planejamento"
+      ]
+    }
+  ],
+  "reflectionConfig": {
+    "access": "undecided",
+    "optional": true,
+    "narrationKind": "device_tts",
+    "originalEditorial": true
+  },
+  "userReferences": [
+    {
+      "url": "https://www.youtube.com/@LeisDoTriunfoBR",
+      "status": "inventoried-139-videos-review-in-progress",
+      "note": "Inventário público verificado; 2 transcrições lidas integralmente no lote inicial. Cobertura detalhada em canal_cobertura.json; não equivale a todos os vídeos analisados."
+    }
+  ]
+}
