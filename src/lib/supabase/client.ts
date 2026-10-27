@@ -1,0 +1,13 @@
+import { createBrowserClient } from "@supabase/ssr";
+
+let client: ReturnType<typeof createBrowserClient> | undefined;
+
+// As chamadas de login partem do navegador para que os limites de taxa do
+// Supabase Auth considerem o IP real de quem tenta entrar.
+export function createClient() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !key) throw new Error("Supabase não configurado.");
+  client ??= createBrowserClient(url, key);
+  return client;
+}

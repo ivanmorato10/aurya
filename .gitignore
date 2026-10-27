@@ -1,15 +1,41 @@
-.dart_tool/
-.flutter-plugins-dependencies
-build/
-node_modules/
-android/local.properties
-ios/Pods/
-*.log
+# dependências
+/node_modules
 
-web-deploy/
-.vercel/
+# Next.js / build
+/.next/
+/.next-e2e/
+/out/
+/build
+*.tsbuildinfo
+next-env.d.ts
+
+# testes
+/coverage
+/test-results/
+/playwright-report/
+
+# segredos e ambientes locais — nunca versionar
 .env
 .env.*
+!.env.example
+*.pem
 
-# Pacote original do cliente (preservado fora do Git)
+# Vercel / Supabase local
+.vercel
+supabase/.temp/
+supabase/.branches/
+
+# Flutter (legado)
+.dart_tool/
+.flutter-plugins-dependencies
+android/local.properties
+ios/Pods/
+
+# diversos
+.DS_Store
+*.log
+npm-debug.log*
+
+# pacote original do cliente (preservado fora do Git)
 *.zip
+test-results/
