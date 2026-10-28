@@ -32,6 +32,9 @@
   --aurya-champagne-20: rgba(197, 182, 154, 0.2);
   --aurya-gradient-champagne: linear-gradient(120deg, var(--aurya-champagne-light), var(--aurya-champagne) 55%, var(--aurya-champagne-dark));
   --aurya-scrim: linear-gradient(180deg, rgba(16, 28, 44, 0.55) 0%, rgba(16, 28, 44, 0) 22%, rgba(16, 28, 44, 0) 45%, rgba(16, 28, 44, 0.78) 72%, var(--aurya-midnight) 100%);
+  /* Véu sobre fotografias: garante legibilidade da afirmação mesmo em céus claros */
+  --aurya-scrim-photo: linear-gradient(180deg, rgba(16, 28, 44, 0.72) 0%, rgba(16, 28, 44, 0.46) 26%, rgba(16, 28, 44, 0.4) 52%, rgba(16, 28, 44, 0.72) 74%, var(--aurya-midnight) 96%);
+  --aurya-scrim-opening: linear-gradient(180deg, rgba(16, 28, 44, 0.35) 0%, rgba(16, 28, 44, 0) 30%, rgba(16, 28, 44, 0.15) 50%, rgba(16, 28, 44, 0.82) 72%, var(--aurya-midnight) 100%);
   --aurya-error: #e8a39a;                     /* tom quente suave, contraste 7:1 sobre midnight */
   --aurya-success: #b9cfb0;
 

@@ -33,10 +33,10 @@ function usePartialSave() {
   return { prefs, state, busy, submit };
 }
 
-function SaveButton({ busy, label = "Salvar alterações" }: { busy: boolean; label?: string }) {
+function SaveButton({ busy, label = "Salvar alterações", variant = "primary" }: { busy: boolean; label?: string; variant?: "primary" | "secondary" }) {
   return (
     <div className="footer-cta">
-      <button type="submit" className="btn btn-primary btn-block" disabled={busy}>
+      <button type="submit" className={`btn btn-${variant} btn-block`} disabled={busy}>
         {busy && <span className="spinner" aria-hidden="true" />}
         {busy ? "Salvando…" : label}
       </button>
@@ -60,7 +60,7 @@ function ScheduleFormInner({ moments, timeZones }: { moments: { id: MomentId; la
     >
       <Feedback state={state} />
       <ScheduleFields values={values} onChange={setValues} moments={moments} timeZones={timeZones} errors={state.fieldErrors} />
-      <SaveButton busy={busy} />
+      <SaveButton busy={busy} label="Salvar horários" variant="secondary" />
     </form>
   );
 }

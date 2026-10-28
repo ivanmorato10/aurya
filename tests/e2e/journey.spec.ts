@@ -43,7 +43,7 @@ test.beforeAll(async ({ request }) => {
 
 test("visitante: boas-vindas, como funciona, configurar sem conta e ler", async ({ page }, info) => {
   await page.goto("/");
-  await expect(page.getByText("Quatro pausas para um dia mais próspero.")).toBeVisible();
+  await expect(page.getByText("A prosperidade também é um estado de presença.")).toBeVisible();
   await noHorizontalScroll(page);
   await shot(page, "1-boas-vindas", info.project.name);
 
@@ -105,7 +105,7 @@ test("visitante: boas-vindas, como funciona, configurar sem conta e ler", async 
   await page.locator(".moment-btn.is-now").click();
   const phrase = await page.locator(".home-affirmation").innerText();
   await page.getByRole("link", { name: "Aprofundar", exact: true }).click();
-  await expect(page.locator(".reflection-art .quote")).toHaveText(phrase);
+  await expect(page.locator(".reflection-affirmation")).toHaveText(phrase);
   await expect(page.getByRole("button", { name: "Ouvir" })).toBeEnabled();
   await noHorizontalScroll(page);
   await shot(page, "6-reflexao", info.project.name);
@@ -119,9 +119,9 @@ test("visitante: ajustes salvam no aparelho", async ({ page }, info) => {
   await noHorizontalScroll(page);
   await shot(page, "7-ajustes-visitante", info.project.name);
 
-  await page.getByRole("link", { name: /Horários/ }).click();
+  await page.getByRole("link", { name: /horários/i }).click();
   await page.getByLabel("Meio do dia").fill("12:10");
-  await page.getByRole("button", { name: "Salvar alterações" }).click();
+  await page.getByRole("button", { name: "Salvar horários" }).click();
   await expect(page.getByRole("status").filter({ hasText: "Alterações salvas." })).toBeVisible();
 
   await page.goto("/conta/mensagens");
@@ -154,11 +154,11 @@ test("criar conta leva as preferências do aparelho; falha ao salvar preserva; s
   await page.goto("/conta/horarios");
   await page.getByLabel("Meio do dia").fill("12:20");
   await control(page, { failWrites: true });
-  await page.getByRole("button", { name: "Salvar alterações" }).click();
+  await page.getByRole("button", { name: "Salvar horários" }).click();
   await expect(alertBox(page).filter({ hasText: "Não foi possível salvar" })).toBeVisible();
   await expect(page.getByLabel("Meio do dia")).toHaveValue("12:20");
   await control(page, { failWrites: false });
-  await page.getByRole("button", { name: "Salvar alterações" }).click();
+  await page.getByRole("button", { name: "Salvar horários" }).click();
   await expect(page.getByRole("status").filter({ hasText: "Alterações salvas." })).toBeVisible();
 
   // Sair: continua usando com as mesmas preferências neste aparelho
@@ -203,7 +203,7 @@ test("áudios sem conta: tema, temporizador e reprodução", async ({ page }, in
   await page.getByRole("button", { name: "Gratidão" }).click();
   await expect(page.getByRole("button", { name: "Gratidão" })).toHaveAttribute("aria-pressed", "true");
   await page.getByLabel("Encerrar após").selectOption("1");
-  await expect(page.locator(".artwork .time")).toHaveText("01:00");
+  await expect(page.locator(".audio-progress-times")).toContainText("1:00");
   const res = await page.request.get("/audio/music-v3-528-1.m4a");
   expect(res.status()).toBe(200);
   expect(res.headers()["content-type"]).toContain("audio");
@@ -252,5 +252,5 @@ test("início: tocar na afirmação abre o aprofundamento; play usa a voz do apa
   const phrase = await page.locator(".home-affirmation").innerText();
   await page.locator(".home-affirmation-link").click();
   await expect(page).toHaveURL(/\/reflexao\//);
-  await expect(page.locator(".reflection-art .quote")).toHaveText(phrase);
+  await expect(page.locator(".reflection-affirmation")).toHaveText(phrase);
 });

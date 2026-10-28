@@ -7,9 +7,9 @@ import { Scene } from "../Scene";
  * Imagem atmosférica de fundo, em tela cheia, com véu Midnight para legibilidade do texto.
  * Usa a fotografia aprovada quando existir; senão, a ilustração provisória do momento.
  */
-export function Atmosphere({ image, fallback }: { image: ImageSlot; fallback: MomentId }) {
+export function Atmosphere({ image, fallback, className }: { image: ImageSlot; fallback: MomentId; className?: string }) {
   return (
-    <div className={`atmosphere atmosphere--${fallback}`} aria-hidden="true">
+    <div className={`atmosphere atmosphere--${fallback}${image.src ? " atmosphere--photo" : ""}${className ? ` ${className}` : ""}`} aria-hidden="true">
       {image.src ? <Image src={image.src} alt="" fill priority sizes="100vw" style={{ objectFit: "cover" }} /> : <Scene moment={fallback} align="bottom" />}
     </div>
   );

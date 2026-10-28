@@ -3,17 +3,13 @@
 import { useEffect, useRef, useState } from "react";
 import { AudioSession, type AudioStatus } from "@/lib/audio-session";
 import type { AudioTheme, AudioTrack } from "@/lib/content";
-import { IconPause, IconPlay, IconStop } from "@/components/Icons";
+import Image from "next/image";
+import { IconStop } from "@/components/Icons";
+import { PlayButton, ProgressBar } from "@/components/ui/AudioControls";
 import { Scene } from "@/components/Scene";
-
-const THEME_SCENE = { prosperity: "wake", wealth: "midday", gratitude: "sleep" } as const;
+import { IMAGES } from "@/lib/images";
 
 type View = { status: AudioStatus; message: string; remainingMs: number; volume: number };
-
-const mmss = (ms: number) => {
-  const total = Math.ceil(ms / 1000);
-  return `${String(Math.floor(total / 60)).padStart(2, "0")}:${String(total % 60).padStart(2, "0")}`;
-};
 
 export function AudioPlayer({
   themes,
@@ -79,6 +75,7 @@ export function AudioPlayer({
   };
 
   const playing = view.status === "playing";
+  const durationMs = minutes * 60_000;
   const loading = view.status === "loading";
 
   return (
@@ -92,42 +89,45 @@ export function AudioPlayer({
       </div>
 
       <div className="artwork" data-playing={playing} aria-hidden="true">
-        <Scene moment={THEME_SCENE[theme as keyof typeof THEME_SCENE] ?? "sleep"} />
-        <span className="time">{mmss(view.remainingMs)}</span>
+        {IMAGES.player.src ? <Image src={IMAGES.player.src} alt="" fill sizes="(max-width: 480px) 90vw, 420px" style={{ objectFit: "cover" }} /> : <Scene moment="sleep" />}
       </div>
-      <p className="track-title">{track?.composition}</p>
-      <p className="track-sub">
-        Piano · afinação {track?.frequencyHz} Hz
-      </p>
+
+      <div className="track">
+        <p className="track-title">Frequência {track?.frequencyHz} Hz</p>
+        <p className="track-sub">{track?.composition} · piano instrumental</p>
+      </div>
+
+      <ProgressBar elapsedMs={durationMs - view.remainingMs} totalMs={durationMs} />
 
       <div className="controls">
         <button className="round round--ghost round--lg" onClick={() => session.current?.stop()} disabled={!(playing || view.status === "paused")} aria-label="Encerrar">
           <IconStop />
         </button>
-        <button
-          className="round round--xl"
+        <PlayButton
+          playing={playing}
+          busy={loading || !track}
           onClick={() => (playing ? session.current?.pause() : session.current?.play())}
-          disabled={loading || !track}
-          aria-label={playing ? "Pausar" : view.status === "paused" ? "Continuar" : "Reproduzir"}
-        >
-          {loading ? <span className="spinner" aria-hidden="true" /> : playing ? <IconPause /> : <IconPlay />}
-        </button>
-        <span style={{ width: 52 }} aria-hidden="true" />
+          label={playing ? "Pausar" : view.status === "paused" ? "Continuar" : "Reproduzir"}
+        />
+        <span className="round--lg" aria-hidden="true" />
       </div>
       <p className="caption player-status" role="status" style={{ textAlign: "center", whiteSpace: "normal" }}>
         {view.message}
       </p>
 
-      <div className="field">
-        <label htmlFor="volume">Volume · {Math.round(view.volume * 100)}%</label>
-        <input id="volume" type="range" min={0} max={100} step={1} value={Math.round(view.volume * 100)} onChange={(e) => session.current?.setVolume(Number(e.target.value) / 100)} />
-      </div>
+      <details className="about">
+        <summary>Sobre esta frequência</summary>
+        <p>
+          {track?.frequencyHz} Hz indica a afinação de referência desta música, que contém várias notas. Os temas são uma escolha
+          editorial: não atribuímos efeito financeiro, emocional ou terapêutico a uma frequência.
+        </p>
+      </details>
 
       <h2 className="section-title">Sessão</h2>
       <ul className="list">
         <li>
           <label className="row" htmlFor="frequency">
-            <span className="row-main row-title">Afinação</span>
+            <span className="row-main row-title">Frequência</span>
             <select id="frequency" className="row-select" value={frequency} onChange={(e) => chooseFrequency(Number(e.target.value))}>
               {frequencies.map((hz) => (
                 <option key={hz} value={hz}>
@@ -169,6 +169,14 @@ export function AudioPlayer({
               ))}
             </select>
           </label>
+        </li>
+        <li>
+          <div className="row" style={{ display: "grid", gap: 4 }}>
+            <label htmlFor="volume" className="row-title">
+              Volume · {Math.round(view.volume * 100)}%
+            </label>
+            <input id="volume" type="range" min={0} max={100} step={1} value={Math.round(view.volume * 100)} onChange={(e) => session.current?.setVolume(Number(e.target.value) / 100)} />
+          </div>
         </li>
       </ul>
     </>

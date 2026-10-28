@@ -8,45 +8,47 @@ import type { MomentId } from "@/lib/schedule";
 type Palette = { sky: [string, string, string, string]; glow: string; body: string; mountains: [string, string, string]; lake: [string, string]; trees: string };
 
 // Provisório até as fotografias aprovadas chegarem (docs/IMAGENS.md). Tons derivados da paleta do Brand Kit.
+// Provisório até as fotografias aprovadas chegarem (docs/IMAGENS.md).
+// Tons derivados da paleta do Brand Kit, com luz âmbar suave no horizonte como na referência.
 const PALETTES: Record<MomentId, Palette> = {
   wake: {
-    sky: ["#0d1826", "#1e3a5f", "#7d6f5c", "#d8c6a2"],
-    glow: "#e9dcc0",
-    body: "#f4f0e8",
-    mountains: ["#2b4565", "#1a2c44", "#0f1a29"],
-    lake: ["#22374f", "#0b1420"],
+    sky: ["#0d1826", "#24395a", "#9a6f4c", "#e7a867"],
+    glow: "#f3c487",
+    body: "#fff1d8",
+    mountains: ["#3a3f52", "#232a3b", "#121a28"],
+    lake: ["#3b3540", "#0b1420"],
     trees: "#0b1420",
   },
   commute: {
-    sky: ["#101c2c", "#1e3a5f", "#4f6b88", "#b9bcb4"],
-    glow: "#f4f0e8",
-    body: "#f4f0e8",
-    mountains: ["#3a5677", "#22395a", "#122236"],
-    lake: ["#1e3a5f", "#0b1420"],
+    sky: ["#101c2c", "#1e3a5f", "#7d7a74", "#e2bf8f"],
+    glow: "#f1d3a6",
+    body: "#fff4e0",
+    mountains: ["#3d4f66", "#243750", "#122236"],
+    lake: ["#2a3d57", "#0b1420"],
     trees: "#0e1a2a",
   },
   midday: {
-    sky: ["#14253b", "#2a4d78", "#6e8aa8", "#d4cdbd"],
-    glow: "#f4f0e8",
-    body: "#f4f0e8",
-    mountains: ["#45658a", "#28466b", "#15263c"],
-    lake: ["#24446b", "#0d1828"],
+    sky: ["#14253b", "#2a4d78", "#7f93a6", "#e5d3b3"],
+    glow: "#f6e6c8",
+    body: "#fffaf0",
+    mountains: ["#4a6582", "#2b4565", "#15263c"],
+    lake: ["#2a4a70", "#0d1828"],
     trees: "#101d2e",
   },
   sleep: {
-    sky: ["#070d17", "#0b1420", "#101c2c", "#1e3a5f"],
-    glow: "#c5b69a",
+    sky: ["#070d17", "#0b1420", "#122238", "#24395a"],
+    glow: "#d9c8a6",
     body: "#f4f0e8",
-    mountains: ["#1a2c44", "#121f31", "#0a111c"],
+    mountains: ["#1c2b42", "#121f31", "#0a111c"],
     lake: ["#101c2c", "#060b13"],
     trees: "#060b13",
   },
 };
 
 const SUN: Record<MomentId, { x: number; y: number; r: number }> = {
-  wake: { x: 200, y: 186, r: 30 },
-  commute: { x: 292, y: 104, r: 18 },
-  midday: { x: 120, y: 62, r: 20 },
+  wake: { x: 286, y: 150, r: 12 },
+  commute: { x: 300, y: 112, r: 13 },
+  midday: { x: 110, y: 70, r: 15 },
   sleep: { x: 296, y: 70, r: 16 },
 };
 

@@ -13,21 +13,21 @@ e contém texto. **Não é usada como asset de produção** e não foi recortada
 - Tons azulados e luz delicada (champagne/âmbar suave), coerentes com Midnight Navy e Ocean Blue.
 - Origem própria/gerada com direitos de uso para o projeto.
 
-## Arquivos
+## Arquivos (integrados como PROVISÓRIOS)
 
-| # | Arquivo | Uso | Painel da prancha | Status |
-|---|---|---|---|---|
-| 1 | `public/images/opening.webp` | Abertura | 01 Abertura | pendente (arquivo individual) |
-| 2 | `public/images/moments/wake.webp` | Início · Ao acordar | 02 Manhã | pendente |
-| 3 | `public/images/moments/commute.webp` | Início · Indo para o trabalho | — (ver decisão abaixo) | **pendente: sem imagem correspondente** |
-| 4 | `public/images/moments/midday.webp` | Início · Meio do dia | 03 Meio do dia | pendente |
-| 5 | `public/images/moments/sleep.webp` | Início · Antes de dormir | 05 Noite | pendente |
-| 6 | `public/images/player.webp` | Player de áudio | 06 Player | pendente |
-| 7 | `public/images/reflection.webp` | Aprofundamento | 07 Aprofundamento | pendente |
-| — | (painel 04 Fim de tarde) | sem momento correspondente | 04 Fim de tarde | a decidir |
+Origem: `docs/design/AURYA_Images.zip` (recortes individuais da prancha, sem legendas). Originais preservados em
+`design/images-originais/`. Convertidos para WebP (qualidade 86) **sem upscale**; total ≈ 300 KB.
+**Não estão prontos para produção:** a resolução (~250–340 px de largura) fica abaixo do necessário para telas de alta densidade.
 
-## Decisão pendente: "Indo para o trabalho"
-A prancha segue os momentos do mockup (Manhã, Meio do dia, Fim de tarde, Noite). Os momentos aprovados são
-Ao acordar, Indo para o trabalho, Meio do dia e Antes de dormir. Opções:
-1. Gerar uma imagem nova para "Indo para o trabalho" (manhã clara: litoral ou estrada costeira com luz da manhã, sem pessoas).
-2. Usar o painel 04 "Fim de tarde" para esse momento (luz quente pode não combinar com início do dia).
+| Arquivo | Tela | Origem | Tamanho |
+|---|---|---|---|
+| `public/images/opening.webp` | Abertura | abertura.png | 246 × 776 |
+| `public/images/moments/wake.webp` | Início · Ao acordar | manha.png | 259 × 776 |
+| `public/images/moments/commute.webp` | Início · Indo para o trabalho | fim-de-tarde.png | 253 × 776 |
+| `public/images/moments/midday.webp` | Início · Meio do dia | meio-dia.png | 251 × 776 |
+| `public/images/moments/sleep.webp` | Início · Antes de dormir | noite.png | 341 × 749 |
+| `public/images/player.webp` | Player de áudio | player-audio.png | 329 × 755 |
+| `public/images/reflection.webp` | Aprofundamento | aprofundamento.png | 340 × 755 |
+
+**Próximo passo:** exportar as mesmas sete imagens em 1242 × 2688 px ou mais e substituir os arquivos, mantendo os nomes.
+**Decisão aplicada (reversível):** "Indo para o trabalho" usa a imagem "Fim de tarde". O ideal é gerar uma imagem de manhã clara.

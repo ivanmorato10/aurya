@@ -2,7 +2,7 @@
 
 import type { MomentId, Schedule } from "@/lib/schedule";
 import { CategoryIcon, IconGlobe, IconQuote } from "./Icons";
-import { Scene } from "./Scene";
+import { TimeRow } from "./ui/TimeRow";
 
 export type ScheduleValues = Schedule & { timeZone: string };
 
@@ -27,23 +27,14 @@ export function ScheduleFields({
     <>
       <ul className="list">
         {moments.map((m) => (
-          <li key={m.id} data-moment={m.id}>
-            <label className="row" htmlFor={`t-${m.id}`}>
-              <span className="thumb" aria-hidden="true">
-                <Scene moment={m.id} />
-              </span>
-              <span className="row-main row-title">{m.label}</span>
-              <input
-                id={`t-${m.id}`}
-                name={m.id}
-                type="time"
-                step={60}
-                required
-                value={values[m.id]}
-                onChange={(e) => onChange({ ...values, [m.id]: e.target.value })}
-                aria-invalid={Boolean(errors[m.id] || errors.schedule)}
-              />
-            </label>
+          <li key={m.id}>
+            <TimeRow
+              moment={m.id}
+              label={m.label}
+              value={values[m.id]}
+              onChange={(v) => onChange({ ...values, [m.id]: v })}
+              invalid={Boolean(errors[m.id] || errors.schedule)}
+            />
           </li>
         ))}
       </ul>

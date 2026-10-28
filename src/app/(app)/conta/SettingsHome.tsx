@@ -5,6 +5,7 @@ import { signOut } from "@/app/actions";
 import { IconChevron, IconClock, IconInfo, IconLogout, IconShield, IconSpark, IconTrash, IconUser } from "@/components/Icons";
 import { usePrefs } from "@/components/PrefsProvider";
 import { SubmitButton } from "@/components/SubmitButton";
+import { AppHeader } from "@/components/ui/AppHeader";
 import { CATEGORY_IDS } from "@/lib/categories";
 
 function Row({ href, icon, title, value, danger }: { href: string; icon: React.ReactNode; title: string; value?: string; danger?: boolean }) {
@@ -34,9 +35,8 @@ export function SettingsHome({ categories }: { categories: { id: string; label: 
 
   return (
     <>
-      <header className="appbar">
-        <h1 className="screen-title">Ajustes</h1>
-      </header>
+      <AppHeader center={<h1 className="navbar-title" style={{ margin: 0 }}>Perfil</h1>} />
+      <h2 className="large-title" style={{ marginTop: 24 }}>Seu ritual</h2>
 
       <h2 className="section-title">Sua rotina</h2>
       {ready && !prefs ? (
@@ -45,7 +45,7 @@ export function SettingsHome({ categories }: { categories: { id: string; label: 
         </Link>
       ) : (
         <ul className="list">
-          <Row href="/conta/horarios" icon={<IconClock />} title="Horários" value={prefs ? Object.values(prefs.schedule).join(" · ") : " "} />
+          <Row href="/conta/horarios" icon={<IconClock />} title="Meus horários" value={prefs ? Object.values(prefs.schedule).join(" · ") : " "} />
           <Row href="/conta/mensagens" icon={<IconSpark />} title="Tipos de mensagem" value={prefs ? `${typeLabel}${prefs.includeQuotes ? " · com citações" : ""}` : " "} />
           <Row href="/conta/nome" icon={<IconUser />} title="Nome" value={prefs?.displayName ?? "Não informado"} />
         </ul>

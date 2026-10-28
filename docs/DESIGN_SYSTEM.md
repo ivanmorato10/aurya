@@ -22,7 +22,7 @@ Contraste (WCAG): Ivory sobre Midnight 15,8:1 · Champagne sobre Midnight 8,6:1 
 - `SunSymbol`: versão corrigida do símbolo do Brand Kit, com arco duplo, 13 raios alternando longos e curtos, horizonte em dois segmentos, traço fino em champagne. O SVG fica em `design/brand-kit/logos/sun-symbol-corrigido.svg`.
 - `Wordmark`: "AURYA" em Cormorant Garamond 500, espaçamento 0,16em, gradiente champagne.
 - `Logo`: símbolo, nome e "Afirmações para uma vida extraordinária".
-- Comparação com a referência: `docs/design/logo-comparacao.png`. **Aguardando aprovação.** O ícone do app e o logo das telas atuais ainda não foram substituídos.
+- Comparação com a referência: `docs/design/logo-comparacao.png`. **Aprovado** e aplicado no ícone do app, na abertura e no cabeçalho.
 
 ## Componentes
 | Componente | Arquivo | Notas |
@@ -40,3 +40,7 @@ Contraste (WCAG): Ivory sobre Midnight 15,8:1 · Champagne sobre Midnight 8,6:1 
 
 ## Imagens
 Status e especificações em `docs/IMAGENS.md`; registro de arquivos em `src/lib/images.ts`.
+
+## Telas redesenhadas (Fases 3 e 4)
+Abertura · Início · Aprofundamento · Experiência sonora · Perfil e Meus horários. O onboarding, o login e o "Como funciona" herdam os tokens e componentes.
+As fotografias estão integradas, mas são **provisórias** (baixa resolução): ver `docs/IMAGENS.md`.
