@@ -79,7 +79,10 @@ export function AudioPlayer({
   const loading = view.status === "loading";
 
   return (
-    <>
+    <div className="aurya-audio-experience">
+      <p className="aurya-audio-eyebrow">UM MOMENTO PARA VOCÊ</p>
+      <h2 className="aurya-audio-heading">Encontre sua frequência.</h2>
+      <p className="aurya-audio-intro">Deixe o mundo desacelerar. Escolha sua paisagem sonora.</p>
       <div className="segmented" role="group" aria-label="Tema">
         {themes.map((t) => (
           <button key={t.id} aria-pressed={theme === t.id} onClick={() => chooseTheme(t.id)}>
@@ -88,10 +91,11 @@ export function AudioPlayer({
         ))}
       </div>
 
-      <div className="artwork" data-playing={playing} aria-hidden="true">
+      <div className="aurya-audio-hero"><div className="artwork" data-playing={playing} aria-hidden="true">
         {IMAGES.player.src ? <Image src={IMAGES.player.src} alt="" fill sizes="(max-width: 480px) 90vw, 420px" style={{ objectFit: "cover" }} /> : <Scene moment="sleep" />}
       </div>
 
+      </div>
       <div className="track">
         <p className="track-title">Frequência {track?.frequencyHz} Hz</p>
         <p className="track-sub">{track?.composition} · piano instrumental</p>
@@ -123,8 +127,8 @@ export function AudioPlayer({
         </p>
       </details>
 
-      <h2 className="section-title">Sessão</h2>
-      <ul className="list">
+      <h2 className="section-title">Personalize sua sessão</h2>
+      <ul className="list aurya-audio-settings">
         <li>
           <label className="row" htmlFor="frequency">
             <span className="row-main row-title">Frequência</span>
@@ -179,6 +183,6 @@ export function AudioPlayer({
           </div>
         </li>
       </ul>
-    </>
+    </div>
   );
 }
