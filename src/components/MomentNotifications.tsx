@@ -2,12 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 import { usePrefs } from "@/components/PrefsProvider";
-import { activeOccurrence, localNow, nextOccurrence, pickForPrefs } from "@/lib/schedule";
+import { activeOccurrence, localNow, pickForPrefs } from "@/lib/schedule";
 import type { Affirmation } from "@/lib/content";
 
 const STORAGE_KEY = "aurya.moment-notifications.v1";
 
-export function MomentNotifications({ affirmations }: { affirmations: Affirmation[] }) {
+export function MomentNotifications({ affirmations, showSettings = false }: { affirmations: Affirmation[]; showSettings?: boolean }) {
   const { prefs } = usePrefs();
   const [enabled, setEnabled] = useState(false);
   const [permission, setPermission] = useState<NotificationPermission | "unsupported">("unsupported");
@@ -57,6 +57,7 @@ export function MomentNotifications({ affirmations }: { affirmations: Affirmatio
   };
   const disable = () => { window.localStorage.setItem(STORAGE_KEY, "off"); setEnabled(false); setMessage("Avisos desativados neste aparelho."); };
 
+  if (!showSettings) return null;
   return <section className="aurya-notification-preferences" aria-label="Avisos dos momentos">
     <h2 className="section-title">Avisos dos momentos</h2>
     <p className="body-2">Receba um aviso com a frase do momento enquanto o AURYA estiver aberto. Avisos com o aplicativo fechado ainda não estão disponíveis.</p>
