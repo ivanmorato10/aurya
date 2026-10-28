@@ -298,3 +298,26 @@ input[type="range"] { width: 100%; accent-color: var(--aurya-champagne); height:
 .ds-icon { width: 30px; height: 30px; }
 .home-affirmation-link { color: inherit; text-decoration: none; display: block; border-radius: 12px; }
 .home-affirmation-link:hover .home-affirmation { color: var(--aurya-ivory-hover); }
+
+
+/* AURYA · Immersive mobile audio experience — scoped to /audios */
+.aurya-audio-experience { display:flex; flex-direction:column; padding: 14px 0 38px; }
+.aurya-audio-eyebrow { margin: 8px 0 12px; font: var(--type-overline); letter-spacing: .23em; color: var(--aurya-champagne); text-align:center; }
+.aurya-audio-heading { font-family: var(--font-editorial); font-weight:400; font-size:clamp(36px,10vw,48px); line-height:1.05; letter-spacing:-.025em; text-align:center; max-width:12ch; margin:0 auto; color:var(--aurya-ivory); }
+.aurya-audio-intro { margin:14px auto 27px; max-width:29ch; text-align:center; font:var(--type-caption); color:var(--color-text-muted); line-height:1.6; }
+.aurya-audio-experience .segmented { margin-bottom: 22px; }
+.aurya-audio-hero { position:relative; width:100%; aspect-ratio: .94; max-height: 460px; overflow:hidden; border-radius: 4px 4px 26px 26px; isolation:isolate; background:var(--aurya-ocean); }
+.aurya-audio-hero .artwork { position:absolute; inset:0; width:100%; height:100%; max-width:none; margin:0; border-radius:0; }
+.aurya-audio-hero .artwork img { object-position:center 46%; }
+.aurya-audio-hero::after { content:""; position:absolute; inset:0; pointer-events:none; background:linear-gradient(180deg, transparent 48%, var(--aurya-midnight) 100%); opacity:.35; }
+.aurya-audio-experience .track { margin:25px 0 15px; }
+.aurya-audio-experience .track-title { font-family:var(--font-editorial); font-weight:400; font-size:clamp(30px,8vw,39px); line-height:1.13; }
+.aurya-audio-experience .track-sub { margin-top:10px; }
+.aurya-audio-experience .controls { margin:15px 0 6px; }
+.aurya-audio-experience .controls .round--ghost { border:1px solid var(--color-border); }
+.aurya-audio-experience .player-status { min-height: 24px; margin: 10px 0 18px; }
+.aurya-audio-experience .about { margin: 4px 0 18px; }
+.aurya-audio-experience h2.section-title { margin-top:26px; }
+.aurya-audio-settings .row { min-height: 66px; }
+.aurya-audio-settings .row-select { border:0; background:transparent; text-align:right; color:var(--aurya-champagne); }
+@media (min-width: 600px) { .aurya-audio-experience { max-width:460px; margin:0 auto; } .aurya-audio-heading { font-size:48px; } .aurya-audio-hero { aspect-ratio:1; } }
