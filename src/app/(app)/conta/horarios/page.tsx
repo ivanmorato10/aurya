@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { AppHeader } from "@/components/ui/AppHeader";
 import { ScheduleForm } from "@/components/SettingsForms";
-import { MOMENTS } from "@/lib/content";
+import { MomentNotifications } from "@/components/MomentNotifications";
+import { AFFIRMATIONS, MOMENTS } from "@/lib/content";
 import { timeZoneList } from "@/lib/timezones";
 
 export const metadata: Metadata = { title: "Horários" };
@@ -15,6 +16,7 @@ export default function HorariosPage() {
         Defina os horários em que deseja receber suas afirmações. Cada frase fica com você até o próximo momento.
       </p>
       <ScheduleForm moments={MOMENTS} timeZones={timeZoneList()} />
+      <MomentNotifications affirmations={AFFIRMATIONS} showSettings />
     </>
   );
 }
