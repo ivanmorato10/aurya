@@ -184,7 +184,7 @@ export function AudioPlayer({
             <input id="volume" type="range" min={0} max={100} step={1} value={Math.round(view.volume * 100)} onChange={(e) => session.current?.setVolume(Number(e.target.value) / 100)} />
           </div>
         </li>
-      </ul></div>
+      </ul></div>}
     </div>
   );
 }
