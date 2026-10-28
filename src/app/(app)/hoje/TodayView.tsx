@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import type { Affirmation } from "@/lib/content";
+import { Aury } from "@/components/Aury";
+import { Burst } from "@/components/Decor";
 import {
   activeOccurrence,
   localNow,
@@ -67,22 +69,30 @@ export function TodayView({
     };
   }, [active.moment]);
 
+  const previewing = Boolean(selected && selected !== active.moment);
+
   return (
     <div data-moment={shownMoment}>
-      <span className="eyebrow">{selected && selected !== active.moment ? "Prévia de outro momento" : "Agora"}</span>
-      <h1 style={{ fontSize: "clamp(28px,6vw,38px)" }}>{name ? `Olá, ${name}.` : "Seu momento."}</h1>
+      <div className="greet">
+        <div>
+          <span className="eyebrow">{previewing ? "Prévia de outro momento" : "Agora"}</span>
+          <h1>{name ? `Olá, ${name}!` : "Seu momento."}</h1>
+        </div>
+      </div>
 
-      <article className="affirmation" aria-live="polite">
-        <div className="affirmation-meta">
-          <span className="eyebrow">{labels[shownMoment]}</span>
-          <span className="small">{message.theme}</span>
+      <article className="affirmation" aria-live="polite" key={message.id}>
+        <Burst seed={message.id} />
+        <div className="affirmation-top">
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+            <span className="tag">{labels[shownMoment]}</span>
+            <span className="tag">{message.theme}</span>
+          </div>
+          <Aury moment={shownMoment} size={96} />
         </div>
         <p className="affirmation-text">{message.text}</p>
         {message.citation ? (
           <>
-            <p className="source">
-              {message.citation.author} · tradução do original
-            </p>
+            <p className="source">{message.citation.author} · tradução do original</p>
             <details>
               <summary>Ver fonte</summary>
               <blockquote lang="en">{message.citation.original}</blockquote>
@@ -96,41 +106,44 @@ export function TodayView({
           <p className="source">Afirmação original AURYA</p>
         )}
         <div style={{ marginTop: 20 }}>
-          <Link className="btn btn-primary btn-block" href={`/reflexao/${message.id}`}>
-            Aprofundar
+          <Link className="btn btn-on-card btn-block" href={`/reflexao/${message.id}`}>
+            Aprofundar →
           </Link>
         </div>
       </article>
 
-      <p className="note" style={{ marginTop: 14 }}>
-        {selected && selected !== active.moment ? (
-          <button className="btn btn-quiet" style={{ paddingInline: 0 }} onClick={() => setSelected(null)}>
-            ← Voltar ao momento atual
-          </button>
-        ) : (
-          <>
+      {previewing ? (
+        <button className="btn btn-quiet" style={{ marginTop: 12 }} onClick={() => setSelected(null)}>
+          ← Voltar ao momento atual
+        </button>
+      ) : (
+        <p className="next-change" data-moment={next.moment}>
+          <span className="dot" aria-hidden="true" />
+          <span>
             Próxima troca: <strong>{labels[next.moment]}</strong> às {schedule[next.moment]}.
-          </>
-        )}
-      </p>
+          </span>
+        </p>
+      )}
 
       <section className="section" aria-labelledby="seu-dia">
-        <h2 id="seu-dia">Seu dia</h2>
+        <h2 id="seu-dia">
+          Seu <span className="grad-text">dia</span>
+        </h2>
         <ul className="timeline">
           {ordered.map((id) => (
             <li key={id} data-moment={id}>
               <button aria-pressed={shownMoment === id} onClick={() => setSelected(id === active.moment ? null : id)}>
-                <span className="dot" aria-hidden="true" />
-                <span>
-                  {labels[id]}
-                  {id === active.moment && <span className="now"> · agora</span>}
+                <span className="tl-head">
+                  <Aury moment={id} size={40} animated={false} />
+                  {id === active.moment && <span className="now">agora</span>}
                 </span>
+                <span className="tl-name">{labels[id]}</span>
                 <time>{schedule[id]}</time>
               </button>
             </li>
           ))}
         </ul>
-        <p className="small" style={{ marginTop: 12 }}>
+        <p className="small" style={{ marginTop: 14 }}>
           Horários no fuso {timeZone.replaceAll("_", " ")}. <Link href="/conta">Ajustar</Link>
         </p>
       </section>

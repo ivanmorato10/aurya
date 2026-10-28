@@ -15,7 +15,9 @@ export default async function ContaPage() {
   return (
     <div>
       <span className="eyebrow">Conta</span>
-      <h1>Seu ritmo.</h1>
+      <h1>
+        Seu <span className="hl">ritmo</span>.
+      </h1>
       <p className="lead">
         Conectado como <strong>{profile.email}</strong>.
       </p>

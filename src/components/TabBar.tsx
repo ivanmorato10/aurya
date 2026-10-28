@@ -30,11 +30,11 @@ export function TabBar() {
           const active = pathname === tab.href || (tab.href === "/hoje" && pathname.startsWith("/reflexao"));
           return (
             <li key={tab.href}>
-              <Link href={tab.href} aria-current={active ? "page" : undefined}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <Link href={tab.href} aria-current={active ? "page" : undefined} aria-label={tab.label}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   {tab.icon}
                 </svg>
-                {tab.label}
+                <span className="tab-label">{tab.label}</span>
               </Link>
             </li>
           );

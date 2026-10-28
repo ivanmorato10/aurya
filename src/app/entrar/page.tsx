@@ -3,6 +3,7 @@ import { PublicFrame } from "@/components/PublicFrame";
 import { hasSupabaseEnv } from "@/lib/supabase/env";
 import { safeNextPath } from "@/lib/validation";
 import { LoginForm } from "./LoginForm";
+import { Aury } from "@/components/Aury";
 
 export const metadata: Metadata = { title: "Entrar" };
 
@@ -11,9 +12,16 @@ export default async function EntrarPage({ searchParams }: { searchParams: Promi
   const next = safeNextPath(params.next);
   return (
     <PublicFrame>
-      <span className="eyebrow">Acesso</span>
-      <h1>Entre com seu e-mail.</h1>
-      <p className="lead">Enviamos um código de uso único. Sem senha para lembrar.</p>
+      <div className="auth-hero">
+        <Aury moment="wake" size={88} />
+        <div>
+          <span className="eyebrow">Acesso</span>
+          <h1>
+            Bom te <span className="hl">ver</span>.
+          </h1>
+        </div>
+      </div>
+      <p className="lead" style={{ marginTop: 14 }}>Digite seu e-mail e enviamos um código de uso único. Sem senha para lembrar.</p>
       {hasSupabaseEnv() ? (
         <LoginForm next={next} linkError={params.erro === "link"} />
       ) : (

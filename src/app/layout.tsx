@@ -1,9 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Manrope } from "next/font/google";
+import { Bricolage_Grotesque, Fraunces } from "next/font/google";
+import { Orbs } from "@/components/Decor";
 import "./globals.css";
 
-const fraunces = Fraunces({ subsets: ["latin"], variable: "--font-fraunces", display: "swap" });
-const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope", display: "swap" });
+const bricolage = Bricolage_Grotesque({ subsets: ["latin"], variable: "--font-bricolage", display: "swap" });
+const fraunces = Fraunces({ subsets: ["latin"], variable: "--font-fraunces", display: "swap", style: ["italic"], axes: ["SOFT", "WONK"] });
 
 export const metadata: Metadata = {
   title: { default: "AURYA · um instante de presença", template: "%s · AURYA" },
@@ -14,8 +15,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0c111b",
-  colorScheme: "dark",
+  themeColor: "#fff6ee",
+  colorScheme: "light",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
@@ -23,11 +24,12 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR" className={`${fraunces.variable} ${manrope.variable}`}>
+    <html lang="pt-BR" className={`${bricolage.variable} ${fraunces.variable}`}>
       <body>
         <a className="skip-link" href="#conteudo">
           Pular para o conteúdo
         </a>
+        <Orbs />
         {children}
       </body>
     </html>

@@ -4,6 +4,7 @@ import { useActionState, useEffect, useState } from "react";
 import { saveProfile, type FormState } from "@/app/actions";
 import { SubmitButton } from "./SubmitButton";
 import type { MomentId } from "@/lib/schedule";
+import { Aury } from "./Aury";
 
 type Values = { displayName: string; timeZone: string } & Record<MomentId, string>;
 
@@ -62,7 +63,7 @@ export function ProfileForm({
         <div className="time-grid">
           {moments.map((m) => (
             <div className="time-row" data-moment={m.id} key={m.id}>
-              <span className="dot" aria-hidden="true" />
+              <Aury moment={m.id} size={48} animated={false} />
               <label htmlFor={`t-${m.id}`}>{m.label}</label>
               <input
                 id={`t-${m.id}`}

@@ -1,7 +1,16 @@
 import Link from "next/link";
 import { PublicFrame } from "@/components/PublicFrame";
-import { AuraMark } from "@/components/Logo";
+import { Aury } from "@/components/Aury";
+import { Aura } from "@/components/Decor";
 import { MOMENTS } from "@/lib/content";
+import type { MomentId } from "@/lib/schedule";
+
+const MOMENT_HINT: Record<MomentId, string> = {
+  wake: "comece com intenção",
+  commute: "siga com confiança",
+  midday: "renove o foco",
+  sleep: "descanse em gratidão",
+};
 
 export default async function Landing({ searchParams }: { searchParams: Promise<{ conta?: string }> }) {
   const { conta } = await searchParams;
@@ -13,24 +22,40 @@ export default async function Landing({ searchParams }: { searchParams: Promise<
         </p>
       )}
       <section className="hero">
-        <div className="hero-mark">
-          <AuraMark size={64} />
+        <div className="hero-stage">
+          <Aura rings={3} start={170} step={40} />
+          <Aury moment="midday" size={150} title="Aury, o solzinho do AURYA" />
         </div>
-        <span className="eyebrow">Quatro momentos · uma frase</span>
-        <h1>
+        <span className="eyebrow anim-rise">Quatro momentos · uma frase</span>
+        <h1 className="anim-rise-2">
           Uma frase.
-          <br />O seu momento.
+          <br />O seu <span className="hl">momento</span>.
         </h1>
-        <p className="lead">
-          O AURYA acompanha o ritmo do seu dia com afirmações de prosperidade, gratidão e confiança — e um texto para
-          aprofundar quando você quiser.
+        <p className="lead anim-rise-3">
+          Afirmações de prosperidade, gratidão e confiança no ritmo do seu dia — e um texto para aprofundar quando
+          quiser.
         </p>
-        <Link href="/entrar" className="btn btn-primary btn-block">
+        <Link href="/entrar" className="btn btn-primary btn-block anim-rise-3">
           Começar com meu e-mail
         </Link>
-        <p className="small" style={{ textAlign: "center" }}>
-          Sem senha: você recebe um código de acesso por e-mail.
+        <p className="small" style={{ marginTop: 12 }}>
+          Sem senha: você recebe um código por e-mail.
         </p>
+      </section>
+
+      <section className="section" aria-labelledby="momentos">
+        <h2 id="momentos">
+          Seu dia em <span className="grad-text">quatro luzes</span>
+        </h2>
+        <div className="moments-row">
+          {MOMENTS.map((m) => (
+            <div key={m.id} className="moment-card" data-moment={m.id}>
+              <Aury moment={m.id} size={58} />
+              <strong>{m.label}</strong>
+              <span>{MOMENT_HINT[m.id]}</span>
+            </div>
+          ))}
+        </div>
       </section>
 
       <section className="section" aria-labelledby="como">
@@ -38,34 +63,23 @@ export default async function Landing({ searchParams }: { searchParams: Promise<
         <ol className="steps">
           <li>
             <div>
-              <h3>Defina seus quatro horários</h3>
-              <p className="note">Cada momento começa no horário que você escolher — inclusive em rotinas noturnas.</p>
+              <h3>Escolha seus quatro horários</h3>
+              <p className="note">Cada momento começa quando você quiser — rotinas noturnas também.</p>
             </div>
           </li>
           <li>
             <div>
               <h3>Leia a frase do momento</h3>
-              <p className="note">Uma afirmação por momento, que permanece até o próximo. Sem notificações.</p>
+              <p className="note">Ela fica com você até o próximo horário. Sem notificações.</p>
             </div>
           </li>
           <li>
             <div>
-              <h3>Aprofunde ou escute</h3>
-              <p className="note">Um texto curto para refletir, leitura em voz alta e músicas suaves.</p>
+              <h3>Aprofunde e escute</h3>
+              <p className="note">Um texto curto, leitura em voz alta e músicas suaves de piano.</p>
             </div>
           </li>
         </ol>
-      </section>
-
-      <section className="section" aria-label="Os quatro momentos">
-        <div className="moment-strip">
-          {MOMENTS.map((m) => (
-            <span key={m.id} data-moment={m.id}>
-              <span className="dot" aria-hidden="true" />
-              {m.label}
-            </span>
-          ))}
-        </div>
       </section>
     </PublicFrame>
   );

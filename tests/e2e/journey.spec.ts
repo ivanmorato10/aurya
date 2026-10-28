@@ -76,7 +76,7 @@ test("jornada principal: entrar, definir horários, ler e aprofundar", async ({ 
 
   // Hoje
   await expect(page).toHaveURL(/\/hoje/);
-  await expect(page.getByRole("heading", { name: "Olá, Ana." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Olá, Ana!" })).toBeVisible();
   await expect(page.locator(".affirmation-text")).not.toBeEmpty();
   await expect(page.getByText(/Próxima troca:/)).toBeVisible();
   await noHorizontalScroll(page);
@@ -94,7 +94,7 @@ test("jornada principal: entrar, definir horários, ler e aprofundar", async ({ 
   const phrase = await page.locator(".affirmation-text").innerText();
   await page.getByRole("link", { name: "Aprofundar" }).click();
   await expect(page).toHaveURL(/\/reflexao\//);
-  await expect(page.locator(".lead").first()).toHaveText(phrase);
+  await expect(page.locator(".reflection-hero .quote")).toHaveText(phrase);
   await expect(page.locator(".reflection-text p").first()).not.toBeEmpty();
   await expect(page.getByRole("button", { name: "Ouvir" })).toBeEnabled();
   await noHorizontalScroll(page);
@@ -148,7 +148,7 @@ test("conta: falha de gravação preserva dados; depois salva; sair", async ({ p
   await page.screenshot({ path: `test-results/screens/${info.project.name}-6-conta.png`, fullPage: true });
 
   await page.getByRole("link", { name: "Hoje" }).click();
-  await expect(page.getByRole("heading", { name: "Olá, Bia." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Olá, Bia!" })).toBeVisible();
   await expect(page.locator(".timeline")).toContainText("12:10");
 
   await page.getByRole("link", { name: "Conta" }).click();

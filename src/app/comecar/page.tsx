@@ -6,6 +6,8 @@ import { MOMENTS } from "@/lib/content";
 import { EXAMPLE_SCHEDULE } from "@/lib/schedule";
 import { timeZoneList } from "@/lib/timezones";
 import { safeNextPath } from "@/lib/validation";
+import { Aury } from "@/components/Aury";
+import { Aura } from "@/components/Decor";
 
 export const metadata: Metadata = { title: "Seus momentos" };
 
@@ -15,11 +17,15 @@ export default async function ComecarPage({ searchParams }: { searchParams: Prom
   const schedule = profile.schedule ?? EXAMPLE_SCHEDULE;
   return (
     <PublicFrame>
+      <div className="hero-stage" style={{ height: 170 }}>
+        <Aura rings={3} start={130} step={36} />
+        <Aury moment="wake" size={120} />
+      </div>
       <span className="eyebrow">Primeiro passo</span>
       <h1>
         Quatro momentos.
         <br />
-        Um ritmo seu.
+        Um ritmo <span className="hl">seu</span>.
       </h1>
       <p className="lead">
         Os horários abaixo são sugestões. Ajuste ao seu dia: são as trocas de frase, não alarmes nem notificações.

@@ -96,10 +96,18 @@ export function ReflectionPlayer({ chunks, ambienceSrc }: { chunks: string[]; am
           Parar
         </button>
       </div>
-      <p className="note player-status" role="status">
+      <p className="note player-status" role="status" style={{ display: "flex", alignItems: "center", gap: 10, margin: 0 }}>
+        {status === "speaking" && (
+          <span className="wave" aria-hidden="true">
+            <span />
+            <span />
+            <span />
+            <span />
+          </span>
+        )}
         {message}
       </p>
-      <label className="note" style={{ display: "flex", gap: 10, alignItems: "center", margin: 0 }}>
+      <label className="toggle note" style={{ margin: 0 }}>
         <input
           type="checkbox"
           checked={music}
@@ -112,7 +120,6 @@ export function ReflectionPlayer({ chunks, ambienceSrc }: { chunks: string[]; am
               fadeTo(AMBIENCE_VOLUME);
             }
           }}
-          style={{ width: 20, height: 20, minHeight: 0, accentColor: "var(--gold)" }}
         />
         Piano suave durante a leitura
       </label>

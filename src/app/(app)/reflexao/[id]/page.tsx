@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { requireReadyProfile } from "@/lib/auth";
 import { findReflection, MOMENT_LABEL, REFLECTION_AMBIENCE_SRC } from "@/lib/content";
 import { ReflectionPlayer } from "./ReflectionPlayer";
+import { Aury } from "@/components/Aury";
 
 export const metadata: Metadata = { title: "Aprofundar" };
 
@@ -19,16 +20,15 @@ export default async function ReflexaoPage({ params }: { params: Promise<{ id: s
       <Link href="/hoje" className="btn btn-quiet" style={{ paddingInline: 0 }}>
         ← Voltar
       </Link>
-      <div>
-        <span className="eyebrow">
+      <header className="reflection-hero">
+        <Aury moment={item.moment} size={96} />
+        <span className="tag">
           {MOMENT_LABEL[item.moment]} · {reflection.principle}
         </span>
         <h1>{reflection.title}</h1>
-        <p className="lead" style={{ fontFamily: "var(--font-display)", fontSize: 22, color: "var(--ink)" }}>
-          {item.text}
-        </p>
+        <p className="quote">{item.text}</p>
         {item.citation && (
-          <p className="small">
+          <p className="small" style={{ color: "inherit", marginTop: 10 }}>
             Citação de {item.citation.author}, traduzida do original.{" "}
             <a href={item.citation.url} target="_blank" rel="noopener noreferrer">
               Fonte
@@ -36,7 +36,7 @@ export default async function ReflexaoPage({ params }: { params: Promise<{ id: s
             . O texto abaixo é comentário editorial AURYA.
           </p>
         )}
-      </div>
+      </header>
 
       <ReflectionPlayer chunks={[item.text, ...reflection.paragraphs]} ambienceSrc={REFLECTION_AMBIENCE_SRC} />
 

@@ -89,7 +89,11 @@ export function AudioPlayer({
 
       <section className="card stack" aria-label="Player">
         <div style={{ textAlign: "center" }}>
-          <div className="orb" data-playing={playing} aria-hidden="true" />
+          <div className="disc-wrap" data-playing={playing} aria-hidden="true">
+            <span className="ripple" />
+            <span className="ripple" />
+            <div className="disc" data-playing={playing} />
+          </div>
           <div className="countdown" aria-hidden="true">
             {mmss(view.remainingMs)}
           </div>

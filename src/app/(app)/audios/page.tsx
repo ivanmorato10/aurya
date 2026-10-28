@@ -10,7 +10,9 @@ export default async function AudiosPage() {
   return (
     <div>
       <span className="eyebrow">Áudios</span>
-      <h1>Ouça no seu ritmo.</h1>
+      <h1>
+        Ouça no seu <span className="hl">ritmo</span>.
+      </h1>
       <p className="lead">
         Músicas instrumentais originais de piano, organizadas pelos temas prosperidade, riqueza e gratidão. Comece com
         volume baixo.

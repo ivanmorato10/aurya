@@ -1,18 +1,18 @@
 import { ImageResponse } from "next/og";
+import { readFile } from "node:fs/promises";
+import path from "node:path";
 
 export const size = { width: 180, height: 180 };
 export const contentType = "image/png";
 
-export default function AppleIcon() {
+// Mesmo desenho do icon.svg, rasterizado para a tela inicial do iPhone (cantos aplicados pelo iOS).
+export default async function AppleIcon() {
+  const svg = await readFile(path.join(process.cwd(), "src/app/icon.svg"), "utf8");
+  const square = svg.replace(/<path d="M32 0C55[^"]*" fill="url\(#g\)"\/>/, '<rect width="64" height="64" fill="url(#g)"/>');
+  const src = `data:image/svg+xml;base64,${Buffer.from(square).toString("base64")}`;
   return new ImageResponse(
     (
-      <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", background: "#0c111b" }}>
-        <svg width="140" height="140" viewBox="0 0 48 48">
-          <circle cx="24" cy="24" r="17" fill="none" stroke="#e8c48e" strokeOpacity=".6" />
-          <path d="M14 29a10 10 0 0 1 20 0Z" fill="#eebb8e" />
-          <path d="M10 29h28" stroke="#f4efe6" strokeWidth="1.6" strokeLinecap="round" />
-        </svg>
-      </div>
+      <img src={src} width={180} height={180} alt="" />
     ),
     size,
   );
