@@ -32,6 +32,7 @@ export function AudioPlayer({
   const options = themeTracks.filter((t) => t.frequencyHz === frequency);
   const [trackId, setTrackId] = useState<string | undefined>(options[0]?.id);
   const [minutes, setMinutes] = useState(defaultTimerMinutes);
+  const [settingsOpen, setSettingsOpen] = useState(false);
   const [view, setView] = useState<View>({
     status: "idle",
     message: "Escolha uma faixa e toque em Reproduzir.",
@@ -80,9 +81,9 @@ export function AudioPlayer({
 
   return (
     <div className="aurya-audio-experience">
-      <p className="aurya-audio-eyebrow">UM MOMENTO PARA VOCÊ</p>
-      <h2 className="aurya-audio-heading">Encontre sua frequência.</h2>
-      <p className="aurya-audio-intro">Deixe o mundo desacelerar. Escolha sua paisagem sonora.</p>
+      <p className="aurya-audio-eyebrow">A U R Y A</p>
+      <h2 className="aurya-audio-heading">Áudios</h2>
+      <p className="aurya-audio-intro">Sons para uma mente mais presente.</p>
       <div className="segmented" role="group" aria-label="Tema">
         {themes.map((t) => (
           <button key={t.id} aria-pressed={theme === t.id} onClick={() => chooseTheme(t.id)}>
@@ -127,7 +128,8 @@ export function AudioPlayer({
         </p>
       </details>
 
-      <h2 className="section-title">Personalize sua sessão</h2>
+      <button type="button" className="aurya-settings-toggle" aria-expanded={settingsOpen} onClick={() => setSettingsOpen(!settingsOpen)}>Configurações de áudio <span aria-hidden="true">{settingsOpen ? "⌄" : "⌃"}</span></button>
+      {settingsOpen && <div className="aurya-settings-panel"><h2 className="section-title">Personalize sua sessão</h2>
       <ul className="list aurya-audio-settings">
         <li>
           <label className="row" htmlFor="frequency">
@@ -182,7 +184,7 @@ export function AudioPlayer({
             <input id="volume" type="range" min={0} max={100} step={1} value={Math.round(view.volume * 100)} onChange={(e) => session.current?.setVolume(Number(e.target.value) / 100)} />
           </div>
         </li>
-      </ul>
+      </ul></div>
     </div>
   );
 }
