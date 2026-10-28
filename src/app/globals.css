@@ -389,3 +389,20 @@ input[type="range"] { width: 100%; accent-color: var(--aurya-champagne); height:
 .aurya-v2-disclosure{font-size:12px;color:var(--aurya-ivory-64);margin:6px 0 20px}
 .aurya-v2-done{width:100%;border:0;border-radius:99px;min-height:52px;background:var(--aurya-champagne);color:var(--aurya-midnight-deep);font-size:15px;cursor:pointer}
 @media(min-width:600px){.aurya-v2{margin:0}.aurya-v2-cover{border-radius:0}.aurya-v2-player-image{object-position:center}}
+
+/* Shared AURYA V2 styling across daily ritual, onboarding, account and reflections */
+.app--tabs .app-header,.app--tabs .navbar{height:64px}
+.app--tabs .navbar-title{font-size:14px;letter-spacing:.03em;font-weight:500}
+.app--tabs .large-title{font:400 35px/1.15 var(--font-editorial);letter-spacing:-.015em}
+.app--tabs .section-title{font-size:11px;letter-spacing:.18em;margin-top:32px}
+.app--tabs .list{border-top:1px solid var(--aurya-ivory-12);border-bottom:1px solid var(--aurya-ivory-12)}
+.app--tabs .list .row{min-height:70px;background:transparent;border-bottom:1px solid var(--aurya-ivory-08)}
+.app--tabs .list li:last-child .row{border-bottom:0}
+.app--tabs .row-icon{color:var(--aurya-champagne)}
+.app--tabs .row-title{font-size:14px;font-weight:500}
+.app--tabs .row-sub{font-size:12px;color:var(--aurya-ivory-64)}
+.app--tabs .card{background:var(--aurya-ivory-05);border:1px solid var(--aurya-ivory-12);border-radius:20px;box-shadow:none}
+.app--tabs .btn-primary,.footer-cta .btn-primary{background:var(--aurya-champagne);color:var(--aurya-midnight-deep);border-color:var(--aurya-champagne);border-radius:99px;min-height:52px}
+.app--tabs .tabbar{backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+.app--tabs .field input,.app--tabs .field select{border-radius:14px}
+@media (prefers-reduced-motion:reduce){.screen{animation:none}.aurya-v2 *{scroll-behavior:auto}}
