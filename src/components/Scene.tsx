@@ -7,38 +7,39 @@ import type { MomentId } from "@/lib/schedule";
  */
 type Palette = { sky: [string, string, string, string]; glow: string; body: string; mountains: [string, string, string]; lake: [string, string]; trees: string };
 
+// Provisório até as fotografias aprovadas chegarem (docs/IMAGENS.md). Tons derivados da paleta do Brand Kit.
 const PALETTES: Record<MomentId, Palette> = {
   wake: {
-    sky: ["#1f2a5c", "#5d5aa6", "#ef9a92", "#ffd6a6"],
-    glow: "#ffd9b0",
-    body: "#fff3dc",
-    mountains: ["#8a7cc0", "#54528f", "#2b2c5e"],
-    lake: ["#3b3f80", "#161a3e"],
-    trees: "#1c1d44",
+    sky: ["#0d1826", "#1e3a5f", "#7d6f5c", "#d8c6a2"],
+    glow: "#e9dcc0",
+    body: "#f4f0e8",
+    mountains: ["#2b4565", "#1a2c44", "#0f1a29"],
+    lake: ["#22374f", "#0b1420"],
+    trees: "#0b1420",
   },
   commute: {
-    sky: ["#1d4cb3", "#4b84e6", "#9fc6f6", "#e3f0ff"],
-    glow: "#ffffff",
-    body: "#fffbea",
-    mountains: ["#86a8dc", "#4d72b8", "#1f3b7a"],
-    lake: ["#2c58aa", "#0e2457"],
-    trees: "#132a5c",
+    sky: ["#101c2c", "#1e3a5f", "#4f6b88", "#b9bcb4"],
+    glow: "#f4f0e8",
+    body: "#f4f0e8",
+    mountains: ["#3a5677", "#22395a", "#122236"],
+    lake: ["#1e3a5f", "#0b1420"],
+    trees: "#0e1a2a",
   },
   midday: {
-    sky: ["#1655c9", "#3a83f0", "#8dc0ff", "#d8ecff"],
-    glow: "#fff7d6",
-    body: "#fffdf2",
-    mountains: ["#94b6e8", "#5b86cf", "#2a4f98"],
-    lake: ["#2f62b8", "#10295e"],
-    trees: "#183a78",
+    sky: ["#14253b", "#2a4d78", "#6e8aa8", "#d4cdbd"],
+    glow: "#f4f0e8",
+    body: "#f4f0e8",
+    mountains: ["#45658a", "#28466b", "#15263c"],
+    lake: ["#24446b", "#0d1828"],
+    trees: "#101d2e",
   },
   sleep: {
-    sky: ["#050817", "#0d1640", "#1f2f74", "#3a4e9c"],
-    glow: "#9fb4ff",
-    body: "#f3f1e6",
-    mountains: ["#2b3b7c", "#1a2658", "#0c1434"],
-    lake: ["#141f4c", "#060a1d"],
-    trees: "#070c24",
+    sky: ["#070d17", "#0b1420", "#101c2c", "#1e3a5f"],
+    glow: "#c5b69a",
+    body: "#f4f0e8",
+    mountains: ["#1a2c44", "#121f31", "#0a111c"],
+    lake: ["#101c2c", "#060b13"],
+    trees: "#060b13",
   },
 };
 

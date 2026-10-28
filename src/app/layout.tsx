@@ -1,10 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Instrument_Serif, Plus_Jakarta_Sans } from "next/font/google";
+import { Cormorant_Garamond, Inter } from "next/font/google";
 import { AccountProvider } from "@/components/AccountProvider";
 import "./globals.css";
 
-const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-jakarta", display: "swap" });
-const instrument = Instrument_Serif({ subsets: ["latin"], weight: "400", variable: "--font-instrument", display: "swap" });
+// Fontes do Brand Kit (licença OFL), servidas pelo próprio app via next/font.
+const cormorant = Cormorant_Garamond({ subsets: ["latin"], weight: ["300", "400", "500"], style: ["normal", "italic"], variable: "--font-cormorant", display: "swap" });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 
 export const metadata: Metadata = {
   title: { default: "AURYA · um instante de presença", template: "%s · AURYA" },
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#08080f",
+  themeColor: "#101C2C",
   colorScheme: "dark",
   width: "device-width",
   initialScale: 1,
@@ -24,7 +25,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR" className={`${jakarta.variable} ${instrument.variable}`}>
+    <html lang="pt-BR" className={`${cormorant.variable} ${inter.variable}`}>
       <body>
         <a className="skip-link" href="#conteudo">
           Pular para o conteúdo

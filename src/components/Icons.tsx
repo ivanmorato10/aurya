@@ -1,7 +1,7 @@
 // Ícones de linha, traço 2px, 24×24.
 type P = { className?: string };
 const S = ({ children, className }: P & { children: React.ReactNode }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
     {children}
   </svg>
 );
@@ -38,11 +38,19 @@ export const IconStop = (p: P) => (
 );
 
 import type { MomentId } from "@/lib/schedule";
+// Ícones dos momentos, no traço fino da referência aprovada.
+export const IconDawn = (p: P) => <S {...p}><path d="M5.5 17.5a6.5 6.5 0 0 1 13 0" /><path d="M2.5 17.5h5M16.5 17.5h5M12 6.5v2.5M6.3 9.3l1.6 1.6M17.7 9.3l-1.6 1.6M3.6 13.4l2 .6M20.4 13.4l-2 .6" /><path d="M8 20.5h8" /></S>;
+export const IconMorning = (p: P) => <S {...p}><circle cx="12" cy="12" r="3.6" /><path d="M12 4.5v2M12 17.5v2M4.5 12h2M17.5 12h2M6.7 6.7l1.4 1.4M15.9 15.9l1.4 1.4M6.7 17.3l1.4-1.4M15.9 8.1l1.4-1.4" /></S>;
+export const IconNoon = (p: P) => <S {...p}><circle cx="12" cy="12" r="4.4" /><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1" /></S>;
+export const IconNight = (p: P) => <S {...p}><path d="M19.5 14.6A8 8 0 1 1 9.4 4.5a6.4 6.4 0 0 0 10.1 10.1z" /></S>;
+export const IconHome = (p: P) => <S {...p}><path d="M4 10.5 12 4l8 6.5V20h-5.5v-5.5h-5V20H4z" /></S>;
+export const IconProfile = (p: P) => <S {...p}><circle cx="12" cy="12" r="9.25" /><circle cx="12" cy="10" r="3.2" /><path d="M6.2 18.4a6.8 6.8 0 0 1 11.6 0" /></S>;
+
 export function MomentIcon({ moment, className }: { moment: MomentId; className?: string }) {
-  if (moment === "wake") return <IconSunrise className={className} />;
-  if (moment === "commute") return <IconBolt className={className} />;
-  if (moment === "midday") return <IconSun className={className} />;
-  return <IconMoon className={className} />;
+  if (moment === "wake") return <IconDawn className={className} />;
+  if (moment === "commute") return <IconMorning className={className} />;
+  if (moment === "midday") return <IconNoon className={className} />;
+  return <IconNight className={className} />;
 }
 
 export function CategoryIcon({ id, className }: { id: string; className?: string }) {

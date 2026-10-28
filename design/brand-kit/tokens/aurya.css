@@ -1,0 +1,9 @@
+:root {
+  --aurya-midnight-navy: #101C2C;
+  --aurya-ocean-blue: #1E3A5F;
+  --aurya-champagne: #C5B69A;
+  --aurya-ivory: #F4F0E8;
+  --aurya-font-editorial: "Cormorant Garamond", Georgia, serif;
+  --aurya-font-ui: Inter, system-ui, sans-serif;
+  --aurya-radius-pill: 999px;
+}

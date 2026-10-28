@@ -111,7 +111,7 @@ test("visitante: boas-vindas, como funciona, configurar sem conta e ler", async 
 test("visitante: ajustes salvam no aparelho", async ({ page }, info) => {
   await page.goto("/comecar");
   await onboard(page);
-  await page.getByRole("link", { name: "Ajustes" }).click();
+  await page.getByRole("link", { name: "Perfil" }).click();
   await expect(page.getByText("Você está usando sem cadastro")).toBeVisible();
   await noHorizontalScroll(page);
   await shot(page, "7-ajustes-visitante", info.project.name);
@@ -136,7 +136,7 @@ test("visitante: ajustes salvam no aparelho", async ({ page }, info) => {
 test("criar conta leva as preferências do aparelho; falha ao salvar preserva; sair mantém o app", async ({ page }) => {
   await page.goto("/comecar");
   await onboard(page, { name: "Bia" });
-  await page.getByRole("link", { name: "Ajustes" }).click();
+  await page.getByRole("link", { name: "Perfil" }).click();
   await page.getByRole("link", { name: "Entrar ou criar conta" }).click();
   const address = email("conta");
   await login(page, address);
