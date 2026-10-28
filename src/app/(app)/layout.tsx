@@ -1,3 +1,5 @@
+import { AFFIRMATIONS } from "@/lib/content";
+import { MomentNotifications } from "@/components/MomentNotifications";
 import { TabBar } from "@/components/TabBar";
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
@@ -8,6 +10,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           {children}
         </main>
       </div>
+      <MomentNotifications affirmations={AFFIRMATIONS} />
       <TabBar />
     </>
   );
