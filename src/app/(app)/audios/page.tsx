@@ -8,7 +8,7 @@ export const metadata: Metadata = { title: "Áudios" };
 export default function AudiosPage() {
   return (
     <>
-      <AppHeader center={<h1 className="navbar-title" style={{ margin: 0 }}>Experiência sonora</h1>} />
+      
       <AudioPlayer
         themes={AUDIO.themes}
         tracks={AUDIO.tracks}
