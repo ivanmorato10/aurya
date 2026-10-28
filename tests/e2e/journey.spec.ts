@@ -4,7 +4,11 @@ const MOCK = "http://127.0.0.1:54399";
 const control = (page: Page, body: object) => page.request.post(`${MOCK}/__control`, { data: body });
 const email = (tag: string) => `${tag}-${Date.now()}-${Math.floor(Math.random() * 1e6)}@example.com`;
 const alertBox = (page: Page) => page.locator("p[role=alert]");
-const shot = (page: Page, name: string, project: string) => page.screenshot({ path: `test-results/screens/${project}-${name}.png` });
+// Aguarda as animações de entrada antes da captura.
+const shot = async (page: Page, name: string, project: string) => {
+  await page.waitForTimeout(1200);
+  await page.screenshot({ path: `test-results/screens/${project}-${name}.png` });
+};
 
 async function noHorizontalScroll(page: Page) {
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
@@ -81,27 +85,26 @@ test("visitante: boas-vindas, como funciona, configurar sem conta e ler", async 
 
   // Hoje
   await expect(page).toHaveURL(/\/hoje/);
-  await expect(page.getByText(/, Ana$/)).toBeVisible();
-  await expect(page.locator(".affirmation-text")).not.toBeEmpty();
-  await expect(page.getByText(/Próxima troca/)).toBeVisible();
+  await expect(page.locator(".home-affirmation")).not.toBeEmpty();
+  await expect(page.getByText("Momento atual")).toBeVisible();
+  await expect(page.locator(".moment-btn")).toHaveCount(4);
   await noHorizontalScroll(page);
   await shot(page, "5-hoje", info.project.name);
-  for (const btn of await page.locator(".timeline button").all()) {
+  for (const btn of await page.locator(".moment-btn").all()) {
     await btn.click();
-    await expect(page.getByText("Ver fonte")).toHaveCount(0);
+    await expect(page.locator(".home-source")).toHaveCount(0);
   }
 
   // Preferências sobrevivem ao recarregar; "/" leva direto para Hoje
   await page.reload();
-  await expect(page.getByText(/, Ana$/)).toBeVisible();
+  await expect(page.locator(".moment-btn").filter({ hasText: "23:00" })).toBeVisible();
   await page.goto("/");
   await expect(page).toHaveURL(/\/hoje/);
 
   // Aprofundar sem conta
-  const back = page.getByRole("button", { name: "← Voltar ao momento atual" });
-  if (await back.isVisible()) await back.click();
-  const phrase = await page.locator(".affirmation-text").innerText();
-  await page.getByRole("link", { name: "Aprofundar" }).click();
+  await page.locator(".moment-btn.is-now").click();
+  const phrase = await page.locator(".home-affirmation").innerText();
+  await page.getByRole("link", { name: "Aprofundar", exact: true }).click();
   await expect(page.locator(".reflection-art .quote")).toHaveText(phrase);
   await expect(page.getByRole("button", { name: "Ouvir" })).toBeEnabled();
   await noHorizontalScroll(page);
@@ -111,7 +114,7 @@ test("visitante: boas-vindas, como funciona, configurar sem conta e ler", async 
 test("visitante: ajustes salvam no aparelho", async ({ page }, info) => {
   await page.goto("/comecar");
   await onboard(page);
-  await page.getByRole("link", { name: "Perfil" }).click();
+  await page.getByRole("navigation", { name: "Navegação principal" }).getByRole("link", { name: "Perfil" }).click();
   await expect(page.getByText("Você está usando sem cadastro")).toBeVisible();
   await noHorizontalScroll(page);
   await shot(page, "7-ajustes-visitante", info.project.name);
@@ -130,13 +133,13 @@ test("visitante: ajustes salvam no aparelho", async ({ page }, info) => {
   await expect(page.getByRole("checkbox", { name: /Confiança e ação/ })).not.toBeChecked();
 
   await page.goto("/hoje");
-  await expect(page.locator(".timeline")).toContainText("12:10");
+  await expect(page.locator(".moments")).toContainText("12:10");
 });
 
 test("criar conta leva as preferências do aparelho; falha ao salvar preserva; sair mantém o app", async ({ page }) => {
   await page.goto("/comecar");
   await onboard(page, { name: "Bia" });
-  await page.getByRole("link", { name: "Perfil" }).click();
+  await page.getByRole("navigation", { name: "Navegação principal" }).getByRole("link", { name: "Perfil" }).click();
   await page.getByRole("link", { name: "Entrar ou criar conta" }).click();
   const address = email("conta");
   await login(page, address);
@@ -144,8 +147,8 @@ test("criar conta leva as preferências do aparelho; falha ao salvar preserva; s
   await expect(page.getByText(address)).toBeVisible();
 
   // Migração: a conta nova recebeu as preferências do aparelho
-  await page.goto("/hoje");
-  await expect(page.getByText(/, Bia$/)).toBeVisible();
+  await page.goto("/conta");
+  await expect(page.getByText("Bia")).toBeVisible();
 
   // Com conta: falha de gravação preserva o formulário; depois salva
   await page.goto("/conta/horarios");
@@ -163,7 +166,7 @@ test("criar conta leva as preferências do aparelho; falha ao salvar preserva; s
   await page.getByRole("button", { name: "Sair" }).click();
   await expect(page.getByText("Você está usando sem cadastro")).toBeVisible();
   await page.goto("/hoje");
-  await expect(page.locator(".timeline")).toContainText("12:20");
+  await expect(page.locator(".moments")).toContainText("12:20");
 });
 
 test("excluir conta exige confirmação e apaga conta e aparelho", async ({ page }) => {
@@ -235,4 +238,19 @@ test("login: e-mail inválido, código errado, limite e sem rede", async ({ page
   await page.getByRole("button", { name: "Receber código" }).click();
   await expect(alertBox(page)).toContainText(/conexão|Não foi possível/);
   await context.setOffline(false);
+});
+
+test("início: tocar na afirmação abre o aprofundamento; play usa a voz do aparelho", async ({ page }, info) => {
+  await page.goto("/comecar");
+  await onboard(page);
+  await expect(page.getByRole("button", { name: "Ouvir a afirmação" })).toBeEnabled();
+  await noHorizontalScroll(page);
+  await shot(page, "11-inicio", info.project.name);
+  // Sem voz no navegador de teste: o app informa, sem fingir reprodução
+  await page.getByRole("button", { name: "Ouvir a afirmação" }).click();
+  await expect(page.locator(".play-status")).not.toBeEmpty();
+  const phrase = await page.locator(".home-affirmation").innerText();
+  await page.locator(".home-affirmation-link").click();
+  await expect(page).toHaveURL(/\/reflexao\//);
+  await expect(page.locator(".reflection-art .quote")).toHaveText(phrase);
 });

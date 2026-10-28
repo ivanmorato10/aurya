@@ -60,7 +60,7 @@ const MOUNTAINS = [
   "M0 196 L0 184 L70 160 L130 188 L196 166 L262 190 L330 168 L400 186 L400 196 Z",
 ];
 
-export function Scene({ moment = "wake", className, label }: { moment?: MomentId; className?: string; label?: string }) {
+export function Scene({ moment = "wake", className, label, align = "center" }: { moment?: MomentId; className?: string; label?: string; align?: "center" | "bottom" }) {
   const id = useId().replace(/:/g, "");
   const p = PALETTES[moment];
   const sun = SUN[moment];
@@ -68,7 +68,7 @@ export function Scene({ moment = "wake", className, label }: { moment?: MomentId
     <svg
       className={`scene scene--${moment}${className ? ` ${className}` : ""}`}
       viewBox="0 0 400 300"
-      preserveAspectRatio="xMidYMid slice"
+      preserveAspectRatio={align === "bottom" ? "xMidYMax slice" : "xMidYMid slice"}
       role={label ? "img" : undefined}
       aria-label={label}
       aria-hidden={label ? undefined : true}

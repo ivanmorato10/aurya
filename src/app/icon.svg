@@ -1,9 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <!-- Ícone AURYA: símbolo solar corrigido (design/brand-kit/logos/sun-symbol-corrigido.svg) sobre Midnight Navy -->
   <defs>
-    <linearGradient id="s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1f2a5c"/><stop offset=".7" stop-color="#5d5aa6"/><stop offset="1" stop-color="#ef9a92"/></linearGradient>
+    <linearGradient id="g" gradientUnits="userSpaceOnUse" x1="230" y1="300" x2="790" y2="600"><stop offset="0" stop-color="#DCCFB3"/><stop offset=".55" stop-color="#C5B69A"/><stop offset="1" stop-color="#A9966F"/></linearGradient>
+    <radialGradient id="bg" cx=".5" cy=".58" r=".8"><stop offset="0" stop-color="#1E3A5F"/><stop offset="1" stop-color="#101C2C"/></radialGradient>
   </defs>
-  <path id="bg" d="M32 0C55 0 64 9 64 32S55 64 32 64 0 55 0 32 9 0 32 0Z" fill="url(#s)"/>
-  <path d="M18 44a14 14 0 0 1 28 0" fill="#ffe2b8"/>
-  <path d="M10 44.5h44" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
-  <path d="M20 51h24M26 56h12" stroke="#fff" stroke-opacity=".45" stroke-width="1.8" stroke-linecap="round"/>
+  <path id="bg-shape" d="M512 0C880 0 1024 144 1024 512S880 1024 512 1024 0 880 0 512 144 0 512 0Z" fill="url(#bg)"/>
+  <g fill="none" stroke="url(#g)" stroke-linecap="round">
+    <path d="M402 560A110 110 0 0 1 622 560" stroke-width="15"/>
+    <path d="M427 560A85 85 0 0 1 597 560" stroke-width="6"/>
+    <path d="M212 560H374M650 560H812" stroke-width="8"/>
+    <line x1="378.0" y1="511.2" x2="318.3" y2="489.5" stroke-width="7.8"/><line x1="390.6" y1="485.1" x2="371.1" y2="473.1" stroke-width="6"/><line x1="408.3" y1="462.1" x2="354.1" y2="411.0" stroke-width="7.8"/><line x1="430.2" y1="443.2" x2="410.7" y2="415.3" stroke-width="6"/><line x1="455.5" y1="429.1" x2="421.6" y2="350.5" stroke-width="7.8"/><line x1="483.2" y1="420.3" x2="474.0" y2="376.2" stroke-width="6"/><line x1="512.0" y1="417.4" x2="512.0" y2="320.8" stroke-width="7.8"/><line x1="540.8" y1="420.3" x2="550.0" y2="376.2" stroke-width="6"/><line x1="568.5" y1="429.1" x2="602.4" y2="350.5" stroke-width="7.8"/><line x1="593.8" y1="443.2" x2="613.3" y2="415.3" stroke-width="6"/><line x1="615.7" y1="462.1" x2="669.9" y2="411.0" stroke-width="7.8"/><line x1="633.4" y1="485.1" x2="652.9" y2="473.1" stroke-width="6"/><line x1="646.0" y1="511.2" x2="705.7" y2="489.5" stroke-width="7.8"/>
+  </g>
 </svg>

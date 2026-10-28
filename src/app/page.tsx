@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { AppFrame } from "@/components/Screen";
-import { Wordmark } from "@/components/Logo";
+import { Logo } from "@/components/Logo";
 import { Scene } from "@/components/Scene";
 import { WelcomeGate } from "./WelcomeGate";
 
@@ -22,9 +22,8 @@ export default async function Welcome({ searchParams }: { searchParams: Promise<
         )}
         <div className="welcome-brand">
           <h1 style={{ margin: 0 }}>
-            <Wordmark size={64} />
+            <Logo />
           </h1>
-          <p>Afirmações diárias</p>
         </div>
         <div className="welcome-copy">
           <p className="display">Quatro pausas para um dia mais próspero.</p>

@@ -9,8 +9,8 @@ import { Scene } from "../Scene";
  */
 export function Atmosphere({ image, fallback }: { image: ImageSlot; fallback: MomentId }) {
   return (
-    <div className="atmosphere" aria-hidden="true">
-      {image.src ? <Image src={image.src} alt="" fill priority sizes="100vw" style={{ objectFit: "cover" }} /> : <Scene moment={fallback} />}
+    <div className={`atmosphere atmosphere--${fallback}`} aria-hidden="true">
+      {image.src ? <Image src={image.src} alt="" fill priority sizes="100vw" style={{ objectFit: "cover" }} /> : <Scene moment={fallback} align="bottom" />}
     </div>
   );
 }

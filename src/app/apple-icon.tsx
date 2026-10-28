@@ -8,7 +8,7 @@ export const contentType = "image/png";
 // Mesmo desenho do icon.svg, rasterizado para a tela inicial do iPhone (cantos aplicados pelo iOS).
 export default async function AppleIcon() {
   const svg = await readFile(path.join(process.cwd(), "src/app/icon.svg"), "utf8");
-  const square = svg.replace(/<path id="bg"[^>]*\/>/, '<rect width="64" height="64" fill="url(#s)"/>');
+  const square = svg.replace(/<path id="bg-shape"[^>]*\/>/, '<rect width="1024" height="1024" fill="url(#bg)"/>');
   const src = `data:image/svg+xml;base64,${Buffer.from(square).toString("base64")}`;
   return new ImageResponse(
     (

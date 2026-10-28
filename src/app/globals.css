@@ -164,7 +164,12 @@ a.row:hover, button.row:hover { background: var(--aurya-ivory-05); }
 @keyframes twinkle { 50% { opacity: .3; } }
 @keyframes shimmer-line { 50% { opacity: .15; } }
 .atmosphere { position: fixed; inset: 0; z-index: -1; background: var(--aurya-midnight-deep); }
-.atmosphere > .scene, .atmosphere > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.atmosphere > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+/* Ilustração provisória: céu contínuo em cima (espaço negativo para a afirmação) e paisagem embaixo. */
+.atmosphere > .scene { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 62%; -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 35%); mask-image: linear-gradient(180deg, transparent 0%, #000 35%); }
+.atmosphere--wake { background: linear-gradient(180deg, var(--aurya-midnight-deep) 0%, var(--aurya-midnight) 45%, var(--aurya-ocean) 100%); }
+.atmosphere--commute, .atmosphere--midday { background: linear-gradient(180deg, var(--aurya-midnight) 0%, var(--aurya-ocean) 100%); }
+.atmosphere--sleep { background: linear-gradient(180deg, var(--aurya-midnight-deep) 0%, var(--aurya-midnight) 100%); }
 .atmosphere::after { content: ""; position: absolute; inset: 0; background: var(--aurya-scrim); }
 
 /* ---------- Início (Home) ---------- */
@@ -269,3 +274,5 @@ input[type="range"] { width: 100%; accent-color: var(--aurya-champagne); height:
 .ds-swatch p { text-align: center; margin: var(--space-2) 0 0; }
 .ds-type p { margin: 0; }
 .ds-icon { width: 30px; height: 30px; }
+.home-affirmation-link { color: inherit; text-decoration: none; display: block; border-radius: 12px; }
+.home-affirmation-link:hover .home-affirmation { color: var(--aurya-ivory-hover); }

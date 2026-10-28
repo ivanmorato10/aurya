@@ -48,7 +48,7 @@
   --font-editorial: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
   --font-ui: var(--font-inter), Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
 
-  --type-display: 400 40px/1.12 var(--font-editorial);      /* afirmação protagonista */
+  --type-display: 500 40px/1.12 var(--font-editorial);      /* afirmação protagonista */
   --type-headline: 400 32px/1.15 var(--font-editorial);     /* títulos de tela editoriais */
   --type-title: 500 22px/1.25 var(--font-editorial);
   --type-body: 400 16px/1.6 var(--font-ui);
