@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PublicFrame } from "@/components/PublicFrame";
+import { AppFrame, NavBar } from "@/components/Screen";
 
 export const metadata: Metadata = { title: "Privacidade" };
 
@@ -9,15 +9,15 @@ export default function PrivacidadePage() {
   const controller = process.env.NEXT_PUBLIC_PRIVACY_CONTROLLER;
   const contact = process.env.NEXT_PUBLIC_PRIVACY_CONTACT;
   return (
-    <PublicFrame>
-      <span className="eyebrow">Privacidade</span>
-      <h1>Seus dados no AURYA.</h1>
-      <div className="stack note" style={{ fontSize: 16 }}>
+    <AppFrame>
+      <NavBar back="/" title="Privacidade" />
+      <h1 className="large-title">Seus dados no AURYA</h1>
+      <div className="legal">
         <h2>O que guardamos</h2>
         <ul>
           <li>Seu e-mail, para enviar o código de acesso e identificar a conta.</li>
           <li>Nome opcional, se você informar.</li>
-          <li>Os quatro horários e o fuso horário, para escolher a frase de cada momento.</li>
+          <li>Os quatro horários, o fuso horário e os tipos de mensagem escolhidos, para selecionar a frase de cada momento.</li>
         </ul>
         <p>
           Não pedimos senha, localização, microfone ou contatos. Não usamos anúncios nem ferramentas de rastreamento.
@@ -32,7 +32,7 @@ export default function PrivacidadePage() {
 
         <h2>Seus controles</h2>
         <p>
-          Em Conta, você altera seus horários e nome a qualquer momento. O botão “Excluir minha conta” apaga
+          Em Ajustes, você altera horários, tipos de mensagem e nome a qualquer momento. O botão “Excluir minha conta” apaga
           imediatamente a conta, o e-mail e as preferências do banco de dados.
         </p>
 
@@ -43,6 +43,6 @@ export default function PrivacidadePage() {
             : "Os dados do responsável pelo tratamento e o canal de contato serão publicados aqui antes do lançamento público."}
         </p>
       </div>
-    </PublicFrame>
+    </AppFrame>
   );
 }

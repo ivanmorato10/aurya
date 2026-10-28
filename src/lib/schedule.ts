@@ -114,3 +114,23 @@ export function pickDaily<T extends { moment: string }>(items: T[], moment: Mome
   const n = dayNumber(day);
   return pool[((n % pool.length) + pool.length) % pool.length];
 }
+
+export type MessagePrefs = { types: readonly string[]; includeQuotes: boolean };
+
+/**
+ * Frase do dia respeitando os tipos escolhidos. Se um momento não tiver frase
+ * dos tipos escolhidos, usa as demais frases do mesmo momento (nunca fica vazio).
+ */
+export function pickForPrefs<T extends { moment: string; category: string; citation: unknown }>(
+  items: T[],
+  moment: MomentId,
+  day: LocalDay,
+  prefs: MessagePrefs,
+): T {
+  const ofMoment = items.filter((i) => i.moment === moment);
+  const allowedQuote = (i: T) => prefs.includeQuotes || !i.citation;
+  const preferred = ofMoment.filter((i) => prefs.types.includes(i.category) && allowedQuote(i));
+  if (preferred.length) return pickDaily(preferred, moment, day);
+  const noQuotes = ofMoment.filter(allowedQuote);
+  return pickDaily(noQuotes.length ? noQuotes : ofMoment, moment, day);
+}

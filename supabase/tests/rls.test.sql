@@ -134,4 +134,25 @@ do $$ begin
   assert exists (select 1 from public.profiles where id = '11111111-1111-1111-1111-111111111111'), 'perfil de A deve permanecer';
 end $$;
 
+-- 11. Tipos de mensagem: padrão com todos; A altera os próprios; valores inválidos ou vazios são recusados
+select pg_temp.as_user('11111111-1111-1111-1111-111111111111');
+do $$ begin
+  assert (select cardinality(message_types) from public.profiles) = 4, 'padrão deveria ter os quatro tipos';
+  assert (select include_quotes from public.profiles), 'citações ligadas por padrão';
+end $$;
+update public.profiles set message_types = array['gratidao'], include_quotes = false where id = '11111111-1111-1111-1111-111111111111';
+do $$ begin
+  begin
+    update public.profiles set message_types = array[]::text[] where id = '11111111-1111-1111-1111-111111111111';
+    raise exception 'deveria recusar lista vazia';
+  exception when check_violation then null;
+  end;
+  begin
+    update public.profiles set message_types = array['loteria'] where id = '11111111-1111-1111-1111-111111111111';
+    raise exception 'deveria recusar tipo desconhecido';
+  exception when check_violation then null;
+  end;
+end $$;
+reset role;
+
 select 'rls: todos os testes passaram' as resultado;

@@ -2,10 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 import { NarrationSession, type NarrationStatus } from "@/lib/narration";
+import { IconPause, IconPlay, IconStop } from "@/components/Icons";
 
 const AMBIENCE_VOLUME = 0.16;
 
-export function ReflectionPlayer({ chunks, ambienceSrc }: { chunks: string[]; ambienceSrc: string }) {
+export function ReflectionPlayer({ title, chunks, ambienceSrc }: { title: string; chunks: string[]; ambienceSrc: string }) {
   const session = useRef<NarrationSession | null>(null);
   const ambience = useRef<HTMLAudioElement | null>(null);
   const fade = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -82,47 +83,59 @@ export function ReflectionPlayer({ chunks, ambienceSrc }: { chunks: string[]; am
   const busy = status === "preparing";
   const active = status === "speaking" || status === "paused" || status === "preparing";
 
+  const toggleMusic = (on: boolean) => {
+    setMusic(on);
+    if (!on) fadeTo(0, true);
+    else if (status === "speaking") {
+      ambience.current ??= Object.assign(new Audio(ambienceSrc), { loop: true, volume: 0 });
+      ambience.current.play().catch(() => undefined);
+      fadeTo(AMBIENCE_VOLUME);
+    }
+  };
+
   return (
-    <section className="player stack" aria-label="Ouvir a reflexão">
-      <div className="btn-row">
-        <button className="btn btn-primary" onClick={listen} disabled={busy || status === "speaking"}>
-          {busy ? <span className="spinner" aria-hidden="true" /> : null}
-          {status === "paused" ? "Continuar" : busy ? "Preparando…" : "Ouvir"}
-        </button>
-        <button className="btn" onClick={() => session.current?.pause()} disabled={status !== "speaking"}>
-          Pausar
-        </button>
-        <button className="btn" onClick={() => session.current?.stop()} disabled={!active}>
-          Parar
-        </button>
-      </div>
-      <p className="note player-status" role="status" style={{ display: "flex", alignItems: "center", gap: 10, margin: 0 }}>
-        {status === "speaking" && (
-          <span className="wave" aria-hidden="true">
-            <span />
-            <span />
-            <span />
-            <span />
-          </span>
-        )}
-        {message}
-      </p>
-      <label className="toggle note" style={{ margin: 0 }}>
-        <input
-          type="checkbox"
-          checked={music}
-          onChange={(e) => {
-            setMusic(e.target.checked);
-            if (!e.target.checked) fadeTo(0, true);
-            else if (status === "speaking") {
-              ambience.current ??= Object.assign(new Audio(ambienceSrc), { loop: true, volume: 0 });
-              ambience.current.play().catch(() => undefined);
-              fadeTo(AMBIENCE_VOLUME);
-            }
-          }}
-        />
-        Piano suave durante a leitura
+    <>
+      <label className="inline-toggle" htmlFor="music">
+        <span>
+          <span style={{ display: "block" }}>Piano durante a leitura</span>
+          <span className="caption">Música instrumental suave ao fundo.</span>
+        </span>
+        <span className="switch">
+          <input id="music" type="checkbox" role="switch" checked={music} onChange={(e) => toggleMusic(e.target.checked)} />
+          <span />
+        </span>
       </label>
-    </section>
+      <section className="player-bar" aria-label="Ouvir a reflexão">
+        <div className="player-info">
+          <p className="row-title" style={{ margin: 0 }}>
+            {title}
+          </p>
+          <p className="player-status" role="status">
+            {status === "speaking" && (
+              <span className="wave" aria-hidden="true">
+                <span />
+                <span />
+                <span />
+              </span>
+            )}
+            {message}
+          </p>
+        </div>
+        {active && (
+          <button className="round round--ghost" onClick={() => session.current?.stop()} aria-label="Parar">
+            <IconStop />
+          </button>
+        )}
+        {status === "speaking" ? (
+          <button className="round" onClick={() => session.current?.pause()} aria-label="Pausar">
+            <IconPause />
+          </button>
+        ) : (
+          <button className="round" onClick={listen} disabled={busy} aria-label={status === "paused" ? "Continuar" : "Ouvir"}>
+            {busy ? <span className="spinner" aria-hidden="true" /> : <IconPlay />}
+          </button>
+        )}
+      </section>
+    </>
   );
 }

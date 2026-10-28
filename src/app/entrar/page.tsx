@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import { PublicFrame } from "@/components/PublicFrame";
+import { AppFrame, NavBar } from "@/components/Screen";
 import { hasSupabaseEnv } from "@/lib/supabase/env";
 import { safeNextPath } from "@/lib/validation";
 import { LoginForm } from "./LoginForm";
-import { Aury } from "@/components/Aury";
 
 export const metadata: Metadata = { title: "Entrar" };
 
@@ -11,24 +10,18 @@ export default async function EntrarPage({ searchParams }: { searchParams: Promi
   const params = await searchParams;
   const next = safeNextPath(params.next);
   return (
-    <PublicFrame>
-      <div className="auth-hero">
-        <Aury moment="wake" size={88} />
-        <div>
-          <span className="eyebrow">Acesso</span>
-          <h1>
-            Bom te <span className="hl">ver</span>.
-          </h1>
-        </div>
-      </div>
-      <p className="lead" style={{ marginTop: 14 }}>Digite seu e-mail e enviamos um código de uso único. Sem senha para lembrar.</p>
+    <AppFrame>
+      <NavBar back={next === "/conta" ? "/conta" : "/"} />
       {hasSupabaseEnv() ? (
-        <LoginForm next={next} linkError={params.erro === "link"} />
+        <LoginForm next={next} linkError={params.erro ?? null} />
       ) : (
-        <p className="alert alert-error" role="alert">
-          O acesso está temporariamente indisponível. Tente novamente mais tarde.
-        </p>
+        <>
+          <h1 className="large-title">Entrar</h1>
+          <p className="alert alert-error" role="alert">
+            O acesso está temporariamente indisponível. Tente novamente mais tarde.
+          </p>
+        </>
       )}
-    </PublicFrame>
+    </AppFrame>
   );
 }

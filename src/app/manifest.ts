@@ -7,8 +7,8 @@ export default function manifest(): MetadataRoute.Manifest {
     description: "Uma afirmação para cada momento do seu dia.",
     start_url: "/hoje",
     display: "standalone",
-    background_color: "#fff6ee",
-    theme_color: "#ff6b4a",
+    background_color: "#08080f",
+    theme_color: "#08080f",
     lang: "pt-BR",
     icons: [
       { src: "/icon.svg", sizes: "any", type: "image/svg+xml" },

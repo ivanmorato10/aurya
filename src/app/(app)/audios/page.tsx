@@ -1,22 +1,15 @@
 import type { Metadata } from "next";
-import { requireReadyProfile } from "@/lib/auth";
 import { AUDIO } from "@/lib/content";
 import { AudioPlayer } from "./AudioPlayer";
 
 export const metadata: Metadata = { title: "Áudios" };
 
-export default async function AudiosPage() {
-  await requireReadyProfile("/audios");
+export default function AudiosPage() {
   return (
-    <div>
-      <span className="eyebrow">Áudios</span>
-      <h1>
-        Ouça no seu <span className="hl">ritmo</span>.
-      </h1>
-      <p className="lead">
-        Músicas instrumentais originais de piano, organizadas pelos temas prosperidade, riqueza e gratidão. Comece com
-        volume baixo.
-      </p>
+    <>
+      <header className="appbar">
+        <h1 className="screen-title">Áudios</h1>
+      </header>
       <AudioPlayer
         themes={AUDIO.themes}
         tracks={AUDIO.tracks}
@@ -24,10 +17,10 @@ export default async function AudiosPage() {
         defaultTimerMinutes={AUDIO.defaultTimerMinutes}
         defaultVolume={AUDIO.defaultVolume}
       />
-      <p className="small section">
-        A frequência indica a afinação de referência da música, que contém várias notas. Os temas são uma escolha
-        editorial — não há efeito financeiro ou terapêutico atribuído a uma frequência.
+      <p className="caption" style={{ margin: "18px 4px 0" }}>
+        Músicas instrumentais originais. A frequência indica a afinação de referência; os temas são uma escolha editorial, sem efeito
+        financeiro ou terapêutico atribuído.
       </p>
-    </div>
+    </>
   );
 }

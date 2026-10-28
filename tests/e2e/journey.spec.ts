@@ -3,6 +3,8 @@ import { expect, test, type Page } from "@playwright/test";
 const MOCK = "http://127.0.0.1:54399";
 const control = (page: Page, body: object) => page.request.post(`${MOCK}/__control`, { data: body });
 const email = (tag: string) => `${tag}-${Date.now()}-${Math.floor(Math.random() * 1e6)}@example.com`;
+const alertBox = (page: Page) => page.locator("p[role=alert]");
+const shot = (page: Page, name: string, project: string) => page.screenshot({ path: `test-results/screens/${project}-${name}.png` });
 
 async function noHorizontalScroll(page: Page) {
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
@@ -17,216 +19,220 @@ async function login(page: Page, address: string) {
   await page.getByRole("button", { name: "Entrar" }).click();
 }
 
-async function onboard(page: Page) {
-  await expect(page).toHaveURL(/\/comecar/);
+async function onboard(page: Page, opts: { name?: string } = {}) {
+  await expect(page.getByRole("heading", { name: "Seus horários" })).toBeVisible();
   await page.getByLabel("Ao acordar").fill("06:45");
   await page.getByLabel("Indo para o trabalho").fill("08:15");
   await page.getByLabel("Meio do dia").fill("13:00");
   await page.getByLabel("Antes de dormir").fill("23:00");
+  await page.getByRole("button", { name: "Continuar" }).click();
+  await expect(page.getByRole("heading", { name: "O que você quer receber?" })).toBeVisible();
+  await page.getByRole("button", { name: "Continuar" }).click();
+  if (opts.name) await page.getByLabel("Seu nome (opcional)").fill(opts.name);
   await page.getByRole("button", { name: "Começar" }).click();
+  await expect(page).toHaveURL(/\/hoje/);
 }
 
 test.beforeAll(async ({ request }) => {
   await request.post(`${MOCK}/__control`, { data: { reset: true, failWrites: false } });
 });
 
-test("jornada principal: entrar, definir horários, ler e aprofundar", async ({ page }, info) => {
+test("visitante: boas-vindas, como funciona, configurar sem conta e ler", async ({ page }, info) => {
   await page.goto("/");
-  await expect(page.getByRole("heading", { level: 1 })).toContainText("Uma frase.");
+  await expect(page.getByText("Quatro pausas para um dia mais próspero.")).toBeVisible();
   await noHorizontalScroll(page);
-  await page.screenshot({ path: `test-results/screens/${info.project.name}-1-landing.png`, fullPage: true });
+  await shot(page, "1-boas-vindas", info.project.name);
 
-  await page.getByRole("link", { name: "Começar com meu e-mail" }).click();
-  await expect(page).toHaveURL(/\/entrar/);
+  await page.getByRole("link", { name: "Como funciona" }).click();
+  await expect(page.getByText("Use sem cadastro")).toBeVisible();
+  await shot(page, "2-como-funciona", info.project.name);
+  await page.getByRole("link", { name: "Começar agora" }).click();
 
-  // E-mail inválido
-  await page.getByLabel("Seu e-mail").fill("ana@");
-  await page.getByRole("button", { name: "Receber código" }).click();
-  await expect(page.locator("p[role=alert]")).toContainText("e-mail válido");
-
-  // Código errado, depois certo
-  const address = email("ana");
-  await page.getByLabel("Seu e-mail").fill(address);
-  await page.getByRole("button", { name: "Receber código" }).click();
-  await expect(page.getByRole("status")).toContainText(address);
-  await page.screenshot({ path: `test-results/screens/${info.project.name}-2-codigo.png`, fullPage: true });
-  await page.getByLabel("Código de acesso").fill("000000");
-  await page.getByRole("button", { name: "Entrar" }).click();
-  await expect(page.locator("p[role=alert]")).toContainText("Código inválido");
-
-  // Reenvio respeita o intervalo
-  await expect(page.getByRole("button", { name: /Reenviar em \d+s/ })).toBeDisabled();
-
-  await page.getByLabel("Código de acesso").fill("123456");
-  await page.getByRole("button", { name: "Entrar" }).click();
-
-  // Onboarding: horários repetidos são recusados e o formulário preserva os valores
-  await expect(page).toHaveURL(/\/comecar/);
-  await page.getByLabel("Antes de dormir").fill("06:45");
+  // Passo 1: horários repetidos não avançam
   await page.getByLabel("Ao acordar").fill("06:45");
-  await page.getByLabel(/Como podemos chamar/).fill("Ana");
-  await page.getByRole("button", { name: "Começar" }).click();
+  await page.getByLabel("Antes de dormir").fill("06:45");
+  await page.getByRole("button", { name: "Continuar" }).click();
   await expect(page.getByText("Use quatro horários diferentes.")).toBeVisible();
-  await expect(page.getByLabel(/Como podemos chamar/)).toHaveValue("Ana");
-  await noHorizontalScroll(page);
-  await page.screenshot({ path: `test-results/screens/${info.project.name}-3-onboarding-erro.png`, fullPage: true });
-
   await page.getByLabel("Antes de dormir").fill("23:00");
+  await expect(page.getByText("Use quatro horários diferentes.")).toHaveCount(0);
+  await shot(page, "3-onboarding-horarios", info.project.name);
+  await page.getByRole("button", { name: "Continuar" }).click();
+
+  // Passo 2: pelo menos um tipo; escolhe só Gratidão, sem citações
+  for (const label of ["Prosperidade e riqueza", "Confiança e ação", "Foco e propósito", "Gratidão"]) {
+    await page.getByRole("checkbox", { name: new RegExp(label) }).uncheck();
+  }
+  await page.getByRole("button", { name: "Continuar" }).click();
+  await expect(page.getByText("Escolha pelo menos um tipo de mensagem.")).toBeVisible();
+  await page.getByRole("checkbox", { name: /Gratidão/ }).check();
+  await page.getByRole("switch", { name: /Citações/ }).uncheck();
+  await noHorizontalScroll(page);
+  await shot(page, "4-onboarding-mensagens", info.project.name);
+  await page.getByRole("button", { name: "Continuar" }).click();
+
+  // Passo 3: nome; voltar preserva escolhas
+  await page.getByLabel("Seu nome (opcional)").fill("Ana");
+  await expect(page.getByText(/Sem cadastro: suas escolhas ficam neste aparelho/)).toBeVisible();
+  await page.getByRole("button", { name: "Voltar" }).click();
+  await expect(page.getByRole("checkbox", { name: /Gratidão/ })).toBeChecked();
+  await page.getByRole("button", { name: "Continuar" }).click();
+  await expect(page.getByLabel("Seu nome (opcional)")).toHaveValue("Ana");
   await page.getByRole("button", { name: "Começar" }).click();
 
   // Hoje
   await expect(page).toHaveURL(/\/hoje/);
-  await expect(page.getByRole("heading", { name: "Olá, Ana!" })).toBeVisible();
+  await expect(page.getByText(/, Ana$/)).toBeVisible();
   await expect(page.locator(".affirmation-text")).not.toBeEmpty();
-  await expect(page.getByText(/Próxima troca:/)).toBeVisible();
+  await expect(page.getByText(/Próxima troca/)).toBeVisible();
   await noHorizontalScroll(page);
-  await page.screenshot({ path: `test-results/screens/${info.project.name}-4-hoje.png`, fullPage: true });
+  await shot(page, "5-hoje", info.project.name);
+  for (const btn of await page.locator(".timeline button").all()) {
+    await btn.click();
+    await expect(page.getByText("Ver fonte")).toHaveCount(0);
+  }
 
-  // Prévia de outro momento e volta
-  const current = (await page.locator(".timeline button[aria-pressed=true] time").textContent())!;
-  const other = page.locator(".timeline button[aria-pressed=false]").first();
-  await other.click();
-  await expect(page.getByText("Prévia de outro momento")).toBeVisible();
-  await page.getByRole("button", { name: "← Voltar ao momento atual" }).click();
-  await expect(page.locator(".timeline button[aria-pressed=true] time")).toHaveText(current);
-
-  // Aprofundar
-  const phrase = await page.locator(".affirmation-text").innerText();
-  await page.getByRole("link", { name: "Aprofundar" }).click();
-  await expect(page).toHaveURL(/\/reflexao\//);
-  await expect(page.locator(".reflection-hero .quote")).toHaveText(phrase);
-  await expect(page.locator(".reflection-text p").first()).not.toBeEmpty();
-  await expect(page.getByRole("button", { name: "Ouvir" })).toBeEnabled();
-  await noHorizontalScroll(page);
-  await page.screenshot({ path: `test-results/screens/${info.project.name}-5-reflexao.png`, fullPage: true });
-
-  // Sessão persiste ao recarregar
+  // Preferências sobrevivem ao recarregar; "/" leva direto para Hoje
   await page.reload();
-  await expect(page.locator(".reflection-text")).toBeVisible();
-});
-
-test("rotas privadas exigem login e o deep link de reflexão é retomado", async ({ page }) => {
-  await page.goto("/hoje");
-  await expect(page).toHaveURL(/\/entrar\?next=%2Fhoje/);
-
-  await page.goto("/reflexao/sleep-descanso-01");
-  await expect(page).toHaveURL(/\/entrar\?next=%2Freflexao%2Fsleep-descanso-01/);
-  await login(page, email("link"));
-  await onboard(page);
-  await expect(page).toHaveURL(/\/reflexao\/sleep-descanso-01/);
-
-  // Id desconhecido
-  await page.goto("/reflexao/nao-existe");
-  await expect(page.getByText("Esta reflexão não está disponível.")).toBeVisible();
-
-  // Redirecionamento externo é ignorado
+  await expect(page.getByText(/, Ana$/)).toBeVisible();
   await page.goto("/");
   await expect(page).toHaveURL(/\/hoje/);
+
+  // Aprofundar sem conta
+  const back = page.getByRole("button", { name: "← Voltar ao momento atual" });
+  if (await back.isVisible()) await back.click();
+  const phrase = await page.locator(".affirmation-text").innerText();
+  await page.getByRole("link", { name: "Aprofundar" }).click();
+  await expect(page.locator(".reflection-art .quote")).toHaveText(phrase);
+  await expect(page.getByRole("button", { name: "Ouvir" })).toBeEnabled();
+  await noHorizontalScroll(page);
+  await shot(page, "6-reflexao", info.project.name);
 });
 
-test("conta: falha de gravação preserva dados; depois salva; sair", async ({ page }, info) => {
-  await page.goto("/entrar");
-  await login(page, email("conta"));
+test("visitante: ajustes salvam no aparelho", async ({ page }, info) => {
+  await page.goto("/comecar");
   await onboard(page);
-  await expect(page).toHaveURL(/\/hoje/);
+  await page.getByRole("link", { name: "Ajustes" }).click();
+  await expect(page.getByText("Você está usando sem cadastro")).toBeVisible();
+  await noHorizontalScroll(page);
+  await shot(page, "7-ajustes-visitante", info.project.name);
 
-  await page.getByRole("link", { name: "Conta" }).click();
-  await expect(page).toHaveURL(/\/conta/);
+  await page.getByRole("link", { name: /Horários/ }).click();
   await page.getByLabel("Meio do dia").fill("12:10");
-  await page.getByLabel(/Como podemos chamar/).fill("Bia");
+  await page.getByRole("button", { name: "Salvar alterações" }).click();
+  await expect(page.getByRole("status").filter({ hasText: "Alterações salvas." })).toBeVisible();
 
+  await page.goto("/conta/mensagens");
+  await page.getByRole("checkbox", { name: /Confiança e ação/ }).uncheck();
+  await page.getByRole("button", { name: "Salvar alterações" }).click();
+  await expect(page.getByRole("status").filter({ hasText: "Alterações salvas." })).toBeVisible();
+  await shot(page, "8-tipos", info.project.name);
+  await page.reload();
+  await expect(page.getByRole("checkbox", { name: /Confiança e ação/ })).not.toBeChecked();
+
+  await page.goto("/hoje");
+  await expect(page.locator(".timeline")).toContainText("12:10");
+});
+
+test("criar conta leva as preferências do aparelho; falha ao salvar preserva; sair mantém o app", async ({ page }) => {
+  await page.goto("/comecar");
+  await onboard(page, { name: "Bia" });
+  await page.getByRole("link", { name: "Ajustes" }).click();
+  await page.getByRole("link", { name: "Entrar ou criar conta" }).click();
+  const address = email("conta");
+  await login(page, address);
+  await expect(page).toHaveURL(/\/conta$/);
+  await expect(page.getByText(address)).toBeVisible();
+
+  // Migração: a conta nova recebeu as preferências do aparelho
+  await page.goto("/hoje");
+  await expect(page.getByText(/, Bia$/)).toBeVisible();
+
+  // Com conta: falha de gravação preserva o formulário; depois salva
+  await page.goto("/conta/horarios");
+  await page.getByLabel("Meio do dia").fill("12:20");
   await control(page, { failWrites: true });
   await page.getByRole("button", { name: "Salvar alterações" }).click();
-  await expect(page.locator("p[role=alert]").filter({ hasText: "Não foi possível salvar" })).toBeVisible();
-  await expect(page.getByLabel("Meio do dia")).toHaveValue("12:10");
-  await expect(page.getByLabel(/Como podemos chamar/)).toHaveValue("Bia");
-
+  await expect(alertBox(page).filter({ hasText: "Não foi possível salvar" })).toBeVisible();
+  await expect(page.getByLabel("Meio do dia")).toHaveValue("12:20");
   await control(page, { failWrites: false });
   await page.getByRole("button", { name: "Salvar alterações" }).click();
-  await expect(page.getByRole("status").filter({ hasText: "Horários salvos." })).toBeVisible();
-  await noHorizontalScroll(page);
-  await page.screenshot({ path: `test-results/screens/${info.project.name}-6-conta.png`, fullPage: true });
+  await expect(page.getByRole("status").filter({ hasText: "Alterações salvas." })).toBeVisible();
 
-  await page.getByRole("link", { name: "Hoje" }).click();
-  await expect(page.getByRole("heading", { name: "Olá, Bia!" })).toBeVisible();
-  await expect(page.locator(".timeline")).toContainText("12:10");
-
-  await page.getByRole("link", { name: "Conta" }).click();
-  await page.getByRole("button", { name: "Sair" }).click();
-  await expect(page).toHaveURL(/\/$/);
+  // Sair: continua usando com as mesmas preferências neste aparelho
   await page.goto("/conta");
-  await expect(page).toHaveURL(/\/entrar/);
+  await page.getByRole("button", { name: "Sair" }).click();
+  await expect(page.getByText("Você está usando sem cadastro")).toBeVisible();
+  await page.goto("/hoje");
+  await expect(page.locator(".timeline")).toContainText("12:20");
 });
 
-test("áudios: escolher tema, faixa e temporizador", async ({ page }, info) => {
+test("excluir conta exige confirmação e apaga conta e aparelho", async ({ page }) => {
   await page.goto("/entrar");
-  await login(page, email("audio"));
+  await login(page, email("excluir"));
+  await expect(page).toHaveURL(/\/comecar/);
   await onboard(page);
-  await page.getByRole("link", { name: "Áudios" }).click();
-  await expect(page).toHaveURL(/\/audios/);
-  await expect(page.getByText("Volume · 15%")).toBeVisible();
-
-  await page.getByRole("button", { name: "Gratidão" }).click();
-  await expect(page.getByRole("button", { name: "Gratidão" })).toHaveAttribute("aria-pressed", "true");
-  await page.getByLabel("Encerrar após").selectOption("1");
-  await expect(page.locator(".countdown")).toHaveText("01:00");
-
-  // O arquivo de áudio é servido com o tipo correto
-  const src = await page.locator("#melody").evaluate(() => "/audio/music-v3-528-1.m4a");
-  const res = await page.request.get(src);
-  expect(res.status()).toBe(200);
-  expect(res.headers()["content-type"]).toContain("audio");
-
-  await page.getByRole("button", { name: "Reproduzir" }).click();
-  await expect(page.locator("[role=status].player-status")).toHaveText(/Tocando|Não foi possível tocar/);
-  await noHorizontalScroll(page);
-  await page.screenshot({ path: `test-results/screens/${info.project.name}-7-audios.png`, fullPage: true });
-});
-
-test("excluir conta exige confirmação e apaga os dados", async ({ page }) => {
-  const address = email("excluir");
-  await page.goto("/entrar");
-  await login(page, address);
-  await onboard(page);
-  await page.getByRole("link", { name: "Conta" }).click();
-
-  await page.getByRole("button", { name: "Excluir minha conta" }).click();
+  await page.goto("/conta");
+  await page.getByRole("link", { name: "Excluir conta" }).click();
   await page.getByLabel("Digite EXCLUIR para confirmar").fill("talvez");
-  await page.getByRole("button", { name: "Excluir", exact: true }).click();
-  await expect(page.locator("p[role=alert]").filter({ hasText: "Digite EXCLUIR" })).toBeVisible();
-
+  await page.getByRole("button", { name: "Excluir definitivamente" }).click();
+  await expect(alertBox(page).filter({ hasText: "Digite EXCLUIR" })).toBeVisible();
   await page.getByLabel("Digite EXCLUIR para confirmar").fill("EXCLUIR");
-  await page.getByRole("button", { name: "Excluir", exact: true }).click();
+  await page.getByRole("button", { name: "Excluir definitivamente" }).click();
   await expect(page).toHaveURL(/\?conta=excluida/);
   await expect(page.getByText("Sua conta e seus dados foram excluídos.")).toBeVisible();
-
-  // Mesmo e-mail cria uma conta nova, sem horários antigos (aguarda o limite de reenvio do simulador)
-  await control(page, { reset: true });
-  await page.goto("/entrar");
-  await login(page, address);
+  // Preferências do aparelho também foram apagadas: Hoje pede configuração
+  await page.goto("/hoje");
   await expect(page).toHaveURL(/\/comecar/);
 });
 
-test("limite de envio de código mostra mensagem compreensível", async ({ page }) => {
-  const address = email("limite");
+test("exclusão de conta exige login; reflexão desconhecida mostra aviso", async ({ page }) => {
+  await page.goto("/conta/excluir");
+  await expect(page).toHaveURL(/\/entrar\?next=%2Fconta%2Fexcluir/);
+  await page.goto("/reflexao/nao-existe");
+  await expect(page.getByText("Esta reflexão não está disponível.")).toBeVisible();
+  await page.goto("/reflexao/sleep-descanso-01");
+  await expect(page.locator(".reflection-text")).toBeVisible();
+});
+
+test("áudios sem conta: tema, temporizador e reprodução", async ({ page }, info) => {
+  await page.goto("/audios");
+  await expect(page.getByText("Volume · 15%")).toBeVisible();
+  await page.getByRole("button", { name: "Gratidão" }).click();
+  await expect(page.getByRole("button", { name: "Gratidão" })).toHaveAttribute("aria-pressed", "true");
+  await page.getByLabel("Encerrar após").selectOption("1");
+  await expect(page.locator(".artwork .time")).toHaveText("01:00");
+  const res = await page.request.get("/audio/music-v3-528-1.m4a");
+  expect(res.status()).toBe(200);
+  expect(res.headers()["content-type"]).toContain("audio");
+  await page.getByRole("button", { name: "Reproduzir" }).click();
+  await expect(page.locator(".player-status[role=status]")).toHaveText(/Tocando|Não foi possível tocar/);
+  await noHorizontalScroll(page);
+  await shot(page, "9-audios", info.project.name);
+});
+
+test("login: e-mail inválido, código errado, limite e sem rede", async ({ page, context }, info) => {
   await page.goto("/entrar");
+  await shot(page, "10-entrar", info.project.name);
+  await page.getByLabel("Seu e-mail").fill("ana@");
+  await page.getByRole("button", { name: "Receber código" }).click();
+  await expect(alertBox(page)).toContainText("e-mail válido");
+
+  const address = email("limite");
   await page.getByLabel("Seu e-mail").fill(address);
   await page.getByRole("button", { name: "Receber código" }).click();
-  await expect(page.getByLabel("Código de acesso")).toBeVisible();
+  await page.getByLabel("Código de acesso").fill("000000");
+  await page.getByRole("button", { name: "Entrar" }).click();
+  await expect(alertBox(page)).toContainText("Código inválido");
+  await expect(page.getByRole("button", { name: /Reenviar em \d+s/ })).toBeDisabled();
   await page.getByRole("button", { name: "Trocar e-mail" }).click();
   await page.getByLabel("Seu e-mail").fill(address);
   await page.getByRole("button", { name: "Receber código" }).click();
-  await expect(page.locator("p[role=alert]")).toContainText("Muitas tentativas");
+  await expect(alertBox(page)).toContainText("Muitas tentativas");
   await expect(page.getByLabel("Seu e-mail")).toHaveValue(address);
-});
 
-test("sem rede ao enviar código: mensagem e e-mail preservado", async ({ page, context }) => {
-  await page.goto("/entrar");
-  const address = email("offline");
-  await page.getByLabel("Seu e-mail").fill(address);
   await context.setOffline(true);
+  await page.getByLabel("Seu e-mail").fill(email("offline"));
   await page.getByRole("button", { name: "Receber código" }).click();
-  await expect(page.locator("p[role=alert]")).toContainText(/conexão|Não foi possível/);
-  await expect(page.getByLabel("Seu e-mail")).toHaveValue(address);
+  await expect(alertBox(page)).toContainText(/conexão|Não foi possível/);
   await context.setOffline(false);
 });

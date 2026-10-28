@@ -91,7 +91,7 @@ createServer(async (req, res) => {
     if (!user) {
       user = { id: randomUUID(), email };
       users.set(email, user);
-      profiles.set(user.id, { id: user.id, display_name: null, time_zone: "America/Sao_Paulo", wake_time: null, commute_time: null, midday_time: null, sleep_time: null });
+      profiles.set(user.id, { id: user.id, display_name: null, time_zone: "America/Sao_Paulo", wake_time: null, commute_time: null, midday_time: null, sleep_time: null, message_types: ["prosperidade", "confianca", "proposito", "gratidao"], include_quotes: true });
     }
     return send(res, 200, session(user));
   }
@@ -111,12 +111,13 @@ createServer(async (req, res) => {
     if (req.method === "GET") return send(res, 200, rows);
     if (req.method === "PATCH") {
       if (failWrites) return send(res, 503, { code: "PGRST000", message: "simulated outage" });
-      const allowed = ["display_name", "time_zone", "wake_time", "commute_time", "midday_time", "sleep_time"];
+      const allowed = ["display_name", "time_zone", "wake_time", "commute_time", "midday_time", "sleep_time", "message_types", "include_quotes"];
       if (Object.keys(body).some((k) => !allowed.includes(k))) return send(res, 403, { code: "42501", message: "permission denied" });
       const times = ["wake_time", "commute_time", "midday_time", "sleep_time"].map((k) => body[k]);
-      if (times.some((t) => t != null && !TIME.test(t)) || new Set(times).size !== 4) {
-        return send(res, 400, { code: "23514", message: "check constraint" });
-      }
+      const touchesTimes = times.some((t) => t !== undefined);
+      const badTimes = touchesTimes && (times.some((t) => !TIME.test(t ?? "")) || new Set(times).size !== 4);
+      const badTypes = "message_types" in body && (!Array.isArray(body.message_types) || body.message_types.length === 0);
+      if (badTimes || badTypes) return send(res, 400, { code: "23514", message: "check constraint" });
       for (const row of rows) Object.assign(row, body);
       return send(res, 200, rows.map((r) => ({ id: r.id })));
     }

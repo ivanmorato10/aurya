@@ -3,6 +3,10 @@
 import { useEffect, useRef, useState } from "react";
 import { AudioSession, type AudioStatus } from "@/lib/audio-session";
 import type { AudioTheme, AudioTrack } from "@/lib/content";
+import { IconPause, IconPlay, IconStop } from "@/components/Icons";
+import { Scene } from "@/components/Scene";
+
+const THEME_SCENE = { prosperity: "wake", wealth: "midday", gratitude: "sleep" } as const;
 
 type View = { status: AudioStatus; message: string; remainingMs: number; volume: number };
 
@@ -78,101 +82,95 @@ export function AudioPlayer({
   const loading = view.status === "loading";
 
   return (
-    <div className="stack">
-      <div className="chips" role="group" aria-label="Tema">
+    <>
+      <div className="segmented" role="group" aria-label="Tema">
         {themes.map((t) => (
-          <button key={t.id} className="chip" aria-pressed={theme === t.id} onClick={() => chooseTheme(t.id)}>
+          <button key={t.id} aria-pressed={theme === t.id} onClick={() => chooseTheme(t.id)}>
             {t.label}
           </button>
         ))}
       </div>
 
-      <section className="card stack" aria-label="Player">
-        <div style={{ textAlign: "center" }}>
-          <div className="disc-wrap" data-playing={playing} aria-hidden="true">
-            <span className="ripple" />
-            <span className="ripple" />
-            <div className="disc" data-playing={playing} />
-          </div>
-          <div className="countdown" aria-hidden="true">
-            {mmss(view.remainingMs)}
-          </div>
-          <p className="small" style={{ margin: 0 }}>
-            {track ? `${track.composition} · ${track.frequencyHz} Hz` : ""}
-          </p>
-        </div>
+      <div className="artwork" data-playing={playing} aria-hidden="true">
+        <Scene moment={THEME_SCENE[theme as keyof typeof THEME_SCENE] ?? "sleep"} />
+        <span className="time">{mmss(view.remainingMs)}</span>
+      </div>
+      <p className="track-title">{track?.composition}</p>
+      <p className="track-sub">
+        Piano · afinação {track?.frequencyHz} Hz
+      </p>
 
-        <div className="btn-row">
-          <button
-            className="btn btn-primary"
-            onClick={() => (playing ? session.current?.pause() : session.current?.play())}
-            disabled={loading || !track}
-          >
-            {loading ? <span className="spinner" aria-hidden="true" /> : null}
-            {playing ? "Pausar" : view.status === "paused" ? "Continuar" : loading ? "Carregando…" : "Reproduzir"}
-          </button>
-          <button className="btn" onClick={() => session.current?.stop()} disabled={!(playing || view.status === "paused")}>
-            Encerrar
-          </button>
-        </div>
-        <p className="note player-status" role="status" style={{ margin: 0 }}>
-          {view.message}
-        </p>
+      <div className="controls">
+        <button className="round round--ghost round--lg" onClick={() => session.current?.stop()} disabled={!(playing || view.status === "paused")} aria-label="Encerrar">
+          <IconStop />
+        </button>
+        <button
+          className="round round--xl"
+          onClick={() => (playing ? session.current?.pause() : session.current?.play())}
+          disabled={loading || !track}
+          aria-label={playing ? "Pausar" : view.status === "paused" ? "Continuar" : "Reproduzir"}
+        >
+          {loading ? <span className="spinner" aria-hidden="true" /> : playing ? <IconPause /> : <IconPlay />}
+        </button>
+        <span style={{ width: 52 }} aria-hidden="true" />
+      </div>
+      <p className="caption player-status" role="status" style={{ textAlign: "center", whiteSpace: "normal" }}>
+        {view.message}
+      </p>
 
-        <div className="field">
-          <label htmlFor="volume">Volume · {Math.round(view.volume * 100)}%</label>
-          <input
-            id="volume"
-            type="range"
-            min={0}
-            max={100}
-            step={1}
-            value={Math.round(view.volume * 100)}
-            onChange={(e) => session.current?.setVolume(Number(e.target.value) / 100)}
-          />
-        </div>
+      <div className="field">
+        <label htmlFor="volume">Volume · {Math.round(view.volume * 100)}%</label>
+        <input id="volume" type="range" min={0} max={100} step={1} value={Math.round(view.volume * 100)} onChange={(e) => session.current?.setVolume(Number(e.target.value) / 100)} />
+      </div>
 
-        <div className="field">
-          <label htmlFor="frequency">Afinação de referência</label>
-          <select id="frequency" value={frequency} onChange={(e) => chooseFrequency(Number(e.target.value))}>
-            {frequencies.map((hz) => (
-              <option key={hz} value={hz}>
-                {hz} Hz
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="field">
-          <label htmlFor="melody">Melodia</label>
-          <select id="melody" value={trackId} onChange={(e) => setTrackId(e.target.value)}>
-            {options.map((t) => (
-              <option key={t.id} value={t.id}>
-                {t.composition}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="field">
-          <label htmlFor="timer">Encerrar após</label>
-          <select
-            id="timer"
-            value={minutes}
-            onChange={(e) => {
-              const m = Number(e.target.value);
-              setMinutes(m);
-              session.current?.setTimer(m);
-            }}
-          >
-            {timerMinutes.map((m) => (
-              <option key={m} value={m}>
-                {m} {m === 1 ? "minuto" : "minutos"}
-              </option>
-            ))}
-          </select>
-        </div>
-      </section>
-    </div>
+      <h2 className="section-title">Sessão</h2>
+      <ul className="list">
+        <li>
+          <label className="row" htmlFor="frequency">
+            <span className="row-main row-title">Afinação</span>
+            <select id="frequency" className="row-select" value={frequency} onChange={(e) => chooseFrequency(Number(e.target.value))}>
+              {frequencies.map((hz) => (
+                <option key={hz} value={hz}>
+                  {hz} Hz
+                </option>
+              ))}
+            </select>
+          </label>
+        </li>
+        <li>
+          <label className="row" htmlFor="melody">
+            <span className="row-main row-title">Melodia</span>
+            <select id="melody" className="row-select" value={trackId} onChange={(e) => setTrackId(e.target.value)}>
+              {options.map((t) => (
+                <option key={t.id} value={t.id}>
+                  {t.composition}
+                </option>
+              ))}
+            </select>
+          </label>
+        </li>
+        <li>
+          <label className="row" htmlFor="timer">
+            <span className="row-main row-title">Encerrar após</span>
+            <select
+              id="timer"
+              className="row-select"
+              value={minutes}
+              onChange={(e) => {
+                const m = Number(e.target.value);
+                setMinutes(m);
+                session.current?.setTimer(m);
+              }}
+            >
+              {timerMinutes.map((m) => (
+                <option key={m} value={m}>
+                  {m} {m === 1 ? "minuto" : "minutos"}
+                </option>
+              ))}
+            </select>
+          </label>
+        </li>
+      </ul>
+    </>
   );
 }

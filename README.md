@@ -1,6 +1,8 @@
 # AURYA · um instante de presença
 
-App web (PWA instalável) de afirmações para **quatro momentos do dia** — ao acordar, indo para o trabalho, meio do dia e antes de dormir. Cada momento mostra uma frase que permanece até o próximo horário, com um texto para **aprofundar**, leitura em voz alta e músicas instrumentais.
+App web (PWA instalável) de afirmações para **quatro momentos do dia**: ao acordar, indo para o trabalho, meio do dia e antes de dormir. Cada momento mostra uma frase que permanece até o próximo horário, com um texto para **aprofundar**, leitura em voz alta e músicas instrumentais.
+
+**Funciona sem conta.** Visitantes configuram horários, tipos de mensagem e nome, e tudo fica no aparelho. A conta é opcional (e-mail com código; Google e Apple quando habilitados). Ao criar a conta, as preferências do aparelho vão para ela.
 
 Stack: **Next.js 16 (App Router, TypeScript)** na **Vercel** · **Supabase** (Auth por código no e-mail + Postgres com RLS) · GitHub.
 
@@ -8,15 +10,17 @@ Stack: **Next.js 16 (App Router, TypeScript)** na **Vercel** · **Supabase** (Au
 
 | Fluxo | Onde |
 |---|---|
-| Entrar/criar conta com código de 6 dígitos por e-mail (sem senha; o e-mail também traz link direto) | `/entrar`, `/auth/confirm` |
-| Definir os quatro horários e o fuso (detectado no aparelho) | `/comecar` |
-| Frase do momento atual, próxima troca, prévia dos outros momentos, fonte das citações | `/hoje` |
-| Aprofundar: texto, leitura em voz alta (voz do aparelho) e piano de fundo opcional | `/reflexao/[id]` |
+| Abertura com paisagem, "Começar", "Como funciona" e "Já tenho conta" | `/` |
+| Como funciona (tela própria) | `/como-funciona` |
+| Onboarding em 3 passos: quatro horários + fuso → tipos de mensagem (prosperidade e riqueza, confiança e ação, foco e propósito, gratidão; citações de Napoleon Hill on/off) → nome opcional | `/comecar` |
+| Frase do momento escolhida pelos tipos preferidos, próxima troca, prévia dos outros momentos, fonte das citações | `/hoje` |
+| Aprofundar: texto, leitura em voz alta e piano opcional | `/reflexao/[id]` |
 | Áudios: 3 temas, 11 afinações × 3 melodias, volume inicial 15 %, temporizador | `/audios` |
-| Alterar horários/nome/fuso, sair, **excluir conta** | `/conta` |
-| Política de privacidade (fatos do que o app guarda) | `/privacidade` |
+| Ajustes: horários, tipos de mensagem, nome; entrar/criar conta; sair; excluir conta | `/conta`, `/conta/*` |
+| Entrar (opcional): código por e-mail; Google/Apple se configurados | `/entrar`, `/auth/confirm`, `/auth/callback` |
+| Privacidade | `/privacidade` |
 
-Recuperação de acesso: como não há senha, entrar de novo com o e-mail **é** a recuperação.
+**Dados do visitante:** ficam só no `localStorage` do aparelho, validados ao ler. Com conta, as preferências ficam no Supabase e são espelhadas no aparelho. Ao sair, o app continua com as mesmas escolhas. Excluir a conta apaga também os dados do aparelho.
 
 ## Rodar localmente
 
@@ -34,10 +38,11 @@ npm run dev                  # http://localhost:3000
    - Site URL: `https://SEU-DOMINIO` (produção)
    - Redirect URLs: `https://SEU-DOMINIO/auth/confirm`, `https://*-SEU-TIME.vercel.app/auth/confirm` (previews) e `http://localhost:3000/auth/confirm`
 4. **Authentication → Emails → Magic Link**: use o modelo em `supabase/templates/magic_link.html` (inclui o código `{{ .Token }}` e o link).
-5. **Produção**: configure SMTP próprio (Authentication → SMTP). O e-mail padrão do Supabase tem limite baixo de envios por hora e serve só para testes. Revise também *Rate Limits* e, se houver abuso, ative CAPTCHA.
+5. **Google e Apple (opcional):** habilite em Authentication → Providers, adicione `https://SEU-DOMINIO/auth/callback` nas Redirect URLs e defina `NEXT_PUBLIC_AUTH_PROVIDERS=google,apple`. Sem essa variável, os botões não aparecem.
+6. **Produção**: configure SMTP próprio (Authentication → SMTP). O e-mail padrão do Supabase tem limite baixo de envios por hora e serve só para testes. Revise também *Rate Limits* e, se houver abuso, ative CAPTCHA.
 
 ### Modelo de dados e segurança
-- `public.profiles`: 1 linha por conta (`id` = `auth.users.id`), nome opcional, fuso, quatro horários. Constraints: todos ou nenhum horário, horários distintos, precisão de minuto, fuso válido, nome ≤ 60.
+- `public.profiles`: 1 linha por conta (`id` = `auth.users.id`), nome opcional, fuso, quatro horários, `message_types` (1 a 4 tipos) e `include_quotes`. Constraints: todos ou nenhum horário, horários distintos, precisão de minuto, fuso válido, nome ≤ 60.
 - RLS ativa: `select`/`update` só na própria linha. Sem `insert`/`delete` pelo cliente (perfil nasce por gatilho e morre com a conta). `anon` sem acesso. `authenticated` só altera as colunas editáveis.
 - Exclusão de conta: `delete_my_account()` (security definer) apaga `auth.users` do próprio `auth.uid()`; o perfil cai em cascata. **Nenhuma chave service_role é usada pelo app.**
 - O servidor valida tudo com zod e usa o id do JWT verificado (`getClaims`), nunca um id enviado pelo navegador.
@@ -52,6 +57,7 @@ npm run dev                  # http://localhost:3000
 | `NEXT_PUBLIC_SUPABASE_URL` | sim | URL do projeto |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (ou `..._ANON_KEY`) | sim | chave pública; acesso protegido por RLS |
 | `NEXT_PUBLIC_PRIVACY_CONTROLLER`, `NEXT_PUBLIC_PRIVACY_CONTACT` | sim | identificação e contato na política de privacidade |
+| `NEXT_PUBLIC_AUTH_PROVIDERS` | sim | `google,apple` quando habilitados no Supabase |
 
 Ambientes: use **um projeto Supabase para produção e outro para desenvolvimento/preview**. Na Vercel, cadastre as variáveis separadamente para *Production* e para *Preview/Development* — assim previews nunca alteram dados reais.
 
@@ -85,6 +91,11 @@ legacy/native/      código Flutter + Swift/WidgetKit do widget de bloqueio do i
 legacy/preview/     prévia web 0.4 original e geradores de áudio
 docs/pesquisa/      pesquisa editorial, de áudio e do canal de referência
 ```
+
+## Pontos do briefing (docs/referencias/AURYA_Briefing_MVP_Preliminar.pdf)
+- Atendidos na web: quatro momentos configuráveis, 24 afirmações e aprofundamentos, músicas existentes, uso sem conta com login opcional, português, visual azul-noite adulto.
+- **Não atendíveis na web:** widgets iOS/Android (exigem app nativo; código preparado em `legacy/native/`).
+- **Ainda em aberto no briefing:** monetização, formatos de widget, notificações e aprovação final do design.
 
 ## Limitações conhecidas
 - **Widget da tela de bloqueio do iPhone** não existe na web. O código nativo preparado está em `legacy/native/` e exige macOS/Xcode; a tabela `profiles` já serve de backend para ele.

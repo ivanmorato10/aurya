@@ -1,6 +1,8 @@
 import catalog from "../../content/content.json";
 import audioCatalog from "../../content/audio_catalog.json";
 import { MOMENT_IDS, type MomentId } from "./schedule";
+import type { CategoryId } from "./categories";
+export { CATEGORY_IDS, type CategoryId } from "./categories";
 
 type Citation = { author: string; original: string; translation: string; url: string; source: string };
 type Reflection = { title: string; principle: string; paragraphs: string[]; wordCount: number };
@@ -8,6 +10,7 @@ type RawMessage = {
   id: string;
   moment: string;
   theme: string;
+  category: string;
   translations: { "pt-BR": { title: string; body: string; widget: string; reflection?: Reflection; citation?: Citation } };
 };
 
@@ -16,9 +19,12 @@ export type Affirmation = {
   id: string;
   moment: MomentId;
   theme: string;
+  category: CategoryId;
   text: string;
   citation: { author: string; source: string; url: string; original: string } | null;
 };
+
+export const CATEGORIES = catalog.categories as { id: CategoryId; label: string; description: string }[];
 
 export type ReflectionContent = Affirmation & { reflection: Reflection };
 
@@ -42,6 +48,7 @@ function toAffirmation(m: RawMessage & { moment: MomentId }): Affirmation {
     id: m.id,
     moment: m.moment,
     theme: m.theme,
+    category: m.category as CategoryId,
     text: t.body,
     citation: t.citation
       ? { author: t.citation.author, source: t.citation.source, url: t.citation.url, original: t.citation.original }

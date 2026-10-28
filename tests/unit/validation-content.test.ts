@@ -1,29 +1,71 @@
 import { describe, expect, it } from "vitest";
-import { emailSchema, otpSchema, profileSchema, safeNextPath } from "@/lib/validation";
-import { AFFIRMATIONS, AUDIO, MOMENTS, REFLECTION_IDS, findReflection } from "@/lib/content";
+import { emailSchema, messagesSchema, nameSchema, onboardingSchema, otpSchema, safeNextPath, scheduleSchema } from "@/lib/validation";
+import { AFFIRMATIONS, AUDIO, CATEGORIES, MOMENTS, REFLECTION_IDS, findReflection } from "@/lib/content";
+import { pickForPrefs } from "@/lib/schedule";
 import { existsSync } from "node:fs";
 import path from "node:path";
 
-const valid = { displayName: " Ana ", timeZone: "America/Sao_Paulo", wake: "06:45", commute: "08:15", midday: "13:00", sleep: "23:00" };
+const schedule = { timeZone: "America/Sao_Paulo", wake: "06:45", commute: "08:15", midday: "13:00", sleep: "23:00" };
+const paths = (r: { error?: { issues: { path: PropertyKey[] }[] } }) => r.error?.issues.map((i) => String(i.path.at(-1)));
 
-describe("validação do perfil (servidor)", () => {
-  it("aceita dados válidos e normaliza o nome", () => {
-    const r = profileSchema.parse(valid);
-    expect(r.displayName).toBe("Ana");
-    expect(profileSchema.parse({ ...valid, displayName: "   " }).displayName).toBeNull();
+describe("validação no servidor", () => {
+  it("horários: aceita válidos e recusa repetidos, inválidos e fuso desconhecido", () => {
+    expect(scheduleSchema.safeParse(schedule).success).toBe(true);
+    expect(paths(scheduleSchema.safeParse({ ...schedule, sleep: "06:45" }))).toContain("schedule");
+    expect(paths(scheduleSchema.safeParse({ ...schedule, midday: "25:00" }))).toContain("midday");
+    expect(paths(scheduleSchema.safeParse({ ...schedule, timeZone: "Lua/Base" }))).toContain("timeZone");
   });
 
-  it("rejeita horários repetidos, inválidos, fuso e nome longo", () => {
-    const issues = (v: object) => profileSchema.safeParse({ ...valid, ...v }).error?.issues.map((i) => i.path[0]);
-    expect(issues({ sleep: "06:45" })).toContain("schedule");
-    expect(issues({ midday: "25:00" })).toContain("midday");
-    expect(issues({ timeZone: "Lua/Base" })).toContain("timeZone");
-    expect(issues({ displayName: "x".repeat(61) })).toContain("displayName");
+  it("tipos de mensagem: pelo menos um, só valores conhecidos, sem repetição", () => {
+    expect(messagesSchema.parse({ types: ["gratidao", "gratidao"], includeQuotes: false }).types).toEqual(["gratidao"]);
+    expect(messagesSchema.safeParse({ types: [], includeQuotes: true }).success).toBe(false);
+    expect(messagesSchema.safeParse({ types: ["loteria"], includeQuotes: true }).success).toBe(false);
   });
 
-  it("ignora campos extras como id enviado pelo navegador", () => {
-    const r = profileSchema.parse({ ...valid, id: "outra-pessoa" } as object);
+  it("nome: opcional, normalizado e limitado", () => {
+    expect(nameSchema.parse({ displayName: " Ana " }).displayName).toBe("Ana");
+    expect(nameSchema.parse({ displayName: "  " }).displayName).toBeNull();
+    expect(nameSchema.safeParse({ displayName: "x".repeat(61) }).success).toBe(false);
+  });
+
+  it("onboarding valida tudo junto e ignora id enviado pelo navegador", () => {
+    const r = onboardingSchema.parse({
+      schedule,
+      messages: { types: ["prosperidade"], includeQuotes: true },
+      name: { displayName: "Ana" },
+      id: "outra-pessoa",
+    } as object);
     expect(r).not.toHaveProperty("id");
+  });
+});
+
+describe("escolha por tipo de mensagem", () => {
+  const day = { year: 2026, month: 10, day: 23 };
+  it("respeita os tipos escolhidos quando o momento tem frases daquele tipo", () => {
+    for (let d = 0; d < 10; d++) {
+      const m = pickForPrefs(AFFIRMATIONS, "sleep", { ...day, day: day.day + d }, { types: ["gratidao"], includeQuotes: true });
+      expect(m.category).toBe("gratidao");
+    }
+  });
+
+  it("sem citações, nunca mostra citação", () => {
+    for (let d = 0; d < 30; d++) {
+      for (const moment of ["wake", "commute", "midday", "sleep"] as const) {
+        const m = pickForPrefs(AFFIRMATIONS, moment, { year: 2026, month: 11, day: 1 + d }, { types: ["prosperidade", "confianca", "proposito", "gratidao"], includeQuotes: false });
+        expect(m.citation).toBeNull();
+      }
+    }
+  });
+
+  it("momento sem frase do tipo escolhido cai para outra frase do mesmo momento", () => {
+    const m = pickForPrefs(AFFIRMATIONS, "wake", day, { types: ["gratidao"], includeQuotes: true });
+    expect(m.moment).toBe("wake");
+  });
+
+  it("catálogo: toda frase tem um dos quatro tipos", () => {
+    const ids = CATEGORIES.map((c) => c.id);
+    expect(ids).toEqual(["prosperidade", "confianca", "proposito", "gratidao"]);
+    for (const a of AFFIRMATIONS) expect(ids).toContain(a.category);
   });
 });
 

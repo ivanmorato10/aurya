@@ -3,6 +3,7 @@ import { cache } from "react";
 import { redirect } from "next/navigation";
 import { createClient } from "./supabase/server";
 import { isValidSchedule, isValidTimeZone, type Schedule } from "./schedule";
+import { CATEGORY_IDS, type CategoryId } from "./categories";
 
 export type Profile = {
   id: string;
@@ -10,6 +11,8 @@ export type Profile = {
   displayName: string | null;
   timeZone: string;
   schedule: Schedule | null;
+  messageTypes: CategoryId[];
+  includeQuotes: boolean;
 };
 
 const hhmm = (v: string | null) => (v ? v.slice(0, 5) : "");
@@ -28,7 +31,7 @@ export const getProfile = cache(async (): Promise<Profile | null> => {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("profiles")
-    .select("id, display_name, time_zone, wake_time, commute_time, midday_time, sleep_time")
+    .select("id, display_name, time_zone, wake_time, commute_time, midday_time, sleep_time, message_types, include_quotes")
     .eq("id", claims.id)
     .maybeSingle();
   if (error) throw new Error("Não foi possível carregar o perfil.");
@@ -45,6 +48,10 @@ export const getProfile = cache(async (): Promise<Profile | null> => {
     displayName: data.display_name,
     timeZone: isValidTimeZone(data.time_zone) ? data.time_zone : "America/Sao_Paulo",
     schedule: isValidSchedule(schedule) ? schedule : null,
+    messageTypes: ((data.message_types as string[] | null) ?? []).filter((t): t is CategoryId =>
+      (CATEGORY_IDS as readonly string[]).includes(t),
+    ),
+    includeQuotes: data.include_quotes !== false,
   };
 });
 
@@ -55,9 +62,20 @@ export async function requireProfile(nextPath: string): Promise<Profile> {
   return profile;
 }
 
-/** Exige sessão e os quatro horários definidos. */
-export async function requireReadyProfile(nextPath: string): Promise<Profile & { schedule: Schedule }> {
-  const profile = await requireProfile(nextPath);
-  if (!profile.schedule) redirect(`/comecar?next=${encodeURIComponent(nextPath)}`);
-  return profile as Profile & { schedule: Schedule };
+/** Conta logada (se houver) no formato usado pelo app; visitante = null. */
+export async function getAccount(): Promise<{ email: string | null; prefs: import("./prefs").Prefs | null } | null> {
+  const profile = await getProfile();
+  if (!profile) return null;
+  return {
+    email: profile.email,
+    prefs: profile.schedule
+      ? {
+          schedule: profile.schedule,
+          timeZone: profile.timeZone,
+          types: profile.messageTypes.length ? profile.messageTypes : [...CATEGORY_IDS],
+          includeQuotes: profile.includeQuotes,
+          displayName: profile.displayName,
+        }
+      : null,
+  };
 }

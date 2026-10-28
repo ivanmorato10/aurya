@@ -20,13 +20,21 @@ function authMessage(error: unknown): string {
   return "Não foi possível concluir agora. Tente novamente em instantes.";
 }
 
-export function LoginForm({ next, linkError }: { next: string; linkError: boolean }) {
+// Google e Apple aparecem só quando habilitados no Supabase (NEXT_PUBLIC_AUTH_PROVIDERS=google,apple).
+const PROVIDERS = (process.env.NEXT_PUBLIC_AUTH_PROVIDERS ?? "")
+  .split(",")
+  .map((p) => p.trim())
+  .filter((p): p is "google" | "apple" => p === "google" || p === "apple");
+
+export function LoginForm({ next, linkError }: { next: string; linkError: string | null }) {
   const router = useRouter();
   const [step, setStep] = useState<"email" | "code">("email");
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
   const [busy, setBusy] = useState(false);
-  const [error, setError] = useState<string | null>(linkError ? "O link de acesso expirou ou já foi usado. Peça um novo código." : null);
+  const [error, setError] = useState<string | null>(
+    linkError === "link" ? "O link de acesso expirou ou já foi usado. Peça um novo código." : linkError === "oauth" ? "Não foi possível entrar por esse provedor. Tente novamente ou use seu e-mail." : null,
+  );
   const [info, setInfo] = useState<string | null>(null);
   const [cooldown, setCooldown] = useState(0);
   const codeRef = useRef<HTMLInputElement>(null);
@@ -97,6 +105,19 @@ export function LoginForm({ next, linkError }: { next: string; linkError: boolea
     }
   }
 
+  async function oauth(provider: "google" | "apple") {
+    if (busy) return;
+    setBusy(true);
+    setError(null);
+    const redirect = new URL("/auth/callback", window.location.origin);
+    redirect.searchParams.set("next", next);
+    const { error } = await createClient().auth.signInWithOAuth({ provider, options: { redirectTo: redirect.toString() } });
+    if (error) {
+      setError(authMessage(error));
+      setBusy(false);
+    }
+  }
+
   async function resend() {
     if (busy || cooldown > 0) return;
     setBusy(true);
@@ -129,7 +150,24 @@ export function LoginForm({ next, linkError }: { next: string; linkError: boolea
 
   if (step === "email") {
     return (
-      <form onSubmit={onEmail} noValidate className="stack">
+      <form onSubmit={onEmail} noValidate style={{ display: "contents" }}>
+        <h1 className="large-title">Entrar ou criar conta</h1>
+        <p className="body-2">Opcional: com uma conta, suas preferências ficam guardadas e você pode usar em outros aparelhos.</p>
+        {PROVIDERS.length > 0 && (
+          <div style={{ display: "grid", gap: 10, marginTop: 20 }}>
+            {PROVIDERS.includes("apple") && (
+              <button type="button" className="btn btn-provider btn-block" onClick={() => oauth("apple")} disabled={busy}>
+                Continuar com Apple
+              </button>
+            )}
+            {PROVIDERS.includes("google") && (
+              <button type="button" className="btn btn-provider btn-block" onClick={() => oauth("google")} disabled={busy}>
+                Continuar com Google
+              </button>
+            )}
+            <p className="divider">ou com seu e-mail</p>
+          </div>
+        )}
         {feedback}
         <div className="field">
           <label htmlFor="email">Seu e-mail</label>
@@ -143,22 +181,28 @@ export function LoginForm({ next, linkError }: { next: string; linkError: boolea
             spellCheck={false}
             required
             maxLength={254}
+            placeholder="voce@email.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             aria-invalid={Boolean(error)}
           />
-          <span className="hint">Se ainda não tiver conta, ela é criada no primeiro acesso.</span>
         </div>
-        <button className="btn btn-primary btn-block" type="submit" disabled={busy}>
-          {busy ? <span className="spinner" aria-hidden="true" /> : null}
-          {busy ? "Enviando código…" : "Receber código"}
-        </button>
+        <div className="footer-cta">
+          <button className="btn btn-primary btn-block" type="submit" disabled={busy}>
+            {busy ? <span className="spinner" aria-hidden="true" /> : null}
+            {busy ? "Enviando código…" : "Receber código"}
+          </button>
+        </div>
       </form>
     );
   }
 
   return (
-    <form onSubmit={onCode} noValidate className="stack">
+    <form onSubmit={onCode} noValidate style={{ display: "contents" }}>
+      <h1 className="large-title">Digite o código</h1>
+      <p className="body-2">
+        Enviado para <strong style={{ color: "#fff" }}>{email}</strong>. Confira também o spam — o e-mail traz um link que entra direto.
+      </p>
       {feedback}
       <div className="field">
         <label htmlFor="code">Código de acesso</label>
@@ -175,23 +219,15 @@ export function LoginForm({ next, linkError }: { next: string; linkError: boolea
           value={code}
           onChange={(e) => setCode(e.target.value.replace(/\D/g, ""))}
           aria-invalid={Boolean(error)}
-          aria-describedby="code-hint"
         />
-        <span id="code-hint" className="hint">
-          Confira a caixa de entrada e o spam. O e-mail também traz um link que entra direto.
-        </span>
       </div>
-      <button className="btn btn-primary btn-block" type="submit" disabled={busy}>
-        {busy ? <span className="spinner" aria-hidden="true" /> : null}
-        {busy ? "Confirmando…" : "Entrar"}
-      </button>
-      <div className="btn-row">
-        <button type="button" className="btn btn-quiet" onClick={resend} disabled={busy || cooldown > 0}>
+      <div className="btn-row" style={{ marginTop: 12 }}>
+        <button type="button" className="btn btn-text" onClick={resend} disabled={busy || cooldown > 0}>
           {cooldown > 0 ? `Reenviar em ${cooldown}s` : "Reenviar código"}
         </button>
         <button
           type="button"
-          className="btn btn-quiet"
+          className="btn btn-text"
           disabled={busy}
           onClick={() => {
             setStep("email");
@@ -201,6 +237,12 @@ export function LoginForm({ next, linkError }: { next: string; linkError: boolea
           }}
         >
           Trocar e-mail
+        </button>
+      </div>
+      <div className="footer-cta">
+        <button className="btn btn-primary btn-block" type="submit" disabled={busy}>
+          {busy ? <span className="spinner" aria-hidden="true" /> : null}
+          {busy ? "Confirmando…" : "Entrar"}
         </button>
       </div>
     </form>

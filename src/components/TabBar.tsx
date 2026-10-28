@@ -2,43 +2,33 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { IconMusic, IconSun, IconUser } from "./Icons";
 
 const TABS = [
-  {
-    href: "/hoje",
-    label: "Hoje",
-    icon: <path d="M4 15a8 8 0 0 1 16 0M2 15h20M12 3v3M4.9 7.9l2 2M19.1 7.9l-2 2" />,
-  },
-  {
-    href: "/audios",
-    label: "Áudios",
-    icon: <path d="M9 18V6l11-2v12M9 18a3 3 0 1 1-3-3 3 3 0 0 1 3 3Zm11-2a3 3 0 1 1-3-3 3 3 0 0 1 3 3Z" />,
-  },
-  {
-    href: "/conta",
-    label: "Conta",
-    icon: <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm-7 9a7 7 0 0 1 14 0" />,
-  },
+  { href: "/hoje", label: "Hoje", Icon: IconSun, match: (p: string) => p === "/hoje" || p.startsWith("/reflexao") },
+  { href: "/audios", label: "Áudios", Icon: IconMusic, match: (p: string) => p === "/audios" },
+  { href: "/conta", label: "Ajustes", Icon: IconUser, match: (p: string) => p.startsWith("/conta") },
 ];
 
 export function TabBar() {
   const pathname = usePathname();
   return (
     <nav className="tabbar" aria-label="Navegação principal">
+      <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden="true">
+        <linearGradient id="tab-grad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#FF2D87" />
+          <stop offset="1" stopColor="#FFC23D" />
+        </linearGradient>
+      </svg>
       <ul>
-        {TABS.map((tab) => {
-          const active = pathname === tab.href || (tab.href === "/hoje" && pathname.startsWith("/reflexao"));
-          return (
-            <li key={tab.href}>
-              <Link href={tab.href} aria-current={active ? "page" : undefined} aria-label={tab.label}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  {tab.icon}
-                </svg>
-                <span className="tab-label">{tab.label}</span>
-              </Link>
-            </li>
-          );
-        })}
+        {TABS.map(({ href, label, Icon, match }) => (
+          <li key={href}>
+            <Link href={href} aria-current={match(pathname) ? "page" : undefined}>
+              <Icon />
+              {label}
+            </Link>
+          </li>
+        ))}
       </ul>
     </nav>
   );

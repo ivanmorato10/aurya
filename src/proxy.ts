@@ -1,8 +1,8 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-const PRIVATE = ["/hoje", "/reflexao", "/audios", "/conta", "/comecar"];
-const GUEST_ONLY = ["/", "/entrar"];
+// O app funciona sem conta; só a exclusão de conta exige sessão.
+const PRIVATE = ["/conta/excluir"];
 
 // Renova a sessão do Supabase em cada navegação e faz o redirecionamento
 // inicial. A autorização real acontece de novo nas páginas, actions e RLS.
@@ -39,9 +39,8 @@ export async function proxy(request: NextRequest) {
   if (!signedIn && PRIVATE.some((p) => path === p || path.startsWith(`${p}/`))) {
     return redirectTo(`/entrar?next=${encodeURIComponent(path)}`);
   }
-  if (signedIn && GUEST_ONLY.includes(path)) {
-    return redirectTo("/hoje");
-  }
+  if (signedIn && path === "/") return redirectTo("/hoje");
+  if (signedIn && path === "/entrar") return redirectTo("/conta");
   return response;
 }
 
