@@ -8,10 +8,12 @@ import type { MomentId } from "@/lib/schedule";
 export function MomentHeading({ moment, label }: { moment: MomentId; label: string }) {
   const { prefs } = usePrefs();
   return (
-    <div className="home-moment" style={{ marginTop: 0 }}>
-      <MomentIcon moment={moment} className="moment-icon" />
-      <p className="home-moment-name">{label}</p>
-      {prefs && <p className="home-moment-time">{prefs.schedule[moment]}</p>}
+    <div className="moment-line">
+      <MomentIcon moment={moment} />
+      <p className="overline">
+        {label}
+        {prefs ? ` · ${prefs.schedule[moment]}` : ""}
+      </p>
     </div>
   );
 }

@@ -2,12 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { IconHome, IconMusic, IconProfile } from "./Icons";
+import { IconAudioTab, IconHomeThin, IconLeaf, IconUserThin } from "./Icons";
 
 const TABS = [
-  { href: "/hoje", label: "Início", Icon: IconHome, match: (p: string) => p === "/hoje" || p.startsWith("/reflexao") },
-  { href: "/audios", label: "Áudio", Icon: IconMusic, match: (p: string) => p === "/audios" },
-  { href: "/conta", label: "Perfil", Icon: IconProfile, match: (p: string) => p.startsWith("/conta") },
+  { href: "/hoje", label: "Início", Icon: IconHomeThin, match: (p: string) => p === "/hoje" },
+  { href: "/audios", label: "Áudios", Icon: IconAudioTab, match: (p: string) => p.startsWith("/audios") },
+  { href: "/afirmacoes", label: "Afirmações", Icon: IconLeaf, match: (p: string) => p.startsWith("/afirmacoes") || p.startsWith("/reflexao") },
+  { href: "/conta", label: "Perfil", Icon: IconUserThin, match: (p: string) => p.startsWith("/conta") },
 ];
 
 export function TabBar() {

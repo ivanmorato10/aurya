@@ -4,6 +4,7 @@
 # Next.js / build
 /.next/
 /.next-e2e/
+/.next-shots/
 /out/
 /build
 *.tsbuildinfo

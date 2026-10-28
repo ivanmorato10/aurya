@@ -5,7 +5,9 @@ import { signOut } from "@/app/actions";
 import { IconChevron, IconClock, IconInfo, IconLogout, IconShield, IconSpark, IconTrash, IconUser } from "@/components/Icons";
 import { usePrefs } from "@/components/PrefsProvider";
 import { SubmitButton } from "@/components/SubmitButton";
-import { AppHeader } from "@/components/ui/AppHeader";
+import { Hero } from "@/components/ui/Hero";
+import { BrandBar } from "@/components/ui/TopBar";
+import { MOMENT_IMAGES } from "@/lib/images";
 import { CATEGORY_IDS } from "@/lib/categories";
 
 function Row({ href, icon, title, value, danger }: { href: string; icon: React.ReactNode; title: string; value?: string; danger?: boolean }) {
@@ -35,8 +37,10 @@ export function SettingsHome({ categories }: { categories: { id: string; label: 
 
   return (
     <>
-      <AppHeader center={<h1 className="navbar-title" style={{ margin: 0 }}>Perfil</h1>} />
-      <h2 className="large-title" style={{ marginTop: 24 }}>Seu ritual</h2>
+      <Hero image={MOMENT_IMAGES.sleep} fallback="sleep" size="medium" position="center 30%" top={<BrandBar action={<span />} />}>
+        <h1 className="screen-display">Perfil</h1>
+        <p className="screen-sub">{prefs?.displayName ? `${prefs.displayName}, seu ritual no seu tempo.` : "Seu ritual, no seu tempo."}</p>
+      </Hero>
 
       <h2 className="section-title">Sua rotina</h2>
       {ready && !prefs ? (
@@ -76,11 +80,11 @@ export function SettingsHome({ categories }: { categories: { id: string; label: 
           <Row href="/conta/excluir" icon={<IconTrash />} title="Excluir conta" danger />
         </ul>
       ) : (
-        <div className="card" style={{ padding: 18 }}>
+        <div style={{ padding: "8px 0 4px" }}>
           <p className="row-title" style={{ margin: 0 }}>
             Você está usando sem cadastro
           </p>
-          <p className="caption" style={{ margin: "4px 0 14px" }}>
+          <p className="caption" style={{ margin: "6px 0 18px" }}>
             Suas escolhas ficam só neste aparelho. Crie uma conta para guardá-las e usar em outros aparelhos.
           </p>
           <Link href="/entrar?next=/conta" className="btn btn-primary btn-block">

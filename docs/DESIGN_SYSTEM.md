@@ -1,46 +1,44 @@
-# AURYA · Design System (Fase 2)
+# AURYA · Design System — linguagem "Serenidade"
 
-Fontes: `docs/referencias/AURYA_DESIGN_REFERENCE.png` (arte aprovada) e `design/brand-kit/` (Brand Kit v1).
-Vitrine para revisão (somente desenvolvimento): `npm run dev` → `/design-system`. Captura: `docs/design/design-system-vitrine.png`.
+**Fonte principal da verdade:** `docs/referencias/AURYA_Serenidade_em_Audio.png`. Cores medidas na própria imagem.
+Marca e logo: `design/brand-kit` (símbolo solar corrigido, aprovado). Tokens: `src/styles/tokens.css`. Espelho Flutter: `design/tokens/aurya_tokens.dart`.
+Comparações e capturas: `docs/design/serenidade/`.
 
-## Tokens — `src/styles/tokens.css`
-Espelho Flutter (ainda não integrado): `design/tokens/aurya_tokens.dart`.
+## Princípios aplicados a todas as telas
+- **Fotografia em sangria total** no topo (ou tela inteira), com gradação escura e dessaturada e um leve desfoque, como a profundidade de campo da referência. Esmaece para o fundo `#05101A`, sem molduras nem cards.
+- **"AURYA" espaçado à esquerda e ícone de sol à direita**, sobre a foto.
+- **Título serifado à esquerda** (Cormorant Garamond 40) com subtítulo leve (Inter 300).
+- **Abas de texto** com sublinhado champagne.
+- **Listas com miniatura arredondada** (96×70, raio 8), título, detalhes e **anel fino de play**, separadas por divisores de 1 px.
+- **Player em tela cheia:** sobretítulo do tema, título serifado, progresso champagne com marcador e **anel champagne de 84 px**.
+- **Folha inferior de configurações:** chips em pílula (o ativo é champagne preenchido), melodias como blocos de imagem, volume com marcador e botão champagne "Salvar configurações".
+- **Navegação inferior com 4 itens:** Início, Áudios, Afirmações e Perfil. Ícones lineares; o ativo fica em champagne.
 
-| Grupo | Tokens |
-|---|---|
-| Paleta | `--aurya-midnight` #101C2C · `--aurya-ocean` #1E3A5F · `--aurya-champagne` #C5B69A · `--aurya-ivory` #F4F0E8 |
-| Derivadas | transparências de Ivory (80/64/48/12/8/5 %), Champagne claro/escuro, gradiente champagne, véu de legibilidade (`--aurya-scrim`), erro #E8A39A |
-| Semânticos | `--color-bg`, `--color-surface`, `--color-surface-raised`, `--color-border`, `--color-text`, `--color-text-muted`, `--color-accent` |
-| Tipografia | Cormorant Garamond (editorial) e Inter (interface), via `next/font` (OFL) |
-| Escala | Display 40 · Headline 32 · Title 22 (Cormorant) · Body 16 · Label 15 · Caption 13 · Overline 11 (+0,22em) · Button 16 · Nav 11 (Inter) |
-| Espaço | 4 · 8 · 12 · 16 · 20 · 24 · 32 · 40 · 48; margem lateral 24 |
-| Forma | cápsula 999, card 20, campo 14; área de toque 48; navegação 64 |
-
-Contraste (WCAG): Ivory sobre Midnight 15,8:1 · Champagne sobre Midnight 8,6:1 · Ivory 64 % sobre Midnight ≈ 7,4:1 · Midnight sobre Ivory 15,8:1 · Ivory sobre Ocean 10,4:1.
-
-## Marca — `src/components/brand/Logo.tsx`
-- `SunSymbol`: versão corrigida do símbolo do Brand Kit, com arco duplo, 13 raios alternando longos e curtos, horizonte em dois segmentos, traço fino em champagne. O SVG fica em `design/brand-kit/logos/sun-symbol-corrigido.svg`.
-- `Wordmark`: "AURYA" em Cormorant Garamond 500, espaçamento 0,16em, gradiente champagne.
-- `Logo`: símbolo, nome e "Afirmações para uma vida extraordinária".
-- Comparação com a referência: `docs/design/logo-comparacao.png`. **Aprovado** e aplicado no ícone do app, na abertura e no cabeçalho.
-
-## Componentes
-| Componente | Arquivo | Notas |
+## Tokens principais
+| Token | Valor | Uso |
 |---|---|---|
-| Botões (primário, secundário, texto) | `ui/Button.tsx` + `.btn-*` | Primário: cápsula Ivory com texto Midnight. Secundário: Ocean com texto Ivory. Texto: sublinhado discreto. Estado `loading` bloqueia cliques repetidos |
-| Cabeçalho | `ui/AppHeader.tsx` | Voltar, título ou marca, ação. Sem menu hambúrguer |
-| Navegação inferior | `TabBar.tsx` | Início, Áudio, Perfil; item ativo em champagne |
-| Campo de formulário | `ui/TextField.tsx` | Rótulo, dica e erro ligados por `aria-describedby` |
-| Seletor de horário | `ui/TimeRow.tsx` | Ícone fino do momento, nome e hora |
-| Card editorial | `ui/EditorialCard.tsx` | Sem sombra; borda superior sutil |
-| Controles de áudio | `ui/AudioControls.tsx` | `PlayButton` (círculo Ivory) e `ProgressBar` (tempo decorrido/total do temporizador existente) |
-| Estados | `ui/StateMessage.tsx` | Carregando (skeleton), vazio, erro com "Tentar novamente" |
-| Fundo atmosférico | `ui/Atmosphere.tsx` | Usa a foto aprovada quando existir; até lá, a ilustração provisória |
-| Ícones dos momentos | `Icons.tsx` (`MomentIcon`) | Traço 1,5: amanhecer, manhã, sol pleno, lua |
+| `--aurya-night` | #05101A | fundo |
+| `--aurya-night-2` | #0A1620 | folhas |
+| `--aurya-glow` | #E6C49A | ação, seleção, progresso (medido na referência) |
+| `--aurya-on-glow` | #0B1118 | texto sobre champagne |
+| `--aurya-text` | #E8E6E1 | texto |
+| `--aurya-text-2` | 66 % | texto secundário (≥ 7:1) |
+| `--aurya-line` | 9 % | divisores |
+| `--aurya-photo-grade` | brilho .8 · saturação .88 · desfoque .5px | gradação única das fotos |
+
+Tipografia: Display 40, Headline 34 e Title 26 em Cormorant; Body 15/300, Label 15, Section 17, Meta 13/300, Overline 12 (+0,32em), Button 16 e Nav 12 em Inter.
+
+## Componentes (`src/components/ui/`)
+`Hero` · `TopBar` (`BrandBar`, `CloseBar`) · `Tabs` · `MediaRow` · `AudioControls` (`RingButton`, `ProgressBar`) · `Chip` (`ChipGroup`) · `Sheet` (`Sheet`, `SheetSection`) · `Button` · `TextField` · `TimeRow` · `StateMessage` · `TabBar`.
+
+## Conteúdo real no lugar dos exemplos da referência
+| Referência | AURYA |
+|---|---|
+| "Abundância Natural · 432 Hz · 20 min" | linha = tema × frequência real ("Frequência 432 Hz · Gratidão · 3 melodias"); no player, o título é a melodia (Aurora, Horizonte, Acolhimento) |
+| 20:00, 10/20/30 min, "Sem limite" | temporizador real: 1, 5, 10 e 15 min |
+| Melodias Oceano, Floresta, Ambiente, Piano | as 3 composições reais |
+| Coração (favoritar), ±15 s | não existem no app; omitidos |
+| Anterior/Próxima | navegam entre as frequências do tema |
 
 ## Imagens
-Status e especificações em `docs/IMAGENS.md`; registro de arquivos em `src/lib/images.ts`.
-
-## Telas redesenhadas (Fases 3 e 4)
-Abertura · Início · Aprofundamento · Experiência sonora · Perfil e Meus horários. O onboarding, o login e o "Como funciona" herdam os tokens e componentes.
-As fotografias estão integradas, mas são **provisórias** (baixa resolução): ver `docs/IMAGENS.md`.
+Integradas, mas **provisórias** (baixa resolução): ver `docs/IMAGENS.md`.

@@ -60,7 +60,7 @@ function ScheduleFormInner({ moments, timeZones }: { moments: { id: MomentId; la
     >
       <Feedback state={state} />
       <ScheduleFields values={values} onChange={setValues} moments={moments} timeZones={timeZones} errors={state.fieldErrors} />
-      <SaveButton busy={busy} label="Salvar horários" variant="secondary" />
+      <SaveButton busy={busy} label="Salvar horários" />
     </form>
   );
 }

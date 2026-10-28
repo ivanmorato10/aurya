@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { AppFrame, NavBar } from "@/components/Screen";
+import { AppFrame } from "@/components/Screen";
+import { Hero } from "@/components/ui/Hero";
+import { CloseBar } from "@/components/ui/TopBar";
+import { IMAGES } from "@/lib/images";
 
 export const metadata: Metadata = { title: "Como funciona" };
 
@@ -15,9 +18,12 @@ const STEPS = [
 export default function ComoFuncionaPage() {
   return (
     <AppFrame>
-      <NavBar back="/" />
-      <p className="kicker">Como funciona</p>
-      <h1 className="large-title">Quatro pausas. Um dia mais presente.</h1>
+      <Hero image={IMAGES.reflection} fallback="wake" size="medium" top={<CloseBar href="/" />}>
+        <p className="overline">Como funciona</p>
+        <h1 className="screen-display" style={{ marginTop: 12 }}>
+          Quatro pausas. Um dia mais presente.
+        </h1>
+      </Hero>
       <ol className="steps">
         {STEPS.map((s, i) => (
           <li className="step" key={s.title}>

@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
-import { AppFrame, NavBar } from "@/components/Screen";
+import { AppFrame } from "@/components/Screen";
+import { Hero } from "@/components/ui/Hero";
+import { CloseBar } from "@/components/ui/TopBar";
+import { IMAGES } from "@/lib/images";
 import { hasSupabaseEnv } from "@/lib/supabase/env";
 import { safeNextPath } from "@/lib/validation";
 import { LoginForm } from "./LoginForm";
@@ -11,7 +14,7 @@ export default async function EntrarPage({ searchParams }: { searchParams: Promi
   const next = safeNextPath(params.next);
   return (
     <AppFrame>
-      <NavBar back={next === "/conta" ? "/conta" : "/"} />
+      <Hero image={IMAGES.opening} fallback="sleep" size="medium" position="center 25%" top={<CloseBar href={next === "/conta" ? "/conta" : "/"} />} />
       {hasSupabaseEnv() ? (
         <LoginForm next={next} linkError={params.erro ?? null} />
       ) : (

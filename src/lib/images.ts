@@ -18,3 +18,24 @@ export const MOMENT_IMAGES: Record<MomentId, ImageSlot> = {
   midday: { src: "/images/moments/midday.webp", alt: "Oceano iluminado pelo sol" },
   sleep: { src: "/images/moments/sleep.webp", alt: "Lua sobre o oceano à noite" },
 };
+
+const ALL = [MOMENT_IMAGES.wake, IMAGES.opening, IMAGES.reflection, MOMENT_IMAGES.commute, MOMENT_IMAGES.midday, MOMENT_IMAGES.sleep, IMAGES.player];
+
+/** Imagens das faixas por tema (miniatura e fundo do player). */
+const THEME_IMAGES: Record<string, ImageSlot[]> = {
+  prosperity: [MOMENT_IMAGES.wake, IMAGES.reflection, IMAGES.opening, MOMENT_IMAGES.commute],
+  wealth: [MOMENT_IMAGES.commute, MOMENT_IMAGES.midday, MOMENT_IMAGES.wake],
+  gratitude: [MOMENT_IMAGES.sleep, IMAGES.player, IMAGES.opening, IMAGES.reflection],
+};
+
+export function trackImage(theme: string, index: number): ImageSlot {
+  const list = THEME_IMAGES[theme] ?? ALL;
+  return list[index % list.length];
+}
+
+/** Imagem de cada melodia (blocos da folha de configurações). */
+export const MELODY_IMAGES: Record<string, ImageSlot> = {
+  Aurora: MOMENT_IMAGES.wake,
+  Horizonte: MOMENT_IMAGES.midday,
+  Acolhimento: MOMENT_IMAGES.sleep,
+};

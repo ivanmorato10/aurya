@@ -1,7 +1,7 @@
 // Ícones de linha, traço 2px, 24×24.
 type P = { className?: string };
 const S = ({ children, className }: P & { children: React.ReactNode }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
     {children}
   </svg>
 );
@@ -36,6 +36,30 @@ export const IconPause = (p: P) => (
 export const IconStop = (p: P) => (
   <svg className={p.className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2.5" /></svg>
 );
+
+// Linguagem "Serenidade" (referência AURYA_Serenidade_em_Audio.png)
+export const IconChevronDown = (p: P) => <S {...p}><path d="M5.5 9l6.5 6.5L18.5 9" /></S>;
+export const IconInfo2 = (p: P) => <S {...p}><circle cx="12" cy="12" r="8.5" /><path d="M12 11v5M12 8h.01" /></S>;
+export const IconTimer = (p: P) => <S {...p}><circle cx="12" cy="13.5" r="7.5" /><path d="M12 13.5V9.5M10 2.5h4M18.2 6.8l1.3-1.3" /></S>;
+export const IconWaves = (p: P) => <S {...p}><path d="M4 10.5v3M7.5 8v8M11 5v14M14.5 8.5v7M18 6.5v11M21 10.5v3" /></S>;
+export const IconVolume = (p: P) => <S {...p}><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" /><path d="M15.5 9a4.2 4.2 0 0 1 0 6M18.3 6.5a7.8 7.8 0 0 1 0 11" /></S>;
+export const IconVolumeLow = (p: P) => <S {...p}><path d="M5 9.5h3.5L13 5.5v13l-4.5-4H5z" /><path d="M16.5 9a4.2 4.2 0 0 1 0 6" /></S>;
+export const IconMore = (p: P) => (
+  <svg className={p.className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.6" /><circle cx="12" cy="12" r="1.6" /><circle cx="19" cy="12" r="1.6" /></svg>
+);
+export const IconPrev = (p: P) => <S {...p}><path d="M6.5 5v14M18.5 5.5 9.5 12l9 6.5z" /></S>;
+export const IconNext = (p: P) => <S {...p}><path d="M17.5 5v14M5.5 5.5l9 6.5-9 6.5z" /></S>;
+export const IconPlayThin = (p: P) => (
+  <svg className={p.className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8.5 6.2v11.6c0 .7.8 1.2 1.4.8l8.6-5.8a1 1 0 0 0 0-1.6L9.9 5.4c-.6-.4-1.4.1-1.4.8z" /></svg>
+);
+export const IconPauseThin = (p: P) => (
+  <svg className={p.className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6.8" y="5.5" width="3.4" height="13" rx="1.2" /><rect x="13.8" y="5.5" width="3.4" height="13" rx="1.2" /></svg>
+);
+export const IconLeaf = (p: P) => <S {...p}><path d="M12 20.5c-4.5-2-7-5.2-7-9.3 0-2 .5-4 1.4-5.7 2.4 1 4.3 2.6 5.6 4.6 1.3-2 3.2-3.6 5.6-4.6.9 1.7 1.4 3.7 1.4 5.7 0 4.1-2.5 7.3-7 9.3z" /><path d="M12 10.1v10.4" /></S>;
+export const IconAudioTab = (p: P) => <S {...p}><circle cx="12" cy="12" r="8.5" /><path d="M12 3.5a8.5 8.5 0 0 0 0 17 5 8.5 0 0 1 0-17z" fill="currentColor" stroke="none" /></S>;
+export const IconUserThin = (p: P) => <S {...p}><circle cx="12" cy="8" r="3.8" /><path d="M4.5 20.5a7.5 7.5 0 0 1 15 0" /></S>;
+export const IconHomeThin = (p: P) => <S {...p}><path d="M4.5 10.2 12 4l7.5 6.2V20h-5v-5.5h-5V20h-5z" /></S>;
+export const IconSunHorizon = (p: P) => <S {...p}><path d="M6.5 15a5.5 5.5 0 0 1 11 0" /><path d="M2.5 15h19M5 18.5h14M12 4v3M5.6 6.6l1.8 1.8M18.4 6.6l-1.8 1.8M2.8 11h2.4M18.8 11h2.4" /></S>;
 
 import type { MomentId } from "@/lib/schedule";
 // Ícones dos momentos, no traço fino da referência aprovada.

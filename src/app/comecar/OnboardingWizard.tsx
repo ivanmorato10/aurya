@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import type { FormState } from "@/app/actions";
 import { MessageFields, ScheduleFields, type MessageValues, type ScheduleValues } from "@/components/PreferenceFields";
 import { IconBack } from "@/components/Icons";
+import { Hero } from "@/components/ui/Hero";
+import { MOMENT_IMAGES } from "@/lib/images";
 import { usePrefs } from "@/components/PrefsProvider";
 import { CATEGORY_IDS, type CategoryId } from "@/lib/categories";
 import { EXAMPLE_SCHEDULE, isValidSchedule, type MomentId } from "@/lib/schedule";
@@ -15,7 +17,7 @@ const STEP_OF_FIELD: Record<string, number> = {
 };
 
 const TITLES = [
-  ["Seus horários", "Quando cada frase deve aparecer? Ela fica com você até o próximo momento."],
+  ["Seus horários", "Quando cada frase deve aparecer. Ela fica com você até o próximo momento."],
   ["O que você quer receber?", "Escolha um ou mais tipos. Você pode mudar quando quiser em Ajustes."],
   ["Como podemos chamar você?", "Opcional. Aparece só para você, na saudação."],
 ];
@@ -94,29 +96,33 @@ function Wizard({
 
   return (
     <form onSubmit={onSubmit} noValidate style={{ display: "contents" }}>
-      <div className="navbar" style={{ gap: 8 }}>
-        {step > 0 ? (
-          <button type="button" className="icon-btn" aria-label="Voltar" onClick={() => setStep((s) => s - 1)}>
-            <IconBack />
-          </button>
-        ) : (
-          <Link href="/" className="icon-btn" aria-label="Voltar">
-            <IconBack />
-          </Link>
-        )}
-        <div className="progress" role="progressbar" aria-valuemin={1} aria-valuemax={3} aria-valuenow={step + 1} aria-label="Progresso">
-          <i style={{ width: `${((step + 1) / 3) * 100}%` }} />
-        </div>
-        <span />
-      </div>
-
-      <p className="kicker" style={{ marginTop: 18 }}>
-        Passo {step + 1} de 3
-      </p>
-      <h1 className="large-title">{TITLES[step][0]}</h1>
-      <p className="body-2" style={{ marginBottom: 20 }}>
-        {TITLES[step][1]}
-      </p>
+      <Hero
+        image={[MOMENT_IMAGES.wake, MOMENT_IMAGES.midday, MOMENT_IMAGES.sleep][step]}
+        fallback="wake"
+        size="medium"
+        top={
+          <div className="topbar" style={{ gap: 12 }}>
+            {step > 0 ? (
+              <button type="button" className="topbar-icon" aria-label="Voltar" onClick={() => setStep((s) => s - 1)}>
+                <IconBack />
+              </button>
+            ) : (
+              <Link href="/" className="topbar-icon" aria-label="Voltar">
+                <IconBack />
+              </Link>
+            )}
+            <div className="progress" role="progressbar" aria-valuemin={1} aria-valuemax={3} aria-valuenow={step + 1} aria-label="Progresso">
+              <i style={{ width: `${((step + 1) / 3) * 100}%` }} />
+            </div>
+          </div>
+        }
+      >
+        <p className="overline">Passo {step + 1} de 3</p>
+        <h1 className="screen-display" style={{ marginTop: 12 }}>
+          {TITLES[step][0]}
+        </h1>
+        <p className="screen-sub">{TITLES[step][1]}</p>
+      </Hero>
 
       {state.status === "error" && state.message && (
         <p className="alert alert-error" role="alert">

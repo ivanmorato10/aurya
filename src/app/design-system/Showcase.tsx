@@ -4,13 +4,11 @@ import { useState } from "react";
 import { Logo, SunSymbol, Wordmark } from "@/components/brand/Logo";
 import { MomentIcon } from "@/components/Icons";
 import { AppHeader } from "@/components/ui/AppHeader";
-import { PlayButton, ProgressBar } from "@/components/ui/AudioControls";
+import { PlayButton, ProgressBar, RingButton } from "@/components/ui/AudioControls";
 import { Button } from "@/components/ui/Button";
-import { EditorialCard } from "@/components/ui/EditorialCard";
 import { EmptyState, ErrorState, LoadingState } from "@/components/ui/StateMessage";
 import { TextField } from "@/components/ui/TextField";
 import { TimeRow } from "@/components/ui/TimeRow";
-import { Scene } from "@/components/Scene";
 import type { MomentId } from "@/lib/schedule";
 
 const COLORS = [
@@ -117,16 +115,9 @@ export function Showcase() {
           <p className="overline">Controles de áudio</p>
           <div className="ds-row">
             <PlayButton playing={playing} onClick={() => setPlaying((p) => !p)} />
-            <PlayButton playing={false} busy onClick={() => undefined} size="md" />
+            <RingButton playing={false} onClick={() => undefined} />
           </div>
           <ProgressBar elapsedMs={135000} totalMs={600000} />
-        </section>
-
-        <section className="ds-section">
-          <p className="overline">Card editorial</p>
-          <EditorialCard overline="Aprofundamento" title="Prosperidade começa no que cultivo" media={<Scene moment="wake" />}>
-            Quando acolho esta afirmação, reconheço que minha vida contém capacidades, relações e possibilidades que merecem cuidado.
-          </EditorialCard>
         </section>
 
         <section className="ds-section">

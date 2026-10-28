@@ -2,11 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 import { NarrationSession, type NarrationStatus } from "@/lib/narration";
-import { IconPause, IconPlay, IconStop } from "@/components/Icons";
+import { RingButton } from "@/components/ui/AudioControls";
 
 const AMBIENCE_VOLUME = 0.16;
 
-export function ReflectionPlayer({ title, chunks, ambienceSrc }: { title: string; chunks: string[]; ambienceSrc: string }) {
+export function ReflectionPlayer({ chunks, ambienceSrc }: { chunks: string[]; ambienceSrc: string }) {
   const session = useRef<NarrationSession | null>(null);
   const ambience = useRef<HTMLAudioElement | null>(null);
   const fade = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -95,47 +95,35 @@ export function ReflectionPlayer({ title, chunks, ambienceSrc }: { title: string
 
   return (
     <>
-      <label className="inline-toggle" htmlFor="music">
+      <div className="listen-row">
+        <RingButton
+          playing={status === "speaking"}
+          busy={busy}
+          onClick={() => (status === "speaking" ? session.current?.pause() : listen())}
+          label={status === "speaking" ? "Pausar" : status === "paused" ? "Continuar" : "Ouvir"}
+        />
+        <span className="play-label">
+          <strong>Ouvir o aprofundamento</strong>
+          <span className="play-status" role="status">
+            {message}
+          </span>
+        </span>
+        {active && (
+          <button type="button" className="btn btn-text" onClick={() => session.current?.stop()}>
+            Parar
+          </button>
+        )}
+      </div>
+      <label className="inline-toggle" htmlFor="music" style={{ marginTop: -24, marginBottom: 24 }}>
         <span>
-          <span style={{ display: "block" }}>Piano durante a leitura</span>
-          <span className="caption">Música instrumental suave ao fundo.</span>
+          <span className="row-title">Piano durante a leitura</span>
+          <span className="row-sub">Música instrumental suave ao fundo</span>
         </span>
         <span className="switch">
           <input id="music" type="checkbox" role="switch" checked={music} onChange={(e) => toggleMusic(e.target.checked)} />
           <span />
         </span>
       </label>
-      <section className="player-bar" aria-label="Ouvir a reflexão">
-        <div className="player-info">
-          <p className="row-title" style={{ margin: 0 }}>
-            {title}
-          </p>
-          <p className="player-status" role="status">
-            {status === "speaking" && (
-              <span className="wave" aria-hidden="true">
-                <span />
-                <span />
-                <span />
-              </span>
-            )}
-            {message}
-          </p>
-        </div>
-        {active && (
-          <button className="round round--ghost" onClick={() => session.current?.stop()} aria-label="Parar">
-            <IconStop />
-          </button>
-        )}
-        {status === "speaking" ? (
-          <button className="round" onClick={() => session.current?.pause()} aria-label="Pausar">
-            <IconPause />
-          </button>
-        ) : (
-          <button className="round" onClick={listen} disabled={busy} aria-label={status === "paused" ? "Continuar" : "Ouvir"}>
-            {busy ? <span className="spinner" aria-hidden="true" /> : <IconPlay />}
-          </button>
-        )}
-      </section>
     </>
   );
 }

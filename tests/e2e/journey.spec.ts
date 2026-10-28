@@ -4,6 +4,7 @@ const MOCK = "http://127.0.0.1:54399";
 const control = (page: Page, body: object) => page.request.post(`${MOCK}/__control`, { data: body });
 const email = (tag: string) => `${tag}-${Date.now()}-${Math.floor(Math.random() * 1e6)}@example.com`;
 const alertBox = (page: Page) => page.locator("p[role=alert]");
+const DAY = 'ul[aria-label="Momentos do dia"]';
 // Aguarda as animações de entrada antes da captura.
 const shot = async (page: Page, name: string, project: string) => {
   await page.waitForTimeout(1200);
@@ -86,23 +87,23 @@ test("visitante: boas-vindas, como funciona, configurar sem conta e ler", async 
   // Hoje
   await expect(page).toHaveURL(/\/hoje/);
   await expect(page.locator(".home-affirmation")).not.toBeEmpty();
-  await expect(page.getByText("Momento atual")).toBeVisible();
-  await expect(page.locator(".moment-btn")).toHaveCount(4);
+  await expect(page.locator(".moment-line")).toBeVisible();
+  await expect(page.locator(DAY + " .media-row")).toHaveCount(4);
   await noHorizontalScroll(page);
   await shot(page, "5-hoje", info.project.name);
-  for (const btn of await page.locator(".moment-btn").all()) {
+  for (const btn of await page.locator(DAY + " .media-main").all()) {
     await btn.click();
     await expect(page.locator(".home-source")).toHaveCount(0);
   }
 
   // Preferências sobrevivem ao recarregar; "/" leva direto para Hoje
   await page.reload();
-  await expect(page.locator(".moment-btn").filter({ hasText: "23:00" })).toBeVisible();
+  await expect(page.locator(DAY).filter({ hasText: "23:00" })).toBeVisible();
   await page.goto("/");
   await expect(page).toHaveURL(/\/hoje/);
 
   // Aprofundar sem conta
-  await page.locator(".moment-btn.is-now").click();
+  await page.locator(DAY + " .media-row:has(.badge) .media-main").click();
   const phrase = await page.locator(".home-affirmation").innerText();
   await page.getByRole("link", { name: "Aprofundar", exact: true }).click();
   await expect(page.locator(".reflection-affirmation")).toHaveText(phrase);
@@ -133,7 +134,7 @@ test("visitante: ajustes salvam no aparelho", async ({ page }, info) => {
   await expect(page.getByRole("checkbox", { name: /Confiança e ação/ })).not.toBeChecked();
 
   await page.goto("/hoje");
-  await expect(page.locator(".moments")).toContainText("12:10");
+  await expect(page.locator(DAY)).toContainText("12:10");
 });
 
 test("criar conta leva as preferências do aparelho; falha ao salvar preserva; sair mantém o app", async ({ page }) => {
@@ -148,7 +149,7 @@ test("criar conta leva as preferências do aparelho; falha ao salvar preserva; s
 
   // Migração: a conta nova recebeu as preferências do aparelho
   await page.goto("/conta");
-  await expect(page.getByText("Bia")).toBeVisible();
+  await expect(page.getByText("Bia", { exact: true })).toBeVisible();
 
   // Com conta: falha de gravação preserva o formulário; depois salva
   await page.goto("/conta/horarios");
@@ -166,7 +167,7 @@ test("criar conta leva as preferências do aparelho; falha ao salvar preserva; s
   await page.getByRole("button", { name: "Sair" }).click();
   await expect(page.getByText("Você está usando sem cadastro")).toBeVisible();
   await page.goto("/hoje");
-  await expect(page.locator(".moments")).toContainText("12:20");
+  await expect(page.locator(DAY)).toContainText("12:20");
 });
 
 test("excluir conta exige confirmação e apaga conta e aparelho", async ({ page }) => {
@@ -194,23 +195,63 @@ test("exclusão de conta exige login; reflexão desconhecida mostra aviso", asyn
   await page.goto("/reflexao/nao-existe");
   await expect(page.getByText("Esta reflexão não está disponível.")).toBeVisible();
   await page.goto("/reflexao/sleep-descanso-01");
-  await expect(page.locator(".reflection-text")).toBeVisible();
+  await expect(page.locator(".reading-text")).toBeVisible();
 });
 
-test("áudios sem conta: tema, temporizador e reprodução", async ({ page }, info) => {
+test("áudios: biblioteca, player em tela cheia e folha de configurações", async ({ page }, info) => {
   await page.goto("/audios");
-  await expect(page.getByText("Volume · 15%")).toBeVisible();
-  await page.getByRole("button", { name: "Gratidão" }).click();
-  await expect(page.getByRole("button", { name: "Gratidão" })).toHaveAttribute("aria-pressed", "true");
-  await page.getByLabel("Encerrar após").selectOption("1");
-  await expect(page.locator(".audio-progress-times")).toContainText("1:00");
-  const res = await page.request.get("/audio/music-v3-528-1.m4a");
-  expect(res.status()).toBe(200);
-  expect(res.headers()["content-type"]).toContain("audio");
-  await page.getByRole("button", { name: "Reproduzir" }).click();
-  await expect(page.locator(".player-status[role=status]")).toHaveText(/Tocando|Não foi possível tocar/);
+  await expect(page.getByRole("heading", { name: "Áudios" })).toBeVisible();
+  await expect(page.locator('ul[aria-label="Biblioteca de áudios"] .media-row')).toHaveCount(11);
   await noHorizontalScroll(page);
   await shot(page, "9-audios", info.project.name);
+
+  await page.getByRole("tab", { name: "Gratidão" }).click();
+  await expect(page.locator('ul[aria-label="Biblioteca de áudios"] .media-row')).toHaveCount(4);
+  const res = await page.request.get("/audio/music-v3-432-1.m4a");
+  expect(res.status()).toBe(200);
+  expect(res.headers()["content-type"]).toContain("audio");
+
+  // Abrir o player tocando na linha
+  await page.locator('ul[aria-label="Biblioteca de áudios"] .media-main').filter({ hasText: "432 Hz" }).click();
+  const player = page.getByRole("dialog", { name: /Player/ });
+  await expect(player).toBeVisible();
+  await expect(player.getByRole("heading", { name: "Aurora" })).toBeVisible();
+  await expect(player.getByText("Gratidão")).toBeVisible();
+  await shot(page, "12-player", info.project.name);
+
+  await player.getByRole("button", { name: "Reproduzir" }).click();
+  await expect(player.getByRole("button", { name: /Pausar|Reproduzir/ }).first()).toBeVisible();
+
+  // Folha de configurações
+  await player.getByRole("button", { name: "Configurações", exact: true }).click();
+  const sheet = page.getByRole("dialog", { name: "Configurações" });
+  await expect(sheet).toBeVisible();
+  await sheet.getByRole("radio", { name: "1 min" }).click();
+  await sheet.getByRole("radio", { name: "Horizonte" }).click();
+  await expect(sheet.getByRole("slider", { name: /Volume 15%/ })).toBeVisible();
+  await shot(page, "13-configuracoes", info.project.name);
+  await sheet.getByRole("button", { name: "Salvar configurações" }).click();
+  await expect(sheet).toHaveCount(0);
+  await expect(player.getByRole("heading", { name: "Horizonte" })).toBeVisible();
+  await expect(player.locator(".progress-times")).toContainText("01:00");
+
+  await player.getByRole("button", { name: "Próxima frequência" }).click();
+  await expect(player.getByText(/639 Hz/)).toBeVisible();
+  await player.getByRole("button", { name: "Fechar player" }).click();
+  await expect(player).toHaveCount(0);
+});
+
+test("afirmações: biblioteca por momento abre o aprofundamento", async ({ page }, info) => {
+  await page.goto("/afirmacoes");
+  const list = page.locator('ul[aria-label="Afirmações"] .media-row');
+  await expect(list).toHaveCount(24);
+  await page.getByRole("tab", { name: "Antes de dormir" }).click();
+  await expect(list).toHaveCount(6);
+  await noHorizontalScroll(page);
+  await shot(page, "14-afirmacoes", info.project.name);
+  const text = await list.first().locator(".media-title").innerText();
+  await list.first().locator(".media-main").click();
+  await expect(page.locator(".reflection-affirmation")).toHaveText(text);
 });
 
 test("login: e-mail inválido, código errado, limite e sem rede", async ({ page, context }, info) => {
@@ -248,7 +289,7 @@ test("início: tocar na afirmação abre o aprofundamento; play usa a voz do apa
   await shot(page, "11-inicio", info.project.name);
   // Sem voz no navegador de teste: o app informa, sem fingir reprodução
   await page.getByRole("button", { name: "Ouvir a afirmação" }).click();
-  await expect(page.locator(".play-status")).not.toBeEmpty();
+  await expect(page.locator(".now-actions .play-status")).toContainText(/voz|Voz|leitura|Leitura/);
   const phrase = await page.locator(".home-affirmation").innerText();
   await page.locator(".home-affirmation-link").click();
   await expect(page).toHaveURL(/\/reflexao\//);

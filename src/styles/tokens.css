@@ -1,71 +1,67 @@
-/* AURYA · Design tokens
-   Fonte: design/brand-kit (Brand Kit v1) e docs/referencias/AURYA_DESIGN_REFERENCE.png.
-   Toda cor, fonte, tamanho e espaçamento das telas vem daqui. Espelho para Flutter: design/tokens/aurya_tokens.dart */
+/* AURYA · Design tokens — linguagem "Serenidade"
+   Fonte principal: docs/referencias/AURYA_Serenidade_em_Audio.png (cores medidas na imagem).
+   Marca (logo e paleta base): design/brand-kit. Espelho Flutter: design/tokens/aurya_tokens.dart */
 
 :root {
-  /* Paleta do Brand Kit */
+  /* Paleta base do Brand Kit */
   --aurya-midnight: #101c2c;
   --aurya-ocean: #1e3a5f;
   --aurya-champagne: #c5b69a;
   --aurya-ivory: #f4f0e8;
 
-  /* Derivadas (somente transparências e tons da paleta) */
-  --aurya-midnight-deep: #0b1420;            /* fundo sob imagens */
-  --aurya-ivory-80: rgba(244, 240, 232, 0.8);
-  --aurya-ivory-64: rgba(244, 240, 232, 0.64);   /* texto secundário ≥ 7:1 sobre midnight */
-  --aurya-ivory-48: rgba(244, 240, 232, 0.48);   /* só para itens inativos grandes/ícones */
-  --aurya-ivory-12: rgba(244, 240, 232, 0.12);
-  --aurya-ivory-08: rgba(244, 240, 232, 0.08);
-  --aurya-ivory-05: rgba(244, 240, 232, 0.05);
-  --aurya-ivory-hover: #fffaf2;
-  --aurya-ocean-hover: #24456f;
-  --aurya-ocean-92: rgba(30, 58, 95, 0.92);
-  --aurya-midnight-0: rgba(16, 28, 44, 0);
-  --aurya-midnight-85: rgba(16, 28, 44, 0.85);
-  --aurya-midnight-92: rgba(16, 28, 44, 0.92);
-  --aurya-shadow-soft: 0 8px 30px rgba(11, 20, 32, 0.35);
-  --aurya-text-shadow: 0 1px 24px rgba(11, 20, 32, 0.45);
-  --aurya-error-border: rgba(232, 163, 154, 0.35);
-  --aurya-champagne-border: rgba(197, 182, 154, 0.35);
+  /* Medidas na referência "Serenidade em Áudio" */
+  --aurya-night: #05101a;          /* fundo das telas */
+  --aurya-night-2: #0a1620;        /* folhas e superfícies elevadas */
+  --aurya-glow: #e6c49a;           /* champagne quente: ação, seleção, progresso */
+  --aurya-glow-hover: #efd2ab;
+  --aurya-on-glow: #0b1118;        /* texto sobre champagne */
+  --aurya-text: #e8e6e1;
+  --aurya-text-2: rgba(232, 230, 225, 0.66);   /* ≥ 7:1 sobre night */
+  --aurya-text-3: rgba(232, 230, 225, 0.5);    /* só rótulos grandes e ícones inativos */
+  --aurya-line: rgba(232, 230, 225, 0.09);
+  --aurya-line-2: rgba(232, 230, 225, 0.18);
+  --aurya-fill: rgba(232, 230, 225, 0.06);
+  --aurya-track: #263039;
+  --aurya-error: #e8a39a;
   --aurya-champagne-light: #dccfb3;
   --aurya-champagne-dark: #a9966f;
-  --aurya-champagne-20: rgba(197, 182, 154, 0.2);
   --aurya-gradient-champagne: linear-gradient(120deg, var(--aurya-champagne-light), var(--aurya-champagne) 55%, var(--aurya-champagne-dark));
-  --aurya-scrim: linear-gradient(180deg, rgba(16, 28, 44, 0.55) 0%, rgba(16, 28, 44, 0) 22%, rgba(16, 28, 44, 0) 45%, rgba(16, 28, 44, 0.78) 72%, var(--aurya-midnight) 100%);
-  /* Véu sobre fotografias: garante legibilidade da afirmação mesmo em céus claros */
-  --aurya-scrim-photo: linear-gradient(180deg, rgba(16, 28, 44, 0.72) 0%, rgba(16, 28, 44, 0.46) 26%, rgba(16, 28, 44, 0.4) 52%, rgba(16, 28, 44, 0.72) 74%, var(--aurya-midnight) 96%);
-  --aurya-scrim-opening: linear-gradient(180deg, rgba(16, 28, 44, 0.35) 0%, rgba(16, 28, 44, 0) 30%, rgba(16, 28, 44, 0.15) 50%, rgba(16, 28, 44, 0.82) 72%, var(--aurya-midnight) 100%);
-  --aurya-error: #e8a39a;                     /* tom quente suave, contraste 7:1 sobre midnight */
-  --aurya-success: #b9cfb0;
 
-  /* Superfícies */
-  --color-bg: var(--aurya-midnight);
-  --color-surface: var(--aurya-ivory-05);
-  --color-surface-raised: rgba(30, 58, 95, 0.55);   /* ocean translúcido */
-  --color-border: var(--aurya-ivory-12);
-  --color-text: var(--aurya-ivory);
-  --color-text-muted: var(--aurya-ivory-64);
-  --color-accent: var(--aurya-champagne);
+  /* Tratamento fotográfico */
+  --aurya-photo-fade: linear-gradient(180deg, rgba(5, 16, 26, 0.45) 0%, rgba(5, 16, 26, 0) 18%, rgba(5, 16, 26, 0) 45%, rgba(5, 16, 26, 0.7) 78%, var(--aurya-night) 100%);
+  --aurya-photo-full: linear-gradient(180deg, rgba(5, 16, 26, 0.35) 0%, rgba(5, 16, 26, 0) 20%, rgba(5, 16, 26, 0) 44%, rgba(5, 16, 26, 0.8) 66%, var(--aurya-night) 88%);
+  --aurya-photo-veil: rgba(5, 16, 26, 0.18);
+  /* Gradação única das fotos: mais escura e dessaturada, como a referência; o leve desfoque imita profundidade de campo */
+  --aurya-photo-grade: brightness(0.8) saturate(0.88) contrast(1.06) blur(0.5px);
+  --aurya-scrim-sheet: rgba(3, 9, 15, 0.55);
+  --aurya-text-shadow: 0 1px 18px rgba(3, 9, 15, 0.5);
+
+  /* Semânticos */
+  --color-bg: var(--aurya-night);
+  --color-surface: var(--aurya-night-2);
+  --color-border: var(--aurya-line);
+  --color-text: var(--aurya-text);
+  --color-text-muted: var(--aurya-text-2);
+  --color-accent: var(--aurya-glow);
 
   /* Tipografia */
   --font-editorial: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
   --font-ui: var(--font-inter), Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --type-display: 400 40px/1.06 var(--font-editorial);      /* títulos de tela ("Áudios") */
+  --type-headline: 400 34px/1.1 var(--font-editorial);      /* título no player, afirmação */
+  --type-title: 400 26px/1.15 var(--font-editorial);        /* títulos de folha/seção editorial */
+  --type-body: 300 15px/1.55 var(--font-ui);
+  --type-reading: 300 17px/1.75 var(--font-ui);
+  --type-label: 400 15px/1.3 var(--font-ui);
+  --type-section: 400 17px/1.3 var(--font-ui);              /* "Frequência", "Melodia" */
+  --type-meta: 300 13px/1.4 var(--font-ui);
+  --type-overline: 400 12px/1.2 var(--font-ui);             /* + tracking .32em */
+  --type-button: 400 16px/1 var(--font-ui);
+  --type-nav: 400 11px/1 var(--font-ui);
+  --tracking-overline: 0.32em;
+  --tracking-wordmark: 0.36em;
 
-  --type-display: 500 40px/1.12 var(--font-editorial);      /* afirmação protagonista */
-  --type-headline: 400 32px/1.15 var(--font-editorial);     /* títulos de tela editoriais */
-  --type-title: 500 22px/1.25 var(--font-editorial);
-  --type-body: 400 16px/1.6 var(--font-ui);
-  --type-body-editorial: 400 19px/1.7 var(--font-editorial);
-  --type-label: 500 15px/1.3 var(--font-ui);
-  --type-caption: 400 13px/1.45 var(--font-ui);
-  --type-overline: 500 11px/1.2 var(--font-ui);             /* + letter-spacing .22em, caixa alta */
-  --type-button: 500 16px/1 var(--font-ui);
-  --type-nav: 500 11px/1 var(--font-ui);
-
-  --tracking-overline: 0.22em;
-  --tracking-wordmark: 0.16em;
-
-  /* Espaçamento (base 4) */
+  /* Espaço e forma */
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -76,14 +72,14 @@
   --space-10: 40px;
   --space-12: 48px;
   --gutter: 24px;
-
-  /* Forma e movimento */
   --radius-pill: 999px;
-  --radius-card: 20px;
+  --radius-thumb: 8px;
+  --radius-tile: 10px;
+  --radius-sheet: 26px;
   --radius-field: 14px;
   --touch: 48px;
-  --nav-height: 64px;
+  --nav-height: 72px;
   --shell: 480px;
   --ease: cubic-bezier(0.22, 0.8, 0.24, 1);
-  --duration: 220ms;
+  --duration: 240ms;
 }

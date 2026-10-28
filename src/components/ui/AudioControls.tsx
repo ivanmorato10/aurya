@@ -1,34 +1,54 @@
-import { IconPause, IconPlay } from "../Icons";
+import { IconPauseThin, IconPlayThin } from "../Icons";
 
-/** Botão circular Ivory de reproduzir/pausar (Home e player). */
-export function PlayButton({ playing, busy, onClick, label, size = "lg" }: { playing: boolean; busy?: boolean; onClick: () => void; label?: string; size?: "md" | "lg" }) {
+/**
+ * Botão de anel (referência): pequeno com contorno marfim nas listas; grande com anel champagne no player.
+ */
+export function RingButton({
+  playing,
+  busy,
+  onClick,
+  label,
+  size = "sm",
+}: {
+  playing: boolean;
+  busy?: boolean;
+  onClick: () => void;
+  label?: string;
+  size?: "sm" | "lg";
+}) {
   return (
     <button
       type="button"
-      className={`play-btn${size === "md" ? " play-btn--md" : ""}`}
+      className={`ring ring--${size}`}
       onClick={onClick}
       disabled={busy}
       aria-label={label ?? (playing ? "Pausar" : "Reproduzir")}
       aria-pressed={playing}
     >
-      {busy ? <span className="spinner" aria-hidden="true" /> : playing ? <IconPause /> : <IconPlay />}
+      {busy ? <span className="spinner" aria-hidden="true" /> : playing ? <IconPauseThin /> : <IconPlayThin />}
     </button>
   );
 }
 
-/** Barra de progresso fina com tempos (decorrido / total), em milissegundos. */
+/** Mantido para compatibilidade: botão grande de play. */
+export const PlayButton = ({ playing, busy, onClick, label }: { playing: boolean; busy?: boolean; onClick: () => void; label?: string; size?: "md" | "lg" }) => (
+  <RingButton playing={playing} busy={busy} onClick={onClick} label={label} size="lg" />
+);
+
+/** Progresso champagne com marcador e tempos (decorrido / total do temporizador). */
 export function ProgressBar({ elapsedMs, totalMs }: { elapsedMs: number; totalMs: number }) {
   const pct = totalMs > 0 ? Math.min(100, Math.max(0, (elapsedMs / totalMs) * 100)) : 0;
   const fmt = (ms: number) => {
     const s = Math.max(0, Math.round(ms / 1000));
-    return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
+    return `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
   };
   return (
-    <div className="audio-progress">
-      <div className="audio-progress-track" role="progressbar" aria-valuemin={0} aria-valuemax={Math.round(totalMs / 1000)} aria-valuenow={Math.round(elapsedMs / 1000)} aria-label="Progresso da sessão">
+    <div className="progress-block">
+      <div className="progress-track" role="progressbar" aria-valuemin={0} aria-valuemax={Math.round(totalMs / 1000)} aria-valuenow={Math.round(elapsedMs / 1000)} aria-label="Progresso da sessão">
         <i style={{ width: `${pct}%` }} />
+        <b style={{ left: `${pct}%` }} />
       </div>
-      <div className="audio-progress-times">
+      <div className="progress-times">
         <span>{fmt(elapsedMs)}</span>
         <span>{fmt(totalMs)}</span>
       </div>

@@ -151,8 +151,8 @@ export function LoginForm({ next, linkError }: { next: string; linkError: string
   if (step === "email") {
     return (
       <form onSubmit={onEmail} noValidate style={{ display: "contents" }}>
-        <h1 className="large-title">Entrar ou criar conta</h1>
-        <p className="body-2">Opcional: com uma conta, suas preferências ficam guardadas e você pode usar em outros aparelhos.</p>
+        <h1 className="screen-display" style={{ marginTop: -40, position: "relative" }}>Entrar ou criar conta</h1>
+        <p className="screen-sub">Opcional: com uma conta, suas preferências ficam guardadas e você pode usar em outros aparelhos.</p>
         {PROVIDERS.length > 0 && (
           <div style={{ display: "grid", gap: 10, marginTop: 20 }}>
             {PROVIDERS.includes("apple") && (
@@ -199,7 +199,7 @@ export function LoginForm({ next, linkError }: { next: string; linkError: string
 
   return (
     <form onSubmit={onCode} noValidate style={{ display: "contents" }}>
-      <h1 className="large-title">Digite o código</h1>
+      <h1 className="screen-display" style={{ marginTop: -40, position: "relative" }}>Digite o código</h1>
       <p className="body-2">
         Enviado para <strong style={{ color: "#fff" }}>{email}</strong>. Confira também o spam — o e-mail traz um link que entra direto.
       </p>
